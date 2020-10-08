@@ -1,0 +1,29 @@
+[33mcommit 36018bb0b05f412151e3df1716d4f4dd3c12caff[m[33m ([m[1;36mHEAD -> [m[1;32mtask2[m[33m, [m[1;31morigin/task2[m[33m)[m
+Author: Aleh Kastsiukovich <alehkastsiukovich@gmail.com>
+Date:   Mon Oct 5 18:51:50 2020 +0300
+
+    Add observer to data list
+
+[33mcommit 9e870b46cd28fa732cea4f3ae682eea0cc3d4a64[m
+Author: Aleh Kastsiukovich <alehkastsiukovich@gmail.com>
+Date:   Mon Oct 5 18:17:28 2020 +0300
+
+    without observer
+
+[33mcommit 241a3f5aa092c616e3b8de8c4252782131c47ce3[m[33m ([m[1;31morigin/task1[m[33m, [m[1;32mtask1[m[33m)[m
+Author: Aleh Kastsiukovich <alehkastsiukovich@gmail.com>
+Date:   Tue Sep 29 17:54:01 2020 +0300
+
+    commit example
+
+[33mcommit 44a731d69adad7a55327c37556c3191b02a91f97[m
+Author: Aleh Kastsiukovich <alehkastsiukovich@gmail.com>
+Date:   Fri Sep 25 22:26:49 2020 +0300
+
+    for review 25.09.2020
+
+[33mcommit c56c50d731b7f3d93e4c04e67dc9f1075629beca[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Aleh Kastsiukovich <alehkastsiukovich@gmail.com>
+Date:   Fri Sep 25 18:43:59 2020 +0300
+
+    Add root for tasks it-academe android development course

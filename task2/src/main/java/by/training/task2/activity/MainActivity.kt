@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import by.training.task2.databinding.ActivityMainBinding
+import by.training.task2.observer.Observer
+import by.training.task2.observer.Observers
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Observer {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -13,6 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        Observers.addObserver(this)
 
         binding.sendDataButton.setOnClickListener {
             sendRandomIntList()
@@ -24,25 +27,16 @@ class MainActivity : AppCompatActivity() {
 
         val intent = Intent(this, SolverActivity::class.java)
         intent.putIntegerArrayListExtra(DATA_LIST, shuffledList)
-        startActivityForResult(intent, SOLVER_ACTIVITY_REQUEST_CODE)
+        startActivity(intent)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == RESULT_OK && data != null) {
-            when (requestCode) {
-                SOLVER_ACTIVITY_REQUEST_CODE ->
-                    binding.resultTextView.text =
-                        data.getStringExtra(SolverActivity.RESULT).toString()
-            }
-        }
+    override fun notifyDataChanged(data: String) {
+        binding.resultTextView.text = data
     }
 
     companion object {
         const val DATA_LIST = "dataList"
         const val MIN_VALUE = -100
         const val MAX_VALUE = 99
-        const val SOLVER_ACTIVITY_REQUEST_CODE = 9999
     }
 }

@@ -1,11 +1,20 @@
 package by.training.task2.observer
 
-class Observers<T : Observer> : ArrayList<T>() {
-    fun notifyDataChanged(any: Any?) {
-        val iterator = iterator()
+object Observers {
 
-        while (iterator.hasNext()) {
-            iterator.next().update(any)
+    private val observers = mutableListOf<Observer>()
+
+    fun addObserver(observer: Observer) {
+        observers.add(observer)
+    }
+
+    fun deleteObserver(observer: Observer) {
+        observers.remove(observer)
+    }
+
+    fun notifyObservers(data: String) {
+        for (observer in observers) {
+            observer.notifyDataChanged(data)
         }
     }
 }
