@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@android:color/darker_gray" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="10dp"
+            android:src="@drawable/photo_image" />
+
+    </FrameLayout>
+
+    <EditText
+        android:id="@+id/title_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/frameLayout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_margin="@dimen/linear_elements_margin"
+        android:hint="Title"/>
+
+    <EditText
+        android:id="@+id/price_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/linear_elements_margin"
+        android:hint="Price"
+        app:layout_constraintTop_toBottomOf="@id/title_edit"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/location_edit"
+        app:layout_constraintHorizontal_weight="1"/>
+
+    <EditText
+        android:id="@+id/location_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_margin="@dimen/linear_elements_margin"
+        android:hint="Location"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_edit"
+        app:layout_constraintLeft_toRightOf="@id/price_edit"
+        app:layout_constraintHorizontal_weight="2"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:src="@drawable/location"
+        app:layout_constraintRight_toRightOf="@id/location_edit"
+        app:layout_constraintTop_toTopOf="@id/location_edit"
+        app:layout_constraintBottom_toBottomOf="@id/location_edit"/>
+
+    <EditText
+        android:id="@+id/description_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Description"
+        android:layout_margin="@dimen/linear_elements_margin"
+        app:layout_constraintTop_toBottomOf="@id/location_edit"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <EditText
+        android:id="@+id/inventor_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Inventory"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_margin="@dimen/linear_elements_margin"
+        app:layout_constraintRight_toLeftOf="@+id/weight_edit"
+        app:layout_constraintTop_toBottomOf="@id/description_edit"
+        app:layout_constraintHorizontal_weight="2"
+        android:layout_marginRight="50dp"/>
+
+    <EditText
+        android:id="@+id/weight_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Weight"
+        android:layout_margin="@dimen/linear_elements_margin"
+        app:layout_constraintLeft_toRightOf="@+id/inventor_edit"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/description_edit"
+        app:layout_constraintHorizontal_weight="2"
+        android:layout_marginLeft="50dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

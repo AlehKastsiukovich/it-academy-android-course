@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="image_size">40dp</dimen>
+    <dimen name="row_margin">10dp</dimen>
+    <dimen name="text_view_margin_start">40dp</dimen>
+    <dimen name="text_view_size">20sp</dimen>
+    <dimen name="linear_elements_margin">20dp</dimen>
+</resources>
