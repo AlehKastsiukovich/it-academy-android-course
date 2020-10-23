@@ -1,3 +1,2 @@
 include ':task3'
-include ':app'
 rootProject.name = "It Academy Course"
