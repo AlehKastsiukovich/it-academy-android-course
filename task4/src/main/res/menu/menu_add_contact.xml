@@ -6,6 +6,6 @@
         android:id="@+id/confirmContactButton"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_baseline_check_24"
-        android:title="@string/confirmcontact"/>
+        android:title="@string/confirm_contact"/>
 
 </menu>

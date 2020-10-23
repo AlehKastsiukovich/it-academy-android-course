@@ -15,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
+            android:id="@+id/phoneNumberRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/phone_number"
@@ -23,10 +24,12 @@
             android:buttonTint="@color/blue"/>
 
         <RadioButton
+            android:id="@+id/contactOrEmailRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/email"
-            android:padding="10dp"/>
+            android:padding="10dp"
+            android:buttonTint="@color/blue"/>
     </RadioGroup>
 
     <EditText
