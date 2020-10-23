@@ -38,6 +38,4 @@
         app:layout_constraintLeft_toRightOf="@+id/contactTypeImageView"
         app:layout_constraintTop_toBottomOf="@+id/contactNameTextView" />
 
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
