@@ -5,4 +5,8 @@
     <string name="add_contact_button">add contact button</string>
     <string name="type_of_contact">type of contact</string>
     <string name="default_text">Default text</string>
+    <string name="phone_number">Phone number</string>
+    <string name="email">Email</string>
+    <string name="name">Name</string>
+    <string name="confirmcontact">confirmContact</string>
 </resources>
