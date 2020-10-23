@@ -3,4 +3,6 @@
     <string name="search_contact">Search contact</string>
     <string name="image_of_search">Image of search</string>
     <string name="add_contact_button">add contact button</string>
+    <string name="type_of_contact">type of contact</string>
+    <string name="default_text">Default text</string>
 </resources>
