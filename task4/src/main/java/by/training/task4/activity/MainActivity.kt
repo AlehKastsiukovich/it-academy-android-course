@@ -11,15 +11,19 @@ import by.training.task4.adapter.ContactsAdapter
 import by.training.task4.entity.Contact
 import by.training.task4.model.ContactsViewModel
 import by.training.task4.model.add
+import by.training.task4.model.delete
 import by.training.task4.model.edit
 import kotlinx.android.synthetic.main.activity_main.*
 
-const val EXTRAS_CONTACT_OBJECT = "object"
-const val CONTACT_EXTRAS = "Editable name"
+const val EXTRAS_CONTACT_OBJECT = "Object"
 const val ITEM_POSITION = "Position"
+const val CONTACT_TO_EDIT_CONTACT_EXTRAS = "Contact"
+const val CONTACT_EXTRAS = "Editable name"
+const val EDIT_OPERATION_EXTRAS = "Edit"
+const val REMOVE_OPERATION_EXTRAS = "Remove"
 const val CREATE_CONTACT_REQUEST_CODE = 9999
 const val EDIT_CONTACT_REQUEST_CODE = 10000
-const val CONTACT_TO_EDIT_CONTACT_EXTRAS = "Contact"
+const val OPERATION_TYPE = 1
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
             CREATE_CONTACT_REQUEST_CODE -> addContact(data)
-            EDIT_CONTACT_REQUEST_CODE -> editContact(data)
+            EDIT_CONTACT_REQUEST_CODE -> preferContactOperation(data)
             else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }
@@ -77,12 +81,27 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun removeContact(intent: Intent?) {
+        val position = intent?.extras?.getInt(ITEM_POSITION)
+        position?.let {
+            model.getContacts().delete(position)
+        }
+    }
+
     private fun editContact(intent: Intent?) {
         val contactObject = intent?.extras?.getParcelable<Contact>(CONTACT_EXTRAS)
         val position = intent?.extras?.getInt(ITEM_POSITION)
 
         if (contactObject != null && position != null) {
             model.getContacts().edit(contactObject, position)
+        }
+    }
+
+    private fun preferContactOperation(intent: Intent?) {
+        if (intent?.extras?.getInt(REMOVE_OPERATION_EXTRAS) == 0) {
+            editContact(intent)
+        } else {
+            removeContact(intent)
         }
     }
 }

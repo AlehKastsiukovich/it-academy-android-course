@@ -19,6 +19,10 @@ class EditContactActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         currentContact = getEditableContact()
+
+        removeContactButton.setOnClickListener {
+            sendDataAboutRemovingContact()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -45,6 +49,7 @@ class EditContactActivity : AppCompatActivity() {
 
         editContactActivityIntent.putExtra(CONTACT_EXTRAS, currentContact)
         editContactActivityIntent.putExtra(ITEM_POSITION, position)
+        editContactActivityIntent.putExtra(EDIT_OPERATION_EXTRAS, position)
         setResult(RESULT_OK, editContactActivityIntent)
         finish()
     }
@@ -52,5 +57,15 @@ class EditContactActivity : AppCompatActivity() {
     private fun getUpdatedDataFromFields() {
         currentContact?.contactName = nameEditText.text.toString()
         currentContact?.contact = contactEditText.text.toString()
+    }
+
+    private fun sendDataAboutRemovingContact() {
+        val editContactActivityIntent = Intent(this, MainActivity::class.java)
+        val position = intent?.extras?.getInt(ITEM_POSITION)
+
+        editContactActivityIntent.putExtra(ITEM_POSITION, position)
+        editContactActivityIntent.putExtra(REMOVE_OPERATION_EXTRAS, OPERATION_TYPE)
+        setResult(RESULT_OK, editContactActivityIntent)
+        finish()
     }
 }

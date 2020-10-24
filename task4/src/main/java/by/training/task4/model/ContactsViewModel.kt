@@ -24,3 +24,9 @@ fun <T> MutableLiveData<MutableList<T>>.edit(item: T, position: Int) {
     this.value = updatedItems
 }
 
+fun <T> MutableLiveData<MutableList<T>>.delete(position: Int) {
+    val updatedItems = this.value ?: mutableListOf()
+    updatedItems.remove(updatedItems[position])
+    this.value = updatedItems
+}
+

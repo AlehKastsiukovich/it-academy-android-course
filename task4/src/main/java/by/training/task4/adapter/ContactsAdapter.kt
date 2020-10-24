@@ -29,10 +29,7 @@ class ContactsAdapter : RecyclerView.Adapter<ContactsViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return when (contacts.size) {
-            0 -> 0
-            else -> contacts.size
-        }
+        return contacts.size
     }
 
     fun setData(contacts: List<Contact>) {
