@@ -1,5 +1,6 @@
 package by.training.task4.model
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import by.training.task4.entity.Contact

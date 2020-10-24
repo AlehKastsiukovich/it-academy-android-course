@@ -2,6 +2,8 @@ package by.training.task4.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -14,6 +16,7 @@ import by.training.task4.model.add
 import by.training.task4.model.delete
 import by.training.task4.model.edit
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 const val EXTRAS_CONTACT_OBJECT = "Object"
 const val ITEM_POSITION = "Position"
@@ -39,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         setFloatingActionButton()
         setAdaptersProperties()
         observeContactsChanged()
+        addContactSearcher()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -103,5 +107,32 @@ class MainActivity : AppCompatActivity() {
         } else {
             removeContact(intent)
         }
+    }
+
+    private fun addContactSearcher() {
+        searchContactEditText.addTextChangedListener(object : TextWatcher {
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val searchedContacts = mutableListOf<Contact>()
+                if (!s.isNullOrEmpty()) {
+                    for (contact in model.getContacts().value as MutableList<Contact>) {
+                        if (contact.contactName.toLowerCase(Locale.ROOT)
+                            .contains(s.toString().toLowerCase(Locale.ROOT))
+                        ) {
+                            searchedContacts.add(contact)
+                        }
+                    }
+                    contactsAdapter.setData(searchedContacts)
+                } else {
+                    contactsAdapter.setData(model.getContacts().value as List<Contact>)
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
     }
 }

@@ -5,12 +5,12 @@ import android.os.Parcelable
 
 data class Contact(
     val imageResource: Int,
-    var contactName: String?,
+    var contactName: String,
     var contact: String?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
-        parcel.readString(),
+        parcel.readString().toString(),
         parcel.readString()
     )
 
