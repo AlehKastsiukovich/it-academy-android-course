@@ -44,7 +44,7 @@ class AddContactActivity : AppCompatActivity() {
         val intent = Intent(this, MainActivity::class.java)
         val contact = createContact()
         intent.putExtra(EXTRAS_CONTACT_OBJECT, contact)
-        setResult(CREATE_CONTACT_REQUEST_CODE, intent)
+        setResult(RESULT_OK, intent)
         finish()
     }
 

@@ -17,3 +17,10 @@ fun <T> MutableLiveData<MutableList<T>>.add(item: T) {
     updatedItems.add(item)
     this.value = updatedItems
 }
+
+fun <T> MutableLiveData<MutableList<T>>.edit(item: T, position: Int) {
+    val updatedItems = this.value ?: mutableListOf()
+    updatedItems[position] = item
+    this.value = updatedItems
+}
+

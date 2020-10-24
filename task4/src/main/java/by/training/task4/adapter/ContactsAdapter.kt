@@ -1,10 +1,18 @@
 package by.training.task4.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import by.training.task4.R
+import by.training.task4.activity.EditContactActivity
+import by.training.task4.activity.MainActivity
 import by.training.task4.entity.Contact
+
+private const val ITEM_POSITION = "Position"
+private const val CONTACT_TO_EDIT_CONTACT_EXTRAS = "Contact"
+private const val EDIT_CONTACT_REQUEST_CODE = 10000
 
 class ContactsAdapter : RecyclerView.Adapter<ContactsViewHolder>() {
 
@@ -21,6 +29,7 @@ class ContactsAdapter : RecyclerView.Adapter<ContactsViewHolder>() {
     override fun onBindViewHolder(holder: ContactsViewHolder, position: Int) {
         holder.bind(contacts[position])
         holder.itemView.setOnClickListener {
+            editContact(holder.itemView, position)
         }
     }
 
@@ -34,5 +43,13 @@ class ContactsAdapter : RecyclerView.Adapter<ContactsViewHolder>() {
     fun setData(contacts: List<Contact>) {
         this.contacts = contacts as MutableList<Contact>
         notifyDataSetChanged()
+    }
+
+    private fun editContact(view: View, position: Int) {
+        val mainActivityContext = view.context as MainActivity
+        val intent = Intent(mainActivityContext, EditContactActivity::class.java)
+        intent.putExtra(CONTACT_TO_EDIT_CONTACT_EXTRAS, contacts[position])
+        intent.putExtra(ITEM_POSITION, position)
+        mainActivityContext.startActivityForResult(intent, EDIT_CONTACT_REQUEST_CODE)
     }
 }
