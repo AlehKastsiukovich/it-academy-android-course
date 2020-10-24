@@ -6,10 +6,12 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import by.training.task4.R
+import by.training.task4.entity.Contact
 import kotlinx.android.synthetic.main.activity_add_contact.*
 
 private const val PHONE_NUMBER_HINT = "Phone number"
 private const val EMAIL_HINT = "Email"
+private const val EXTRAS_CONTACT_OBJECT = "object"
 
 class AddContactActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +41,25 @@ class AddContactActivity : AppCompatActivity() {
     }
 
     private fun saveContact() {
-        startActivity(Intent(this, MainActivity::class.java))
+        val intent = Intent(this, MainActivity::class.java)
+        val contact = createContact()
+        intent.putExtra(EXTRAS_CONTACT_OBJECT, contact)
+        setResult(CREATE_CONTACT_REQUEST_CODE, intent)
+        finish()
+    }
+
+    private fun getContactImageResource(): Int {
+        return if (phoneNumberRadioButton.isChecked) {
+            R.drawable.ic_baseline_contact_phone_24
+        } else {
+            R.drawable.ic_baseline_contact_mail_24
+        }
+    }
+
+    private fun createContact(): Contact {
+        val contactName = nameEditText.text.toString()
+        val contact = contactEditText.text.toString()
+        val imageSource = getContactImageResource()
+        return Contact(imageSource, contactName, contact)
     }
 }

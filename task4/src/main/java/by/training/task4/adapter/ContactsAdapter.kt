@@ -31,5 +31,6 @@ class ContactsAdapter : RecyclerView.Adapter<ContactsViewHolder>() {
 
     fun setData(contacts: List<Contact>) {
         this.contacts = contacts as MutableList<Contact>
+        notifyDataSetChanged()
     }
 }

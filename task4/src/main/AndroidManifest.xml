@@ -10,7 +10,8 @@
         android:theme="@style/Theme.ItAcademyCourse">
         <activity
             android:name=".activity.AddContactActivity"
-            android:label="Add contact"/>
+            android:label="Add contact"
+            android:parentActivityName=".activity.MainActivity"/>
         <activity
             android:name=".activity.MainActivity"
             android:theme="@style/Theme.MainActivity">
