@@ -20,6 +20,8 @@ class ContactsAdapter : RecyclerView.Adapter<ContactsViewHolder>() {
 
     override fun onBindViewHolder(holder: ContactsViewHolder, position: Int) {
         holder.bind(contacts[position])
+        holder.itemView.setOnClickListener {
+        }
     }
 
     override fun getItemCount(): Int {
