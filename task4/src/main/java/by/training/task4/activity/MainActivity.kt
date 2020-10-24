@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -43,6 +44,15 @@ class MainActivity : AppCompatActivity() {
         setAdaptersProperties()
         observeContactsChanged()
         addContactSearcher()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (model.getContacts().value == null || (model.getContacts().value)?.size == 0) {
+            noContactsMessage.visibility = View.VISIBLE
+        } else {
+            noContactsMessage.visibility = View.INVISIBLE
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
