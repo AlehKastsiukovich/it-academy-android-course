@@ -6,9 +6,9 @@ import by.training.task4.entity.Contact
 import kotlinx.android.synthetic.main.contact_item.view.*
 
 class ContactsViewHolder(viewItem: View) : RecyclerView.ViewHolder(viewItem) {
-    val contactImage = viewItem.contactTypeImageView
-    val contactName = viewItem.contactNameTextView
-    val contactValue = viewItem.contactTextView
+    private val contactImage = viewItem.contactTypeImageView
+    private val contactName = viewItem.contactNameTextView
+    private val contactValue = viewItem.contactTextView
 
     fun bind(contact: Contact) {
         contactImage.setImageResource(contact.imageResource)
