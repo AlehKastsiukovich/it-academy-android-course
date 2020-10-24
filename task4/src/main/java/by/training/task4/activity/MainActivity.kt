@@ -2,7 +2,6 @@ package by.training.task4.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -15,11 +14,12 @@ import by.training.task4.model.add
 import by.training.task4.model.edit
 import kotlinx.android.synthetic.main.activity_main.*
 
-private const val EXTRAS_CONTACT_OBJECT = "object"
-private const val CONTACT_EXTRAS = "Editable name"
-private const val ITEM_POSITION = "Position"
-private const val CREATE_CONTACT_REQUEST_CODE = 9999
-private const val EDIT_CONTACT_REQUEST_CODE = 10000
+const val EXTRAS_CONTACT_OBJECT = "object"
+const val CONTACT_EXTRAS = "Editable name"
+const val ITEM_POSITION = "Position"
+const val CREATE_CONTACT_REQUEST_CODE = 9999
+const val EDIT_CONTACT_REQUEST_CODE = 10000
+const val CONTACT_TO_EDIT_CONTACT_EXTRAS = "Contact"
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
 
         setFloatingActionButton()
         setAdaptersProperties()
-
         observeContactsChanged()
     }
 

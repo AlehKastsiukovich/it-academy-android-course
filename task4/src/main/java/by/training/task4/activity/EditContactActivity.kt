@@ -8,10 +8,6 @@ import by.training.task4.R
 import by.training.task4.entity.Contact
 import kotlinx.android.synthetic.main.activity_edit_contact.*
 
-private const val CONTACT_EXTRAS = "Editable name"
-private const val CONTACT_TO_EDIT_CONTACT_EXTRAS = "Contact"
-private const val ITEM_POSITION = "Position"
-
 class EditContactActivity : AppCompatActivity() {
 
     private var currentContact: Contact? = null
@@ -38,7 +34,6 @@ class EditContactActivity : AppCompatActivity() {
             nameEditText.setText(contact.contactName)
             contactEditText.setText(contact.contact)
         }
-
         return contact
     }
 

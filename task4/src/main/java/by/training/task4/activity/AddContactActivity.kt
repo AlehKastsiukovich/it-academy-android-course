@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.activity_add_contact.*
 
 private const val PHONE_NUMBER_HINT = "Phone number"
 private const val EMAIL_HINT = "Email"
-private const val EXTRAS_CONTACT_OBJECT = "object"
 
 class AddContactActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

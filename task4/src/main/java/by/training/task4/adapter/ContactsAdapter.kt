@@ -6,13 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import by.training.task4.R
-import by.training.task4.activity.EditContactActivity
-import by.training.task4.activity.MainActivity
+import by.training.task4.activity.*
 import by.training.task4.entity.Contact
-
-private const val ITEM_POSITION = "Position"
-private const val CONTACT_TO_EDIT_CONTACT_EXTRAS = "Contact"
-private const val EDIT_CONTACT_REQUEST_CODE = 10000
 
 class ContactsAdapter : RecyclerView.Adapter<ContactsViewHolder>() {
 
