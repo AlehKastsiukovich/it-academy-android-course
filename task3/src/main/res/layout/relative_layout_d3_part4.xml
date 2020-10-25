@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="25dp">
@@ -28,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="125"
+        android:text="@string/_125"
         android:layout_toEndOf="@id/user_avatar_image"
         android:layout_marginStart="30dp"
         android:textSize="18sp" />
@@ -41,7 +40,7 @@
         android:layout_marginEnd="60dp"
         android:layout_toStartOf="@+id/followingCount"
         android:layout_toRightOf="@id/postsCount"
-        android:text="20k"
+        android:text="@string/_20k"
         android:textSize="18sp" />
 
     <TextView
@@ -50,8 +49,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="30dp"
-        android:text="22"
-        android:layout_alignParentRight="true"
+        android:text="@string/_22"
+        android:layout_alignParentEnd="true"
         android:textSize="18sp" />
 
     <TextView
@@ -59,10 +58,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/postsCount"
-        android:layout_alignLeft="@id/postsCount"
-        android:layout_marginLeft="-7dp"
+        android:layout_alignStart="@id/postsCount"
+        android:layout_marginStart="-7dp"
         android:layout_marginTop="4dp"
-        android:text="Posts"
+        android:text="@string/posts"
         android:textSize="18sp" />
 
     <TextView
@@ -92,7 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Username"
+        android:text="@string/username"
         android:layout_below="@+id/user_avatar_image"
         android:textSize="22sp" />
 
@@ -100,8 +99,8 @@
         android:id="@+id/addressDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Address Description"
+        android:layout_marginTop="5dp"
+        android:text="@string/address_description"
         android:layout_below="@id/userName"
         android:textSize="20sp" />
 
@@ -111,7 +110,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/addressDescription"
         android:background="@android:color/darker_gray" />
 
@@ -120,8 +119,8 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="25dp"
-        android:layout_toRightOf="@id/smallPic1"
+        android:layout_marginStart="25dp"
+        android:layout_toEndOf="@id/smallPic1"
         android:layout_below="@+id/addressDescription"
         android:background="@android:color/darker_gray" />
 
@@ -130,8 +129,8 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="25dp"
-        android:layout_toRightOf="@id/smallPic2"
+        android:layout_marginStart="25dp"
+        android:layout_toEndOf="@id/smallPic2"
         android:layout_below="@+id/addressDescription"
         android:background="@android:color/darker_gray" />
 
@@ -140,8 +139,8 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
-        android:layout_toRightOf="@id/smallPic3"
-        android:layout_marginLeft="25dp"
+        android:layout_toEndOf="@id/smallPic3"
+        android:layout_marginStart="25dp"
         android:layout_below="@+id/addressDescription"
         android:background="@android:color/darker_gray" />
 
@@ -150,8 +149,8 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
-        android:layout_toRightOf="@id/smallPic4"
-        android:layout_marginLeft="25dp"
+        android:layout_toEndOf="@id/smallPic4"
+        android:layout_marginStart="25dp"
         android:layout_below="@+id/addressDescription"
         android:background="@android:color/darker_gray" />
 
@@ -160,9 +159,9 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="20dp"
-        android:layout_toRightOf="@+id/smallPic5"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@+id/smallPic5"
         android:layout_below="@+id/addressDescription"
         android:background="@android:color/darker_gray" />
 
@@ -173,28 +172,28 @@
         android:layout_height="40dp"
         android:layout_below="@+id/smallPic1"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="20dp"
         android:src="@drawable/directions_vector" />
 
     <TextView
         android:id="@+id/directions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:layout_below="@id/direction_image"
-        android:layout_alignParentLeft="true"
-        android:text="Directions" />
+        android:layout_alignParentStart="true"
+        android:text="@string/directions" />
 
     <ImageView
         android:id="@+id/call_image"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_below="@+id/smallPic4"
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="50dp"
-        android:layout_toRightOf="@+id/directions"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_toEndOf="@+id/directions"
         android:src="@drawable/call_vector" />
 
     <TextView
@@ -202,22 +201,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/call_image"
-        android:layout_alignLeft="@+id/call_image"
-        android:layout_alignRight="@+id/call_image"
-        android:layout_marginLeft="13dp"
+        android:layout_alignStart="@+id/call_image"
+        android:layout_alignEnd="@+id/call_image"
+        android:layout_marginStart="13dp"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="-13dp"
-        android:layout_toRightOf="@+id/directions"
-        android:text="Call" />
+        android:layout_marginEnd="-13dp"
+        android:layout_toEndOf="@+id/directions"
+        android:text="@string/call" />
 
     <ImageView
         android:id="@+id/star_image"
         android:layout_width="46dp"
         android:layout_height="40dp"
         android:layout_below="@id/smallPic5"
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="50dp"
-        android:layout_toRightOf="@id/call_image"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_toEndOf="@id/call_image"
         android:src="@drawable/star_vector" />
 
     <TextView
@@ -225,20 +224,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/star_image"
-        android:layout_alignLeft="@+id/star_image"
-        android:layout_marginLeft="9dp"
+        android:layout_alignStart="@+id/star_image"
+        android:layout_marginStart="9dp"
         android:layout_marginTop="3dp"
-        android:text="Save" />
+        android:text="@string/save" />
 
     <ImageView
         android:id="@+id/website_image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:layout_below="@id/smallPic1"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="15dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="15dp"
         android:src="@drawable/website_vector" />
 
     <TextView
@@ -246,10 +245,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/website_image"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="10dp"
-        android:text="Website" />
+        android:layout_marginEnd="10dp"
+        android:text="@string/website" />
 
     <Button
         android:layout_width="match_parent"
@@ -262,28 +261,27 @@
         android:id="@+id/bigPic1"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="80dp"
-        android:layout_below="@id/directions"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
         android:background="@android:color/darker_gray" />
 
     <ImageView
         android:id="@+id/bigPic2"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="80dp"
-        android:layout_centerInParent="true"
-        android:layout_below="@id/directions"
-        android:background="@android:color/darker_gray"/>
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/bigPic3"
+        android:layout_toEndOf="@+id/bigPic1"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
+        android:background="@android:color/darker_gray" />
 
     <ImageView
         android:id="@+id/bigPic3"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_below="@id/directions"
-        android:layout_marginTop="80dp"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:background="@android:color/darker_gray" />
 
 </RelativeLayout>

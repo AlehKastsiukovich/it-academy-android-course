@@ -10,7 +10,7 @@
         android:id="@+id/androidText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Android"
+        android:text="@string/android"
         android:textColor="@android:color/black"
         android:textSize="25sp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -30,10 +30,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="125"
-        android:textSize="18sp"
+        android:text="@string/_125"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/posts"
         app:layout_constraintLeft_toRightOf="@id/user_avatar_image"
         app:layout_constraintRight_toLeftOf="@id/followersCount"
+        app:layout_constraintStart_toStartOf="@+id/posts"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -41,10 +43,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="20k"
-        android:textSize="18sp"
+        android:text="@string/_20k"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/followers"
         app:layout_constraintLeft_toRightOf="@+id/postsCount"
         app:layout_constraintRight_toLeftOf="@id/followingCount"
+        app:layout_constraintStart_toStartOf="@+id/followers"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -52,65 +56,67 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="20dp"
-        android:text="22"
-        android:textSize="18sp"
-        app:layout_constraintRight_toRightOf="parent"
+        android:text="@string/_22"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/following"
         app:layout_constraintLeft_toRightOf="@+id/followersCount"
+        app:layout_constraintStart_toStartOf="@+id/following"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/posts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Posts"
-        android:layout_marginLeft="20dp"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toRightOf="@+id/user_avatar_image"
+        android:text="@string/posts"
+        android:textSize="15sp"
+        android:layout_marginStart="15dp"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintRight_toLeftOf="@id/followers"
+        app:layout_constraintStart_toEndOf="@+id/user_avatar_image"
         app:layout_constraintTop_toBottomOf="@id/postsCount" />
 
     <TextView
         android:id="@+id/followers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Followers"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toRightOf="@+id/posts"
-        app:layout_constraintRight_toLeftOf="@+id/following"
-        app:layout_constraintTop_toBottomOf="@id/followersCount" />
+        android:text="@string/followers"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@+id/followersCount"
+        app:layout_constraintLeft_toRightOf="@id/posts"
+        app:layout_constraintRight_toLeftOf="@+id/following"/>
 
     <TextView
         android:id="@+id/following"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Following"
-        android:layout_marginRight="5dp"
-        android:textSize="18sp"
+        android:text="@string/following"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/followingCount"
         app:layout_constraintLeft_toRightOf="@+id/followers"
-        app:layout_constraintTop_toBottomOf="@id/followingCount"
-        app:layout_constraintRight_toRightOf="parent"/>
+        android:layout_marginEnd="15dp"
+        />
 
     <TextView
         android:id="@+id/userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Username"
-        android:textSize="22sp"
+        android:text="@string/username"
+        android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_avatar_image" />
+
 
     <TextView
         android:id="@+id/addressDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Address Description"
-        android:textSize="20sp"
+        android:layout_marginTop="5dp"
+        android:text="@string/address_description"
+        android:textSize="15sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userName" />
-
 
     <ImageView
         android:id="@+id/smallPic1"
@@ -176,7 +182,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:src="@drawable/directions_vector"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/smallPic1" />
@@ -186,17 +192,17 @@
         android:id="@+id/directions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
         android:layout_marginTop="4dp"
-        android:text="Directions"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/directions"
+        app:layout_constraintEnd_toEndOf="@+id/direction_image"
+        app:layout_constraintStart_toStartOf="@+id/direction_image"
         app:layout_constraintTop_toBottomOf="@+id/direction_image" />
 
     <ImageView
         android:id="@+id/call_image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:src="@drawable/call_vector"
         app:layout_constraintLeft_toRightOf="@id/direction_image"
         app:layout_constraintRight_toLeftOf="@+id/star_image"
@@ -206,17 +212,18 @@
         android:id="@+id/call"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="60dp"
         android:layout_marginTop="4dp"
-        android:text="Call"
+        android:text="@string/call"
+        app:layout_constraintEnd_toEndOf="@+id/call_image"
         app:layout_constraintLeft_toRightOf="@+id/directions"
+        app:layout_constraintStart_toStartOf="@+id/call_image"
         app:layout_constraintTop_toBottomOf="@+id/call_image" />
 
     <ImageView
         android:id="@+id/star_image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="50dp"
         android:src="@drawable/star_vector"
         app:layout_constraintLeft_toRightOf="@+id/call_image"
         app:layout_constraintRight_toLeftOf="@+id/website_image"
@@ -226,18 +233,18 @@
         android:id="@+id/star"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="72dp"
         android:layout_marginTop="4dp"
-        android:text="Save"
-        app:layout_constraintLeft_toRightOf="@+id/call"
-        app:layout_constraintTop_toBottomOf="@+id/direction_image"/>
+        android:text="@string/save"
+        app:layout_constraintEnd_toEndOf="@+id/star_image"
+        app:layout_constraintStart_toStartOf="@+id/star_image"
+        app:layout_constraintTop_toBottomOf="@+id/star_image" />
 
     <ImageView
         android:id="@+id/website_image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="16dp"
         android:src="@drawable/website_vector"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/smallPic1" />
@@ -247,54 +254,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:layout_marginRight="4dp"
-        android:text="Website"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/website"
+        app:layout_constraintEnd_toEndOf="@+id/website_image"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/website_image"
         app:layout_constraintTop_toBottomOf="@+id/website_image" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="5dp"
+        android:background="@android:color/darker_gray"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/directions"
-        android:background="@android:color/darker_gray" />
+        app:layout_constraintTop_toBottomOf="@+id/directions" />
 
     <ImageView
         android:id="@+id/bigPic1"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="80dp"
-        android:background="@android:color/darker_gray"
+        style="@style/BigImagesTheme"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/directions"
-        app:layout_constraintVertical_bias="0.786" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/bigPic2"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="4dp"
-        android:background="@android:color/darker_gray"
-        android:contentDescription="TODO"
+        style="@style/BigImagesTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/bigPic3"
-        app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toEndOf="@+id/bigPic1"
-        app:layout_constraintTop_toBottomOf="@+id/directions"
-        app:layout_constraintVertical_bias="0.92" />
+        app:layout_constraintStart_toEndOf="@+id/bigPic1" />
 
     <ImageView
         android:id="@+id/bigPic3"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@android:color/darker_gray"
+        style="@style/BigImagesTheme"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/directions"
-        app:layout_constraintVertical_bias="0.92" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
