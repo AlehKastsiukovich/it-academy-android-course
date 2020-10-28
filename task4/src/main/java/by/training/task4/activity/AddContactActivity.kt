@@ -13,6 +13,7 @@ private const val PHONE_NUMBER_HINT = "Phone number"
 private const val EMAIL_HINT = "Email"
 
 class AddContactActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_contact)

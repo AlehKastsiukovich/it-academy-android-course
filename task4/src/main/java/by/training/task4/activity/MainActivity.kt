@@ -2,6 +2,7 @@ package by.training.task4.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -28,6 +29,7 @@ const val REMOVE_OPERATION_EXTRAS = "Remove"
 const val CREATE_CONTACT_REQUEST_CODE = 9999
 const val EDIT_CONTACT_REQUEST_CODE = 10000
 const val OPERATION_TYPE = 1
+const val CURRENT_EDIT_TEXT = "Current search text"
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         setAdaptersProperties()
         observeContactsChanged()
         addContactSearcher()
+        getSearchingText(savedInstanceState)
     }
 
     override fun onStart() {
@@ -60,6 +63,16 @@ class MainActivity : AppCompatActivity() {
             CREATE_CONTACT_REQUEST_CODE -> addContact(data)
             EDIT_CONTACT_REQUEST_CODE -> preferContactOperation(data)
             else -> super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        outState.putString(CURRENT_EDIT_TEXT, searchContactEditText.text.toString())
+    }
+
+    private fun getSearchingText(savedInstanceState: Bundle?) {
+        savedInstanceState?.let {
+            searchContactEditText.setText(it.getString(CURRENT_EDIT_TEXT))
         }
     }
 

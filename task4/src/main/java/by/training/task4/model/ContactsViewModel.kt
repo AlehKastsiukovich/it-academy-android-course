@@ -8,6 +8,9 @@ class ContactsViewModel : ViewModel() {
     private val contacts = MutableLiveData<MutableList<Contact>>()
 
     fun getContacts(): MutableLiveData<MutableList<Contact>> {
+        if (contacts.value == null) {
+            contacts.value = mutableListOf()
+        }
         return contacts
     }
 }
