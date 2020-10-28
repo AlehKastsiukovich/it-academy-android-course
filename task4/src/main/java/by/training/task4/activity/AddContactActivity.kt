@@ -9,9 +9,6 @@ import by.training.task4.R
 import by.training.task4.entity.Contact
 import kotlinx.android.synthetic.main.activity_add_contact.*
 
-private const val PHONE_NUMBER_HINT = "Phone number"
-private const val EMAIL_HINT = "Email"
-
 class AddContactActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,8 +19,8 @@ class AddContactActivity : AppCompatActivity() {
 
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
-                R.id.phoneNumberRadioButton -> contactEditText.hint = PHONE_NUMBER_HINT
-                R.id.contactOrEmailRadioButton -> contactEditText.hint = EMAIL_HINT
+                R.id.phoneNumberRadioButton -> contactEditText.hint = getString(R.string.phone_number)
+                R.id.contactOrEmailRadioButton -> contactEditText.hint = getString(R.string.email)
             }
         }
     }
@@ -34,8 +31,8 @@ class AddContactActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.confirmContactButton -> saveContact()
+        if (item.itemId == R.id.confirmContactButton) {
+            saveContact()
         }
         return super.onOptionsItemSelected(item)
     }
