@@ -2,10 +2,9 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="10dp">
+    android:layout_marginStart="10dp">
 
     <TableRow android:layout_margin="@dimen/row_margin">
-
         <ImageView
             android:layout_width="@dimen/image_size"
             android:layout_height="@dimen/image_size"
@@ -18,11 +17,9 @@
             android:layout_marginStart="@dimen/text_view_margin_start"
             android:textSize="@dimen/text_view_size"
             android:text="@string/attractions" />
-
     </TableRow>
 
     <TableRow android:layout_margin="@dimen/row_margin">
-
         <ImageView
             android:layout_width="@dimen/image_size"
             android:layout_height="@dimen/image_size"
@@ -35,11 +32,9 @@
             android:layout_marginStart="@dimen/text_view_margin_start"
             android:textSize="@dimen/text_view_size"
             android:text="@string/dining" />
-
     </TableRow>
 
     <TableRow android:layout_margin="@dimen/row_margin">
-
         <ImageView
             android:layout_width="@dimen/image_size"
             android:layout_height="@dimen/image_size"
@@ -52,12 +47,9 @@
             android:layout_marginStart="@dimen/text_view_margin_start"
             android:textSize="@dimen/text_view_size"
             android:text="@string/education" />
-
     </TableRow>
 
-
     <TableRow android:layout_margin="@dimen/row_margin">
-
         <ImageView
             android:layout_width="@dimen/image_size"
             android:layout_height="@dimen/image_size"
@@ -70,17 +62,13 @@
             android:layout_marginStart="@dimen/text_view_margin_start"
             android:textSize="@dimen/text_view_size"
             android:text="@string/family" />
-
     </TableRow>
 
-
     <TableRow android:layout_margin="@dimen/row_margin">
-
         <ImageView
             android:layout_width="@dimen/image_size"
             android:layout_height="@dimen/image_size"
             android:src="@drawable/health"/>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -88,11 +76,9 @@
             android:layout_marginStart="@dimen/text_view_margin_start"
             android:textSize="@dimen/text_view_size"
             android:text="@string/health" />
-
     </TableRow>
 
     <TableRow android:layout_margin="@dimen/row_margin">
-
         <ImageView
             android:layout_width="@dimen/image_size"
             android:layout_height="@dimen/image_size"
@@ -105,17 +91,13 @@
             android:layout_marginStart="@dimen/text_view_margin_start"
             android:textSize="@dimen/text_view_size"
             android:text="@string/office" />
-
     </TableRow>
 
-
     <TableRow android:layout_margin="@dimen/row_margin">
-
         <ImageView
             android:layout_width="@dimen/image_size"
             android:layout_height="@dimen/image_size"
             android:src="@drawable/promotions"/>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -123,12 +105,9 @@
             android:layout_marginStart="@dimen/text_view_margin_start"
             android:textSize="@dimen/text_view_size"
             android:text="@string/promotion" />
-
     </TableRow>
 
-
     <TableRow android:layout_margin="@dimen/row_margin">
-
         <ImageView
             android:layout_width="@dimen/image_size"
             android:layout_height="@dimen/image_size"
@@ -141,11 +120,9 @@
             android:layout_marginStart="@dimen/text_view_margin_start"
             android:textSize="@dimen/text_view_size"
             android:text="@string/radio" />
-
     </TableRow>
 
     <TableRow android:layout_margin="@dimen/row_margin">
-
         <ImageView
             android:layout_width="@dimen/image_size"
             android:layout_height="@dimen/image_size"
@@ -158,11 +135,9 @@
             android:layout_marginStart="@dimen/text_view_margin_start"
             android:textSize="@dimen/text_view_size"
             android:text="@string/recipes" />
-
     </TableRow>
 
     <TableRow android:layout_margin="@dimen/row_margin">
-
         <ImageView
             android:layout_width="@dimen/image_size"
             android:layout_height="@dimen/image_size"
@@ -175,8 +150,6 @@
             android:layout_marginStart="@dimen/text_view_margin_start"
             android:text="@string/sports"
             android:textSize="@dimen/text_view_size" />
-
     </TableRow>
-
 
 </TableLayout>

@@ -30,27 +30,4 @@
     <string name="following">Following</string>
     <string name="address_description">Address Description</string>
     <string name="username">Username</string>
-    <string name="_125">125</string>
-    <string name="posts">Posts</string>
-    <string name="_22">22</string>
-    <string name="followers">Followers</string>
-    <string name="_20k">20k</string>
-    <string name="address_description">Address Description</string>
-    <string name="android">Android</string>
-    <string name="following">Following</string>
-    <string name="username">Username</string>
-    <string name="directions">Directions</string>
-    <string name="call">Call</string>
-    <string name="save">Save</string>
-    <string name="website">Website</string>
-    <string name="_125">125</string>
-    <string name="_20k">20k</string>
-    <string name="_22">22</string>
-    <string name="posts">Posts</string>
-    <string name="username">Username</string>
-    <string name="address_description">Address Description</string>
-    <string name="directions">Directions</string>
-    <string name="call">Call</string>
-    <string name="save">Save</string>
-    <string name="website">Website</string>
 </resources>

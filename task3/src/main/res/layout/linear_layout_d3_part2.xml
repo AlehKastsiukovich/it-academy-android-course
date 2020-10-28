@@ -85,7 +85,6 @@
             android:layout_weight="1"
             android:layout_marginLeft="50dp"
             android:hint="Weight"/>
-
     </LinearLayout>
 
 </LinearLayout>

@@ -60,7 +60,6 @@
             android:text="Forgot password?"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
-
     </LinearLayout>
 
     <Button

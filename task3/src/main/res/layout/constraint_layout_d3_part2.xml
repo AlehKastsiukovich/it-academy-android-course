@@ -23,7 +23,6 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="10dp"
             android:src="@drawable/photo_image" />
-
     </FrameLayout>
 
     <EditText

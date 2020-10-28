@@ -36,7 +36,6 @@
                 android:text="PHOTO"
                 android:textColor="@android:color/black"
                 android:textSize="50sp" />
-
         </FrameLayout>
 
         <LinearLayout
@@ -99,9 +98,7 @@
                     android:text="@string/layouts"
                     android:textColor="@android:color/white"
                     android:textSize="25sp" />
-
             </FrameLayout>
-
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -129,7 +126,6 @@
                     android:layout_marginEnd="10dp"
                     android:src="@drawable/share_image" />
             </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
@@ -156,7 +152,6 @@
                     android:text="@string/views"
                     android:textColor="@android:color/white"
                     android:textSize="25sp" />
-
             </FrameLayout>
 
             <LinearLayout
@@ -184,10 +179,8 @@
                     android:layout_gravity="center"
                     android:layout_marginEnd="10dp"
                     android:src="@drawable/share_image" />
+
             </LinearLayout>
-
         </LinearLayout>
-
     </LinearLayout>
-
 </LinearLayout>

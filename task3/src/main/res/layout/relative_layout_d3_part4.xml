@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="25dp">
@@ -20,7 +19,6 @@
         android:layout_height="100dp"
         android:layout_below="@+id/androidText"
         android:background="@android:color/darker_gray" />
-
 
     <TextView
         android:id="@+id/postsCount"
@@ -104,7 +102,6 @@
         android:layout_below="@id/userName"
         android:textSize="20sp" />
 
-
     <ImageView
         android:id="@+id/smallPic1"
         android:layout_width="40dp"
@@ -164,7 +161,6 @@
         android:layout_toEndOf="@+id/smallPic5"
         android:layout_below="@+id/addressDescription"
         android:background="@android:color/darker_gray" />
-
 
     <ImageView
         android:id="@+id/direction_image"

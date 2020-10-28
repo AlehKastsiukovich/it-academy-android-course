@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
@@ -23,7 +22,6 @@
             android:layout_marginStart="@dimen/text_view_margin_start"
             android:textSize="@dimen/text_view_size"
             android:text="@string/attractions" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -44,8 +42,6 @@
             android:layout_marginStart="@dimen/text_view_margin_start"
             android:textSize="@dimen/text_view_size"
             android:text="@string/dining" />
-
-
     </LinearLayout>
 
     <LinearLayout
@@ -66,7 +62,6 @@
             android:layout_marginStart="@dimen/text_view_margin_start"
             android:textSize="@dimen/text_view_size"
             android:text="@string/education" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -87,7 +82,6 @@
             android:layout_marginStart="@dimen/text_view_margin_start"
             android:textSize="@dimen/text_view_size"
             android:text="@string/family" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -108,7 +102,6 @@
             android:layout_marginStart="@dimen/text_view_margin_start"
             android:textSize="@dimen/text_view_size"
             android:text="@string/health" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -129,7 +122,6 @@
             android:layout_marginStart="@dimen/text_view_margin_start"
             android:text="@string/office"
             android:textSize="@dimen/text_view_size" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -150,7 +142,6 @@
             android:layout_marginStart="@dimen/text_view_margin_start"
             android:textSize="@dimen/text_view_size"
             android:text="@string/promotion" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -171,7 +162,6 @@
             android:layout_marginStart="@dimen/text_view_margin_start"
             android:textSize="@dimen/text_view_size"
             android:text="@string/radio" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -192,7 +182,6 @@
             android:layout_marginStart="@dimen/text_view_margin_start"
             android:textSize="@dimen/text_view_size"
             android:text="@string/recipes" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -213,7 +202,6 @@
             android:layout_marginStart="@dimen/text_view_margin_start"
             android:text="@string/sports"
             android:textSize="@dimen/text_view_size" />
-
     </LinearLayout>
 
 </LinearLayout>
