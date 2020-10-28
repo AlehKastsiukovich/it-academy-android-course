@@ -30,4 +30,10 @@
     <string name="following">Following</string>
     <string name="address_description">Address Description</string>
     <string name="username">Username</string>
+    <string name="title">Title</string>
+    <string name="price">Price</string>
+    <string name="location">Location</string>
+    <string name="description">Description</string>
+    <string name="inventory">Inventory</string>
+    <string name="weight">Weight</string>
 </resources>
