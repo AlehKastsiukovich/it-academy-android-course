@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import by.training.task6.R
@@ -13,7 +14,8 @@ import kotlinx.android.synthetic.main.activity_main.filesListView
 import kotlinx.android.synthetic.main.dialog_item.view.fileName
 import java.io.File
 
-const val FILE_NAME = "Filename"
+const val FILE_NAME_EXTRAS = "Filename"
+const val FILE_TEXT_EXTRAS = "FileText"
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +31,11 @@ class MainActivity : AppCompatActivity() {
 
         addFileButton.setOnClickListener {
             dialogInit()
+        }
+
+        filesListView.setOnItemClickListener { parent, view, position, id ->
+            val text = (view as TextView).text.toString()
+            startFileEditor(text)
         }
     }
 
@@ -71,7 +78,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun startFileEditor(fileName: String) {
         val intent = Intent(this, TextEditorActivity::class.java)
-        intent.putExtra(FILE_NAME, fileName)
+        intent.putExtra(FILE_NAME_EXTRAS, fileName)
         startActivity(intent)
     }
 }
