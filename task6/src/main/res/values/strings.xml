@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Text Editor</string>
+    <string name="add_new_file">Add new file</string>
+    <string name="save">Save</string>
+    <string name="new_file_txt">new_file.txt</string>
+    <string name="enter_file_name">Enter file name:</string>
+    <string name="txt_format">.txt</string>
+
+</resources>
