@@ -1,22 +1,22 @@
 package by.training.task6.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import by.training.task6.R
+import by.training.task6.util.FileManager
 import kotlinx.android.synthetic.main.activity_text_editor.editTextInputLayout
-import kotlinx.android.synthetic.main.activity_text_editor.locationEditText
-import java.io.File
-import java.io.FileOutputStream
 
 class TextEditorActivity : AppCompatActivity() {
+
+    private lateinit var fileManager: FileManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_text_editor)
+
+        fileManager = FileManager(this)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -33,9 +33,9 @@ class TextEditorActivity : AppCompatActivity() {
             val state = getCurrentStorageState()
 
             if (state) {
-                writeTextToExternalStorage()
+                fileManager.writeTextToExternalStorage()
             } else {
-                writeTextToInternalStorage()
+                fileManager.writeTextToInternalStorage()
             }
         }
         return super.onOptionsItemSelected(item)
@@ -45,9 +45,9 @@ class TextEditorActivity : AppCompatActivity() {
         val storageType = intent.extras?.getString(STORAGE_TYPE_EXTRAS) ?: getString(R.string.internal)
         val fileName = getFileName()
 
-        when(storageType) {
-            getString(R.string.internal) -> readFileContentFromInternalStorage(fileName)
-            getString(R.string.external) -> readFileContentFromExternalStorage(fileName)
+        when (storageType) {
+            getString(R.string.internal) -> fileManager.readFileContentFromInternalStorage(fileName)
+            getString(R.string.external) -> fileManager.readFileContentFromExternalStorage(fileName)
         }
     }
 
@@ -63,54 +63,5 @@ class TextEditorActivity : AppCompatActivity() {
         val fileName = intent.extras?.getString(FILE_NAME_EXTRAS) ?: ""
         editTextInputLayout.hint = fileName
         return fileName
-    }
-
-    private fun readFileContentFromInternalStorage(fileName: String) {
-        var text = ""
-        openFileInput(fileName).bufferedReader().useLines { lines ->
-            text = lines.joinToString {
-                it
-            }
-        }
-        locationEditText.setText(text)
-    }
-
-    private fun readFileContentFromExternalStorage(fileName: String) {
-        var text = ""
-        val externalStorageVolumes: Array<out File> =
-            ContextCompat.getExternalFilesDirs(applicationContext, null)
-        val primaryExternalStorage = externalStorageVolumes[0]
-
-        val filePath = primaryExternalStorage.absolutePath + "/" + fileName
-        Log.d("TAG", "filepath: $filePath")
-        val file = File(filePath)
-
-        file.inputStream().bufferedReader().useLines { lines ->
-            text = lines.joinToString {
-                it
-            }
-        }
-        locationEditText.setText(text)
-    }
-
-    private fun writeTextToInternalStorage() {
-        val textToSave = locationEditText.text.toString()
-        val file = locationEditText.hint.toString()
-        openFileOutput(file, MODE_PRIVATE).use {
-            it.write(textToSave.toByteArray())
-        }
-    }
-
-    private fun writeTextToExternalStorage() {
-        val externalStorageVolumes: Array<out File> =
-            ContextCompat.getExternalFilesDirs(applicationContext, null)
-        val primaryExternalStorage = externalStorageVolumes[0]
-
-        val filePath = primaryExternalStorage.absolutePath + "/" + locationEditText.hint.toString()
-        val file = File(filePath)
-        val textToSave = locationEditText.text.toString()
-        FileOutputStream(file).use {
-            it.write(textToSave.toByteArray())
-        }
     }
 }

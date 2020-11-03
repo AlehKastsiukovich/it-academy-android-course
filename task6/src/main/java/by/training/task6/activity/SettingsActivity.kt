@@ -23,7 +23,7 @@ class SettingsActivity : AppCompatActivity() {
         getCurrentSwitchState()
 
         saveToExternalStorageSwitch.setOnCheckedChangeListener { _, isChecked ->
-            preference.edit().putBoolean(getString(R.string.storage_option), isChecked).apply()
+            sharedPreferences.edit().putBoolean(getString(R.string.storage_option), isChecked).apply()
         }
     }
 
