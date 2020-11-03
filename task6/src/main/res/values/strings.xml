@@ -2,6 +2,7 @@
     <string name="app_name">Text Editor</string>
     <string name="add_new_file">Add new file</string>
     <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
     <string name="new_file_txt">new_file.txt</string>
     <string name="enter_file_name">Enter file name:</string>
     <string name="txt_format">.txt</string>
@@ -10,5 +11,7 @@
     <string name="application_preference">Preference</string>
     <string name="internal">internal</string>
     <string name="external">external</string>
+    <string name="internal_storage">Internal storage</string>
+    <string name="external_storage">External storage</string>
 
 </resources>

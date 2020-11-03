@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity() {
                     startFileEditor(fileName, getString(R.string.internal))
                 }
             }
-            .setNegativeButton(android.R.string.cancel) { dialog, _ ->
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.cancel()
             }
             .setTitle(R.string.enter_file_name)
