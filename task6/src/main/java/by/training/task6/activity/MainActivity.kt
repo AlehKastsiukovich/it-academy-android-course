@@ -3,7 +3,6 @@ package by.training.task6.activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
@@ -15,15 +14,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import by.training.task6.R
 import kotlinx.android.synthetic.main.activity_main.addFileButton
+import kotlinx.android.synthetic.main.activity_main.externalStorageFilesListView
 import kotlinx.android.synthetic.main.activity_main.filesListView
 import kotlinx.android.synthetic.main.dialog_item.view.fileName
 import java.io.File
 
 const val FILE_NAME_EXTRAS = "Filename"
+const val STORAGE_TYPE_EXTRAS = "Storage type"
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var fileAdapter: ArrayAdapter<String>
+    private lateinit var externalFileAdapter: ArrayAdapter<String>
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,12 +42,30 @@ class MainActivity : AppCompatActivity() {
 
         filesListView.setOnItemClickListener { _, view, _, _ ->
             val text = (view as TextView).text.toString()
-            startFileEditor(text)
+            startFileEditor(text, getString(R.string.internal))
         }
 
         sharedPreferences = getSharedPreferences(
             getString(R.string.application_preference), MODE_PRIVATE
         )
+
+        val externalStorageVolumes: Array<out File> =
+            ContextCompat.getExternalFilesDirs(applicationContext, null)
+
+        val externalFiles: Array<String> = externalStorageVolumes[0].list()
+
+        externalFileAdapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, externalFiles)
+        externalStorageFilesListView.adapter = externalFileAdapter
+
+        externalStorageFilesListView.setOnItemClickListener { _, view, _, _ ->
+            val text = (view as TextView).text.toString()
+            startFileEditor(text, getString(R.string.external))
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        fileAdapter.notifyDataSetChanged()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -62,6 +82,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun dialogInit() {
         val dialogItemView = layoutInflater.inflate(R.layout.dialog_item, null)
+        val state = getCurrentStorageState()
 
         val dialog = AlertDialog.Builder(this)
             .setView(dialogItemView)
@@ -69,7 +90,11 @@ class MainActivity : AppCompatActivity() {
                 val fileName =
                     dialogItemView.fileName.text.toString() + getString(R.string.txt_format)
                 createFile(fileName)
-                startFileEditor(fileName)
+                if (state) {
+                    startFileEditor(fileName, getString(R.string.external))
+                } else {
+                    startFileEditor(fileName, getString(R.string.internal))
+                }
             }
             .setNegativeButton(android.R.string.cancel) { dialog, _ ->
                 dialog.cancel()
@@ -97,9 +122,10 @@ class MainActivity : AppCompatActivity() {
         negativeButton.layoutParams = layoutParams
     }
 
-    private fun startFileEditor(fileName: String) {
+    private fun startFileEditor(fileName: String, storageType: String) {
         val intent = Intent(this, TextEditorActivity::class.java)
         intent.putExtra(FILE_NAME_EXTRAS, fileName)
+        intent.putExtra(STORAGE_TYPE_EXTRAS, storageType)
         startActivity(intent)
     }
 
@@ -111,10 +137,17 @@ class MainActivity : AppCompatActivity() {
             val externalStorageVolumes: Array<out File> =
                 ContextCompat.getExternalFilesDirs(applicationContext, null)
             val primaryExternalStorage = externalStorageVolumes[0]
-            Log.d("TAG", primaryExternalStorage.absolutePath)
             File(primaryExternalStorage, fileName).createNewFile()
         } else {
             File(filesDir, fileName).createNewFile()
         }
+    }
+
+    private fun getCurrentStorageState(): Boolean {
+        return getSharedPreferences(
+            getString(R.string.application_preference), MODE_PRIVATE
+        ).getBoolean(
+            getString(R.string.storage_option), false
+        )
     }
 }

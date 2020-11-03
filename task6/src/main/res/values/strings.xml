@@ -8,5 +8,7 @@
     <string name="save_to_external_storage">Save to external storage</string>
     <string name="storage_option">Storage option</string>
     <string name="application_preference">Preference</string>
+    <string name="internal">internal</string>
+    <string name="external">external</string>
 
 </resources>
