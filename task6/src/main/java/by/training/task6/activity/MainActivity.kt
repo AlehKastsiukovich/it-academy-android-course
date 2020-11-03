@@ -24,7 +24,7 @@ const val STORAGE_TYPE_EXTRAS = "Storage type"
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var fileAdapter: ArrayAdapter<String>
+    private lateinit var internalFileAdapter: ArrayAdapter<String>
     private lateinit var externalFileAdapter: ArrayAdapter<String>
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -32,40 +32,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val files: Array<String> = fileList()
-        fileAdapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, files)
-        filesListView.adapter = fileAdapter
-
-        addFileButton.setOnClickListener {
-            dialogInit()
-        }
-
-        filesListView.setOnItemClickListener { _, view, _, _ ->
-            val text = (view as TextView).text.toString()
-            startFileEditor(text, getString(R.string.internal))
-        }
-
         sharedPreferences = getSharedPreferences(
             getString(R.string.application_preference), MODE_PRIVATE
         )
 
-        val externalStorageVolumes: Array<out File> =
-            ContextCompat.getExternalFilesDirs(applicationContext, null)
-
-        val externalFiles: Array<String> = externalStorageVolumes[0].list()
-
-        externalFileAdapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, externalFiles)
-        externalStorageFilesListView.adapter = externalFileAdapter
-
-        externalStorageFilesListView.setOnItemClickListener { _, view, _, _ ->
-            val text = (view as TextView).text.toString()
-            startFileEditor(text, getString(R.string.external))
-        }
+        listenFileAddButton()
+        initAdapters()
+        addItemListenersToAdapters()
     }
 
     override fun onResume() {
         super.onResume()
-        fileAdapter.notifyDataSetChanged()
+        internalFileAdapter.notifyDataSetChanged()
+        externalFileAdapter.notifyDataSetChanged()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -80,9 +59,51 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    private fun listenFileAddButton() {
+        addFileButton.setOnClickListener {
+            dialogInit()
+        }
+    }
+
+    private fun initAdapters() {
+        val internalStorageFiles: Array<String> = fileList()
+        internalFileAdapter = ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_list_item_1,
+            internalStorageFiles
+        )
+        filesListView.adapter = internalFileAdapter
+
+        val externalFiles: Array<String> = getPrimaryExternalStorageVolume().list()
+        externalFileAdapter = ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_list_item_1,
+            externalFiles
+        )
+        externalStorageFilesListView.adapter = externalFileAdapter
+    }
+
+    private fun getPrimaryExternalStorageVolume(): File {
+        val externalStorageVolumes: Array<out File> =
+            ContextCompat.getExternalFilesDirs(applicationContext, null)
+        return externalStorageVolumes[0]
+    }
+
+    private fun addItemListenersToAdapters() {
+        filesListView.setOnItemClickListener { _, view, _, _ ->
+            val text = (view as TextView).text.toString()
+            startFileEditor(text, getString(R.string.internal))
+        }
+
+        externalStorageFilesListView.setOnItemClickListener { _, view, _, _ ->
+            val text = (view as TextView).text.toString()
+            startFileEditor(text, getString(R.string.external))
+        }
+    }
+
     private fun dialogInit() {
         val dialogItemView = layoutInflater.inflate(R.layout.dialog_item, null)
-        val state = getCurrentStorageState()
+        val storageState = getCurrentStorageState()
 
         val dialog = AlertDialog.Builder(this)
             .setView(dialogItemView)
@@ -90,7 +111,7 @@ class MainActivity : AppCompatActivity() {
                 val fileName =
                     dialogItemView.fileName.text.toString() + getString(R.string.txt_format)
                 createFile(fileName)
-                if (state) {
+                if (storageState) {
                     startFileEditor(fileName, getString(R.string.external))
                 } else {
                     startFileEditor(fileName, getString(R.string.internal))
@@ -130,13 +151,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createFile(fileName: String) {
-        val state =
+        val storageState =
             sharedPreferences.getBoolean(getString(R.string.storage_option), false)
 
-        if (state) {
-            val externalStorageVolumes: Array<out File> =
-                ContextCompat.getExternalFilesDirs(applicationContext, null)
-            val primaryExternalStorage = externalStorageVolumes[0]
+        if (storageState) {
+            val primaryExternalStorage = getPrimaryExternalStorageVolume()
             File(primaryExternalStorage, fileName).createNewFile()
         } else {
             File(filesDir, fileName).createNewFile()
@@ -144,10 +163,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getCurrentStorageState(): Boolean {
-        return getSharedPreferences(
-            getString(R.string.application_preference), MODE_PRIVATE
-        ).getBoolean(
-            getString(R.string.storage_option), false
-        )
+        return sharedPreferences.getBoolean(getString(R.string.storage_option), false)
     }
 }
