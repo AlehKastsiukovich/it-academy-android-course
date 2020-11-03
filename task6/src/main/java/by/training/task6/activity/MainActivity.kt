@@ -1,13 +1,18 @@
 package by.training.task6.activity
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import by.training.task6.R
 import kotlinx.android.synthetic.main.activity_main.addFileButton
 import kotlinx.android.synthetic.main.activity_main.filesListView
@@ -15,11 +20,11 @@ import kotlinx.android.synthetic.main.dialog_item.view.fileName
 import java.io.File
 
 const val FILE_NAME_EXTRAS = "Filename"
-const val FILE_TEXT_EXTRAS = "FileText"
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var fileAdapter: ArrayAdapter<String>
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,10 +38,26 @@ class MainActivity : AppCompatActivity() {
             dialogInit()
         }
 
-        filesListView.setOnItemClickListener { parent, view, position, id ->
+        filesListView.setOnItemClickListener { _, view, _, _ ->
             val text = (view as TextView).text.toString()
             startFileEditor(text)
         }
+
+        sharedPreferences = getSharedPreferences(
+            getString(R.string.application_preference), MODE_PRIVATE
+        )
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.save_instance_option, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.openSettingsMenuButton) {
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun dialogInit() {
@@ -47,7 +68,7 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton(getString(R.string.save)) { _, _ ->
                 val fileName =
                     dialogItemView.fileName.text.toString() + getString(R.string.txt_format)
-                File(filesDir, fileName).createNewFile()
+                createFile(fileName)
                 startFileEditor(fileName)
             }
             .setNegativeButton(android.R.string.cancel) { dialog, _ ->
@@ -80,5 +101,20 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, TextEditorActivity::class.java)
         intent.putExtra(FILE_NAME_EXTRAS, fileName)
         startActivity(intent)
+    }
+
+    private fun createFile(fileName: String) {
+        val state =
+            sharedPreferences.getBoolean(getString(R.string.storage_option), false)
+
+        if (state) {
+            val externalStorageVolumes: Array<out File> =
+                ContextCompat.getExternalFilesDirs(applicationContext, null)
+            val primaryExternalStorage = externalStorageVolumes[0]
+            Log.d("TAG", primaryExternalStorage.absolutePath)
+            File(primaryExternalStorage, fileName).createNewFile()
+        } else {
+            File(filesDir, fileName).createNewFile()
+        }
     }
 }

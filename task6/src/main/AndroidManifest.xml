@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ItAcademyCourse">
         <activity
+            android:name=".activity.SettingsActivity"
+            android:parentActivityName=".activity.MainActivity" />
+        <activity
             android:name=".activity.TextEditorActivity"
             android:parentActivityName=".activity.MainActivity" />
         <activity android:name=".activity.MainActivity">

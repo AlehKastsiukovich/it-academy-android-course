@@ -5,5 +5,8 @@
     <string name="new_file_txt">new_file.txt</string>
     <string name="enter_file_name">Enter file name:</string>
     <string name="txt_format">.txt</string>
+    <string name="save_to_external_storage">Save to external storage</string>
+    <string name="storage_option">Storage option</string>
+    <string name="application_preference">Preference</string>
 
 </resources>
