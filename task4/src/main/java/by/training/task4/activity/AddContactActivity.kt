@@ -17,10 +17,10 @@ class AddContactActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        radioGroup.setOnCheckedChangeListener { group, checkedId ->
-            when (checkedId) {
-                R.id.phoneNumberRadioButton -> contactEditText.hint = getString(R.string.phone_number)
-                R.id.contactOrEmailRadioButton -> contactEditText.hint = getString(R.string.email)
+        radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            contactEditText.hint = when (checkedId) {
+                R.id.phoneNumberRadioButton -> getString(R.string.phone_number)
+                else -> getString(R.string.email)
             }
         }
     }
@@ -45,13 +45,12 @@ class AddContactActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun getContactImageResource(): Int {
-        return if (phoneNumberRadioButton.isChecked) {
+    private fun getContactImageResource() =
+        if (phoneNumberRadioButton.isChecked) {
             R.drawable.ic_baseline_contact_phone_24
         } else {
             R.drawable.ic_baseline_contact_mail_24
         }
-    }
 
     private fun createContact(): Contact {
         val contactName = nameEditText.text.toString()

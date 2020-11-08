@@ -14,11 +14,11 @@ import by.training.task4.R
 import by.training.task4.adapter.ContactsAdapter
 import by.training.task4.entity.Contact
 import by.training.task4.model.ContactsViewModel
-import by.training.task4.model.add
-import by.training.task4.model.delete
-import by.training.task4.model.edit
-import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
+import kotlinx.android.synthetic.main.activity_main.floatingActionButton
+import kotlinx.android.synthetic.main.activity_main.noContactsMessage
+import kotlinx.android.synthetic.main.activity_main.recyclerView
+import kotlinx.android.synthetic.main.activity_main.searchContactEditText
+import java.util.Locale
 
 const val EXTRAS_CONTACT_OBJECT = "Object"
 const val ITEM_POSITION = "Position"
@@ -31,7 +31,7 @@ const val EDIT_CONTACT_REQUEST_CODE = 10000
 const val OPERATION_TYPE = 1
 const val CURRENT_EDIT_TEXT = "Current search text"
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ContactsAdapter.OnItemClickListener {
 
     private lateinit var contactsAdapter: ContactsAdapter
     private lateinit var model: ContactsViewModel
@@ -51,11 +51,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        if (model.getContacts().value == null || (model.getContacts().value)?.size == 0) {
-            noContactsMessage.visibility = View.VISIBLE
-        } else {
-            noContactsMessage.visibility = View.INVISIBLE
-        }
+        noContactsMessage.visibility =
+            if (model.contactsLiveData.value == null || (model.contactsLiveData.value)?.size == 0) {
+                View.VISIBLE
+            } else {
+                View.INVISIBLE
+            }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -85,7 +86,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setAdaptersProperties() {
-        contactsAdapter = ContactsAdapter()
+        contactsAdapter = ContactsAdapter(this)
         recyclerView.apply {
             adapter = contactsAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)
@@ -93,7 +94,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeContactsChanged() {
-        model.getContacts().observe(
+        model.contactsLiveData.observe(
             this,
             Observer {
                 contactsAdapter.setData(it)
@@ -104,14 +105,14 @@ class MainActivity : AppCompatActivity() {
     private fun addContact(intent: Intent?) {
         val contactObject = intent?.extras?.getParcelable<Contact>(EXTRAS_CONTACT_OBJECT)
         contactObject?.let {
-            model.getContacts().add(it)
+            model.add(it)
         }
     }
 
     private fun removeContact(intent: Intent?) {
         val position = intent?.extras?.getInt(ITEM_POSITION)
         position?.let {
-            model.getContacts().delete(position)
+            model.delete(position)
         }
     }
 
@@ -120,7 +121,7 @@ class MainActivity : AppCompatActivity() {
         val position = intent?.extras?.getInt(ITEM_POSITION)
 
         if (contactObject != null && position != null) {
-            model.getContacts().edit(contactObject, position)
+            model.edit(contactObject, position)
         }
     }
 
@@ -141,7 +142,7 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val searchedContacts = mutableListOf<Contact>()
                 if (!s.isNullOrEmpty()) {
-                    for (contact in model.getContacts().value as MutableList<Contact>) {
+                    for (contact in model.contactsLiveData.value as MutableList<Contact>) {
                         if (contact.contactName.toLowerCase(Locale.ROOT)
                             .contains(s.toString().toLowerCase(Locale.ROOT))
                         ) {
@@ -150,12 +151,20 @@ class MainActivity : AppCompatActivity() {
                     }
                     contactsAdapter.setData(searchedContacts)
                 } else {
-                    contactsAdapter.setData(model.getContacts().value as List<Contact>)
+                    contactsAdapter.setData(model.contactsLiveData.value as List<Contact>)
                 }
             }
 
             override fun afterTextChanged(s: Editable?) {
             }
         })
+    }
+
+    override fun onItemClick(contact: Contact, position: Int) {
+        val intent = Intent(this, EditContactActivity::class.java).apply {
+            putExtra(CONTACT_TO_EDIT_CONTACT_EXTRAS, contact)
+            putExtra(ITEM_POSITION, position)
+        }
+        startActivityForResult(intent, EDIT_CONTACT_REQUEST_CODE)
     }
 }

@@ -6,7 +6,9 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import by.training.task4.R
 import by.training.task4.entity.Contact
-import kotlinx.android.synthetic.main.activity_edit_contact.*
+import kotlinx.android.synthetic.main.activity_edit_contact.contactEditText
+import kotlinx.android.synthetic.main.activity_edit_contact.nameEditText
+import kotlinx.android.synthetic.main.activity_edit_contact.removeContactButton
 
 class EditContactActivity : AppCompatActivity() {
 
@@ -26,8 +28,8 @@ class EditContactActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> sendUpdatedDataToMainActivity()
+        if (item.itemId == android.R.id.home) {
+            sendUpdatedDataToMainActivity()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -42,29 +44,31 @@ class EditContactActivity : AppCompatActivity() {
     }
 
     private fun sendUpdatedDataToMainActivity() {
-        val editContactActivityIntent = Intent(this, MainActivity::class.java)
-        val position = intent?.extras?.getInt(ITEM_POSITION)
-
         getUpdatedDataFromFields()
-
-        editContactActivityIntent.putExtra(CONTACT_EXTRAS, currentContact)
-        editContactActivityIntent.putExtra(ITEM_POSITION, position)
-        editContactActivityIntent.putExtra(EDIT_OPERATION_EXTRAS, position)
+        val editContactActivityIntent = Intent().apply {
+            val position = intent?.extras?.getInt(ITEM_POSITION)
+            putExtra(CONTACT_EXTRAS, currentContact)
+            putExtra(EDIT_OPERATION_EXTRAS, position)
+            putExtra(ITEM_POSITION, position)
+        }
         setResult(RESULT_OK, editContactActivityIntent)
         finish()
     }
 
     private fun getUpdatedDataFromFields() {
-        currentContact?.contactName = nameEditText.text.toString()
-        currentContact?.contact = contactEditText.text.toString()
+        currentContact?.apply {
+            contactName = nameEditText.text.toString()
+            contact = contactEditText.text.toString()
+        }
     }
 
     private fun sendDataAboutRemovingContact() {
-        val editContactActivityIntent = Intent(this, MainActivity::class.java)
-        val position = intent?.extras?.getInt(ITEM_POSITION)
+        val editContactActivityIntent = Intent().apply {
+            val position = intent?.extras?.getInt(ITEM_POSITION)
+            putExtra(ITEM_POSITION, position)
+            putExtra(REMOVE_OPERATION_EXTRAS, OPERATION_TYPE)
+        }
 
-        editContactActivityIntent.putExtra(ITEM_POSITION, position)
-        editContactActivityIntent.putExtra(REMOVE_OPERATION_EXTRAS, OPERATION_TYPE)
         setResult(RESULT_OK, editContactActivityIntent)
         finish()
     }

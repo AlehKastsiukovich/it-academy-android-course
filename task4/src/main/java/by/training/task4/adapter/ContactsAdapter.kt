@@ -1,15 +1,17 @@
 package by.training.task4.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import by.training.task4.R
-import by.training.task4.activity.*
 import by.training.task4.entity.Contact
+import kotlinx.android.synthetic.main.contact_item.view.contactNameTextView
+import kotlinx.android.synthetic.main.contact_item.view.contactTextView
+import kotlinx.android.synthetic.main.contact_item.view.contactTypeImageView
 
-class ContactsAdapter : RecyclerView.Adapter<ContactsViewHolder>() {
+class ContactsAdapter(private val onItemClickListener: OnItemClickListener) :
+    RecyclerView.Adapter<ContactsAdapter.ContactsViewHolder>() {
 
     private var contacts = mutableListOf<Contact>()
 
@@ -24,7 +26,7 @@ class ContactsAdapter : RecyclerView.Adapter<ContactsViewHolder>() {
     override fun onBindViewHolder(holder: ContactsViewHolder, position: Int) {
         holder.bind(contacts[position])
         holder.itemView.setOnClickListener {
-            editContact(holder.itemView, position)
+            onItemClickListener.onItemClick(contacts[position], position)
         }
     }
 
@@ -37,11 +39,19 @@ class ContactsAdapter : RecyclerView.Adapter<ContactsViewHolder>() {
         notifyDataSetChanged()
     }
 
-    private fun editContact(view: View, position: Int) {
-        val mainActivityContext = view.context as MainActivity
-        val intent = Intent(mainActivityContext, EditContactActivity::class.java)
-        intent.putExtra(CONTACT_TO_EDIT_CONTACT_EXTRAS, contacts[position])
-        intent.putExtra(ITEM_POSITION, position)
-        mainActivityContext.startActivityForResult(intent, EDIT_CONTACT_REQUEST_CODE)
+    class ContactsViewHolder(viewItem: View) : RecyclerView.ViewHolder(viewItem) {
+        private val contactImage = viewItem.contactTypeImageView
+        private val contactName = viewItem.contactNameTextView
+        private val contactValue = viewItem.contactTextView
+
+        fun bind(contact: Contact) {
+            contactImage.setImageResource(contact.imageResource)
+            contactName.text = contact.contactName
+            contactValue.text = contact.contact
+        }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(contact: Contact, position: Int)
     }
 }
