@@ -4,34 +4,39 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import by.training.task6.R
+import by.training.task6.adapter.StorageType
+import by.training.task6.databinding.ActivitySettingsBinding
+import by.training.task6.util.StorageUtil
 import kotlinx.android.synthetic.main.activity_settings.saveToExternalStorageSwitch
 
 class SettingsActivity : AppCompatActivity() {
 
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var binding: ActivitySettingsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
+        binding = ActivitySettingsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        sharedPreferences = getSharedPreferences(
-            getString(R.string.application_preference), MODE_PRIVATE
-        )
+        sharedPreferences =
+            getSharedPreferences(getString(R.string.application_preference), MODE_PRIVATE)
 
         getCurrentSwitchState()
 
         saveToExternalStorageSwitch.setOnCheckedChangeListener { _, isChecked ->
-            sharedPreferences.edit().putBoolean(getString(R.string.storage_option), isChecked).apply()
+            if (isChecked) {
+                StorageUtil.saveStorageType(StorageType.EXTERNAL, sharedPreferences)
+            } else {
+                StorageUtil.saveStorageType(StorageType.INTERNAL, sharedPreferences)
+            }
         }
     }
 
     private fun getCurrentSwitchState() {
-        val currentState = getSharedPreferences(
-            getString(R.string.application_preference), MODE_PRIVATE
-        ).getBoolean(getString(R.string.storage_option), false)
-
-        saveToExternalStorageSwitch.isChecked = currentState
+        binding.saveToExternalStorageSwitch.isChecked =
+            StorageUtil.getStorageType(sharedPreferences) == StorageType.EXTERNAL
     }
 }

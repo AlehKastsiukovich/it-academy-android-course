@@ -13,5 +13,6 @@
     <string name="external">external</string>
     <string name="internal_storage">Internal storage</string>
     <string name="external_storage">External storage</string>
-
+    <string name="storage_type">Storage Type</string>
+    <string name="default_text">Default text</string>
 </resources>

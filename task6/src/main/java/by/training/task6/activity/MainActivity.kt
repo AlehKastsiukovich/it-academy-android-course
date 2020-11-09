@@ -6,45 +6,38 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ArrayAdapter
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import by.training.task6.R
-import kotlinx.android.synthetic.main.activity_main.addFileButton
-import kotlinx.android.synthetic.main.activity_main.externalStorageFilesListView
-import kotlinx.android.synthetic.main.activity_main.filesListView
-import kotlinx.android.synthetic.main.dialog_item.view.fileName
+import by.training.task6.adapter.StorageType
+import by.training.task6.adapter.TextEditorAdapter
+import by.training.task6.adapter.TextFile
+import by.training.task6.databinding.ActivityMainBinding
+import by.training.task6.databinding.DialogItemBinding
+import by.training.task6.util.StorageUtil
 import java.io.File
 
 const val FILE_NAME_EXTRAS = "Filename"
 const val STORAGE_TYPE_EXTRAS = "Storage type"
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), TextEditorAdapter.OnItemClickListener {
 
-    private lateinit var internalFileAdapter: ArrayAdapter<String>
-    private lateinit var externalFileAdapter: ArrayAdapter<String>
+    private lateinit var binding: ActivityMainBinding
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var textEditorAdapter: TextEditorAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        sharedPreferences = getSharedPreferences(
-            getString(R.string.application_preference), MODE_PRIVATE
-        )
+        sharedPreferences = getSharedPreferences(getString(R.string.application_preference), MODE_PRIVATE)
 
         listenFileAddButton()
-        initAdapters()
-        addItemListenersToAdapters()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        internalFileAdapter.notifyDataSetChanged()
-        externalFileAdapter.notifyDataSetChanged()
+        initAdapter()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -59,28 +52,48 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onItemClick(textFile: TextFile) {
+        textFile.apply {
+            startFileEditor(fileName, storageType)
+        }
+    }
+
     private fun listenFileAddButton() {
-        addFileButton.setOnClickListener {
+        binding.addFileButton.setOnClickListener {
             dialogInit()
         }
     }
 
-    private fun initAdapters() {
-        val internalStorageFiles: Array<String> = fileList()
-        internalFileAdapter = ArrayAdapter<String>(
-            this,
-            android.R.layout.simple_list_item_1,
-            internalStorageFiles
-        )
-        filesListView.adapter = internalFileAdapter
+    private fun initAdapter() {
+        val internalStorageFiles = getInternalStorageFiles()
+        val externalFiles = getExternalStorageFiles()
 
-        val externalFiles: Array<String> = getPrimaryExternalStorageVolume().list()
-        externalFileAdapter = ArrayAdapter<String>(
-            this,
-            android.R.layout.simple_list_item_1,
-            externalFiles
-        )
-        externalStorageFilesListView.adapter = externalFileAdapter
+        textEditorAdapter = TextEditorAdapter(this).apply {
+            addFiles(internalStorageFiles)
+            addFiles(externalFiles)
+        }
+        binding.recyclerView.apply {
+            adapter = textEditorAdapter
+            layoutManager = LinearLayoutManager(this@MainActivity)
+        }
+    }
+
+    private fun getInternalStorageFiles(): List<TextFile> {
+        val list = mutableListOf<TextFile>()
+        val internalStorageFiles = fileList()
+        internalStorageFiles.forEach {
+            list.add(TextFile(it, StorageType.INTERNAL))
+        }
+        return list
+    }
+
+    private fun getExternalStorageFiles(): List<TextFile> {
+        val list = mutableListOf<TextFile>()
+        val externalFiles = getPrimaryExternalStorageVolume().list()
+        externalFiles?.forEach {
+            list.add(TextFile(it, StorageType.EXTERNAL))
+        }
+        return list
     }
 
     private fun getPrimaryExternalStorageVolume(): File {
@@ -89,32 +102,19 @@ class MainActivity : AppCompatActivity() {
         return externalStorageVolumes[0]
     }
 
-    private fun addItemListenersToAdapters() {
-        filesListView.setOnItemClickListener { _, view, _, _ ->
-            val text = (view as TextView).text.toString()
-            startFileEditor(text, getString(R.string.internal))
-        }
-
-        externalStorageFilesListView.setOnItemClickListener { _, view, _, _ ->
-            val text = (view as TextView).text.toString()
-            startFileEditor(text, getString(R.string.external))
-        }
-    }
-
     private fun dialogInit() {
-        val dialogItemView = layoutInflater.inflate(R.layout.dialog_item, null)
-        val storageState = getCurrentStorageState()
+        val dialogItemBinding = DialogItemBinding.inflate(layoutInflater)
 
         val dialog = AlertDialog.Builder(this)
-            .setView(dialogItemView)
+            .setView(dialogItemBinding.root)
             .setPositiveButton(getString(R.string.save)) { _, _ ->
                 val fileName =
-                    dialogItemView.fileName.text.toString() + getString(R.string.txt_format)
-                createFile(fileName)
-                if (storageState) {
-                    startFileEditor(fileName, getString(R.string.external))
+                    dialogItemBinding.fileName.text.toString() + getString(R.string.txt_format)
+                create(fileName, sharedPreferences, this)
+                if (StorageUtil.isExternal(sharedPreferences)) {
+                    startFileEditor(fileName, StorageType.EXTERNAL)
                 } else {
-                    startFileEditor(fileName, getString(R.string.internal))
+                    startFileEditor(fileName, StorageType.INTERNAL)
                 }
             }
             .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
@@ -143,26 +143,21 @@ class MainActivity : AppCompatActivity() {
         negativeButton.layoutParams = layoutParams
     }
 
-    private fun startFileEditor(fileName: String, storageType: String) {
-        val intent = Intent(this, TextEditorActivity::class.java)
-        intent.putExtra(FILE_NAME_EXTRAS, fileName)
-        intent.putExtra(STORAGE_TYPE_EXTRAS, storageType)
+    private fun startFileEditor(fileName: String, storageType: StorageType) {
+        val intent = Intent(this, TextEditorActivity::class.java).apply {
+            putExtra(FILE_NAME_EXTRAS, fileName)
+            putExtra(STORAGE_TYPE_EXTRAS, storageType)
+        }
         startActivity(intent)
     }
 
-    private fun createFile(fileName: String) {
-        val storageState =
-            sharedPreferences.getBoolean(getString(R.string.storage_option), false)
-
-        if (storageState) {
-            val primaryExternalStorage = getPrimaryExternalStorageVolume()
-            File(primaryExternalStorage, fileName).createNewFile()
-        } else {
-            File(filesDir, fileName).createNewFile()
+    companion object FileFactory {
+        fun create(fileName: String, sharedPreferences: SharedPreferences, activity: MainActivity) {
+            if (StorageUtil.isExternal(sharedPreferences)) {
+                File(activity.getPrimaryExternalStorageVolume(), fileName).createNewFile()
+            } else {
+                File(activity.filesDir, fileName).createNewFile()
+            }
         }
-    }
-
-    private fun getCurrentStorageState(): Boolean {
-        return sharedPreferences.getBoolean(getString(R.string.storage_option), false)
     }
 }
