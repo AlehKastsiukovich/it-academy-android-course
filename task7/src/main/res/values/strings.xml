@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">task4</string>
+    <string name="search_contact">Search contact</string>
+    <string name="image_of_search">Image of search</string>
+    <string name="add_contact_button">add contact button</string>
+    <string name="type_of_contact">type of contact</string>
+    <string name="default_text">Default text</string>
+    <string name="phone_number">Phone number</string>
+    <string name="email">Email</string>
+    <string name="name">Name</string>
+    <string name="confirm_contact">Confirm</string>
+    <string name="remove">Remove</string>
+    <string name="no_contacts_please_add">No contacts. Please add</string>
+</resources>
