@@ -1,4 +1,4 @@
-package by.training.task7.model
+package by.training.task7.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

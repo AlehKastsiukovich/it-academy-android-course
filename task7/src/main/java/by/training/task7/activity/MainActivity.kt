@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.training.task7.adapter.ContactsAdapter
 import by.training.task7.databinding.ActivityMainBinding
 import by.training.task7.entity.Contact
-import by.training.task7.model.ContactsViewModel
+import by.training.task7.viewmodel.ContactsViewModel
 import java.util.*
 
 const val EXTRAS_CONTACT_OBJECT = "Object"

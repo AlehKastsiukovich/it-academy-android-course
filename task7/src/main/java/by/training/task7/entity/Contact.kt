@@ -2,7 +2,9 @@ package by.training.task7.entity
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.Entity
 
+@Entity(tableName = "contacts")
 data class Contact(
     val imageResource: Int,
     var contactName: String,
