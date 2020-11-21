@@ -10,7 +10,6 @@ import by.training.task7.entity.Contact
 class EditContactActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEditContactBinding
-
     private var currentContact: Contact? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,10 +45,7 @@ class EditContactActivity : AppCompatActivity() {
     private fun sendUpdatedDataToMainActivity() {
         getUpdatedDataFromFields()
         val editContactActivityIntent = Intent().apply {
-            val position = intent?.extras?.getInt(ITEM_POSITION)
             putExtra(CONTACT_EXTRAS, currentContact)
-            putExtra(EDIT_OPERATION_EXTRAS, position)
-            putExtra(ITEM_POSITION, position)
         }
         setResult(RESULT_OK, editContactActivityIntent)
         finish()
@@ -64,11 +60,9 @@ class EditContactActivity : AppCompatActivity() {
 
     private fun sendDataAboutRemovingContact() {
         val editContactActivityIntent = Intent().apply {
-            val position = intent?.extras?.getInt(ITEM_POSITION)
-            putExtra(ITEM_POSITION, position)
+            putExtra(CONTACT_EXTRAS, currentContact)
             putExtra(REMOVE_OPERATION_EXTRAS, OPERATION_TYPE)
         }
-
         setResult(RESULT_OK, editContactActivityIntent)
         finish()
     }
