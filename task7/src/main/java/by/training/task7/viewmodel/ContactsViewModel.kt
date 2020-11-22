@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import by.training.task7.entity.Contact
 import by.training.task7.model.ContactsDatabase
 import by.training.task7.model.repository.ContactsRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ContactsViewModel(application: Application) : AndroidViewModel(application) {
@@ -21,15 +20,15 @@ class ContactsViewModel(application: Application) : AndroidViewModel(application
         contacts = repository.getContacts()
     }
 
-    fun add(item: Contact) = viewModelScope.launch(Dispatchers.IO) {
+    fun add(item: Contact) = viewModelScope.launch {
         repository.insert(item)
     }
 
-    fun edit(item: Contact) = viewModelScope.launch(Dispatchers.IO) {
+    fun edit(item: Contact) = viewModelScope.launch {
         repository.update(item)
     }
 
-    fun delete(item: Contact) = viewModelScope.launch(Dispatchers.IO) {
+    fun delete(item: Contact) = viewModelScope.launch {
         repository.delete(item)
     }
 }
