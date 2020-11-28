@@ -7,7 +7,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.training.task8.adapter.ContactsAdapter
@@ -40,9 +39,13 @@ class MainActivity : AppCompatActivity(), ContactsAdapter.OnItemClickListener {
 
         setFloatingActionButton()
         setAdaptersProperties()
-        observeContactsChanged()
         addContactSearcher()
         getSearchingText(savedInstanceState)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        observeContactsChanged()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -80,17 +83,12 @@ class MainActivity : AppCompatActivity(), ContactsAdapter.OnItemClickListener {
     }
 
     private fun observeContactsChanged() {
-        model.contacts.observe(
-            this,
-            Observer {
-                contactsAdapter.setData(it)
-                if (it.isEmpty()) {
-                    binding.noContactsMessage.visibility = View.VISIBLE
-                } else {
-                    binding.noContactsMessage.visibility = View.INVISIBLE
-                }
-            }
-        )
+        if (model.contacts.isEmpty()) {
+            binding.noContactsMessage.visibility = View.VISIBLE
+        } else {
+            binding.noContactsMessage.visibility = View.INVISIBLE
+        }
+        contactsAdapter.setData(model.get())
     }
 
     private fun addContact(intent: Intent?) {
@@ -139,7 +137,7 @@ class MainActivity : AppCompatActivity(), ContactsAdapter.OnItemClickListener {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val searchedContacts = mutableListOf<Contact>()
                 if (!s.isNullOrEmpty()) {
-                    for (contact in model.contacts.value as MutableList<Contact>) {
+                    for (contact in model.contacts as MutableList<Contact>) {
                         if (contact.contactName.toLowerCase(Locale.ROOT)
                             .contains(s.toString().toLowerCase(Locale.ROOT))
                         ) {
@@ -148,7 +146,7 @@ class MainActivity : AppCompatActivity(), ContactsAdapter.OnItemClickListener {
                     }
                     contactsAdapter.setData(searchedContacts)
                 } else {
-                    contactsAdapter.setData(model.contacts.value as List<Contact>)
+                    contactsAdapter.setData(model.contacts as List<Contact>)
                 }
             }
 

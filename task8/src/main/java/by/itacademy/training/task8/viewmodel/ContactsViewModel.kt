@@ -2,33 +2,39 @@ package by.itacademy.training.task8.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.viewModelScope
 import by.itacademy.training.task8.entity.Contact
+import by.itacademy.training.task8.model.ContactsDao
 import by.itacademy.training.task8.model.ContactsDatabase
-import by.itacademy.training.task8.model.repository.ContactsRepository
-import kotlinx.coroutines.launch
+import by.itacademy.training.task8.model.repository.BaseRepository
+import by.itacademy.training.task8.model.repository.ThreadPoolExecutorMultiThreadingRepository
 
 class ContactsViewModel(application: Application) : AndroidViewModel(application) {
 
-    val contacts: LiveData<List<Contact>>
-    private val repository: ContactsRepository
+    private val repository: BaseRepository
+    private val dao: ContactsDao = ContactsDatabase.getContactsDatabase(application).contactsDao()
+    val contacts: List<Contact>
+        get() = _contacts
+    private var _contacts = mutableListOf<Contact>()
 
     init {
-        val dao = ContactsDatabase.getContactsDatabase(application).contactsDao()
-        repository = ContactsRepository(dao)
-        contacts = repository.getContacts()
+        repository = ThreadPoolExecutorMultiThreadingRepository(dao)
+        _contacts = repository.getContacts() as MutableList<Contact>
     }
 
-    fun add(item: Contact) = viewModelScope.launch {
-        repository.insert(item)
+    fun get(): List<Contact> {
+        _contacts = repository.getContacts() as MutableList<Contact>
+        return contacts
     }
 
-    fun edit(item: Contact) = viewModelScope.launch {
-        repository.update(item)
+    fun add(contact: Contact) {
+        repository.insert(contact)
     }
 
-    fun delete(item: Contact) = viewModelScope.launch {
-        repository.delete(item)
+    fun delete(contact: Contact) {
+        repository.delete(contact)
+    }
+
+    fun edit(contact: Contact) {
+        repository.update(contact)
     }
 }

@@ -1,6 +1,5 @@
 package by.itacademy.training.task8.model
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -13,14 +12,14 @@ import by.itacademy.training.task8.entity.Contact
 interface ContactsDao {
 
     @Query("SELECT * FROM contacts")
-    fun getAllContacts(): LiveData<List<Contact>>
+    fun getAllContacts(): List<Contact>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertContact(contact: Contact)
+    fun insertContact(contact: Contact)
 
     @Update
-    suspend fun updateContact(contact: Contact)
+    fun updateContact(contact: Contact)
 
     @Delete
-    suspend fun deleteContact(contact: Contact)
+    fun deleteContact(contact: Contact)
 }
