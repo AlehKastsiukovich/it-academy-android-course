@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity(), ContactsAdapter.OnItemClickListener {
         } else {
             binding.noContactsMessage.visibility = View.INVISIBLE
         }
-        contactsAdapter.setData(model.get())
+        contactsAdapter.setData(model.getContactList())
     }
 
     private fun addContact(intent: Intent?) {

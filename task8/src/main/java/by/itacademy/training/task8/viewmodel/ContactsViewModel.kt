@@ -6,7 +6,7 @@ import by.itacademy.training.task8.entity.Contact
 import by.itacademy.training.task8.model.ContactsDao
 import by.itacademy.training.task8.model.ContactsDatabase
 import by.itacademy.training.task8.model.repository.BaseRepository
-import by.itacademy.training.task8.model.repository.ThreadPoolExecutorMultiThreadingRepository
+import by.itacademy.training.task8.model.repository.CompletableFutureMultiThreadingRepository
 
 class ContactsViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -17,13 +17,14 @@ class ContactsViewModel(application: Application) : AndroidViewModel(application
     private var _contacts = mutableListOf<Contact>()
 
     init {
-        repository = ThreadPoolExecutorMultiThreadingRepository(dao)
-        _contacts = repository.getContacts() as MutableList<Contact>
+        repository = CompletableFutureMultiThreadingRepository(dao)
+        getContactList()
     }
 
-    fun get(): List<Contact> {
-        _contacts = repository.getContacts() as MutableList<Contact>
-        return contacts
+    fun getContactList(): List<Contact> {
+        val contactList =  repository.getContacts() as MutableList<Contact>
+        _contacts = contactList
+        return _contacts
     }
 
     fun add(contact: Contact) {
