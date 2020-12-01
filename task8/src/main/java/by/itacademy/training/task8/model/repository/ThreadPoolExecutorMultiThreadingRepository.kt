@@ -6,14 +6,13 @@ import by.itacademy.training.task8.util.CustomThreadPoolExecutor
 
 class ThreadPoolExecutorMultiThreadingRepository(
     private val contactsDao: ContactsDao
-) : BaseRepository(contactsDao) {
+) : BaseRepository {
 
     private val threadPoolExecutor = CustomThreadPoolExecutor()
 
-    override fun getContacts(): List<Contact> {
+    override fun getContacts(contactListener: ContactListener) {
         val task = { contactsDao.getAllContacts() }
         val result = threadPoolExecutor.submit(task)
-        return result.get()
     }
 
     override fun insert(contact: Contact) {
