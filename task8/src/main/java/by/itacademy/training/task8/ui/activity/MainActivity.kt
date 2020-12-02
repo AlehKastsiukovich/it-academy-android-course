@@ -1,4 +1,4 @@
-package by.itacademy.training.task8.activity
+package by.itacademy.training.task8.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,12 +7,15 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import by.itacademy.training.task8.adapter.ContactsAdapter
 import by.itacademy.training.task8.databinding.ActivityMainBinding
-import by.itacademy.training.task8.entity.Contact
-import by.itacademy.training.task8.viewmodel.ContactsViewModel
+import by.itacademy.training.task8.model.entity.Contact
+import by.itacademy.training.task8.ui.adapter.ContactsAdapter
+import by.itacademy.training.task8.ui.viewmodel.ContactsViewModel
+import by.itacademy.training.task8.ui.viewmodel.ViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 import java.util.Locale
 
 const val EXTRAS_CONTACT_OBJECT = "Object"
@@ -25,7 +28,7 @@ const val EDIT_CONTACT_REQUEST_CODE = 10000
 const val OPERATION_TYPE = 1
 const val CURRENT_EDIT_TEXT = "Current search text"
 
-class MainActivity : AppCompatActivity(), ContactsAdapter.OnItemClickListener {
+class MainActivity : AppCompatActivity(), ContactsAdapter.OnItemClickListener, ErrorInformer {
 
     private lateinit var contactsAdapter: ContactsAdapter
     private lateinit var model: ContactsViewModel
@@ -33,19 +36,15 @@ class MainActivity : AppCompatActivity(), ContactsAdapter.OnItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        model = ViewModelProvider(this).get(ContactsViewModel::class.java)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setUpViewModel()
         setFloatingActionButton()
         setAdaptersProperties()
-//        addContactSearcher()
+        observeContactsChanged()
+        addContactSearcher()
         getSearchingText(savedInstanceState)
-    }
-
-    override fun onResume() {
-        super.onResume()
-//        observeContactsChanged()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -66,6 +65,11 @@ class MainActivity : AppCompatActivity(), ContactsAdapter.OnItemClickListener {
         }
     }
 
+    private fun setUpViewModel() {
+        model = ViewModelProvider(this, ViewModelFactory(application = application, informer = this))
+            .get(ContactsViewModel::class.java)
+    }
+
     private fun setFloatingActionButton() {
         binding.floatingActionButton.setOnClickListener {
             startActivityForResult(
@@ -82,14 +86,19 @@ class MainActivity : AppCompatActivity(), ContactsAdapter.OnItemClickListener {
         }
     }
 
-//    private fun observeContactsChanged() {
-//        if (model.contacts.isEmpty()) {
-//            binding.noContactsMessage.visibility = View.VISIBLE
-//        } else {
-//            binding.noContactsMessage.visibility = View.INVISIBLE
-//        }
-//        contactsAdapter.setData(model.contacts)
-//    }
+    private fun observeContactsChanged() {
+        if (model.contacts.value == null) {
+            binding.noContactsMessage.visibility = View.VISIBLE
+        } else {
+            binding.noContactsMessage.visibility = View.INVISIBLE
+        }
+        model.contacts.observe(
+            this,
+            Observer {
+                contactsAdapter.setData(it)
+            }
+        )
+    }
 
     private fun addContact(intent: Intent?) {
         val contactObject = intent?.extras?.getParcelable<Contact>(EXTRAS_CONTACT_OBJECT)
@@ -108,7 +117,7 @@ class MainActivity : AppCompatActivity(), ContactsAdapter.OnItemClickListener {
     private fun editContact(intent: Intent?) {
         val contactObject = intent?.extras?.getParcelable<Contact>(CONTACT_EXTRAS)
         contactObject?.let {
-            model.edit(contactObject)
+            model.update(contactObject)
         }
     }
 
@@ -128,30 +137,34 @@ class MainActivity : AppCompatActivity(), ContactsAdapter.OnItemClickListener {
         startActivityForResult(intent, EDIT_CONTACT_REQUEST_CODE)
     }
 
-//    private fun addContactSearcher() {
-//        binding.searchContactEditText.addTextChangedListener(object : TextWatcher {
-//
-//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-//            }
-//
-//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//                val searchedContacts = mutableListOf<Contact>()
-//                if (!s.isNullOrEmpty()) {
-//                    for (contact in model.contacts.value as MutableList<Contact>) {
-//                        if (contact.contactName.toLowerCase(Locale.ROOT)
-//                            .contains(s.toString().toLowerCase(Locale.ROOT))
-//                        ) {
-//                            searchedContacts.add(contact)
-//                        }
-//                    }
-//                    contactsAdapter.setData(searchedContacts)
-//                } else {
-//                    contactsAdapter.setData(model.contacts as List<Contact>)
-//                }
-//            }
-//
-//            override fun afterTextChanged(s: Editable?) {
-//            }
-//        })
-//    }
+    private fun addContactSearcher() {
+        binding.searchContactEditText.addTextChangedListener(object : TextWatcher {
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val searchedContacts = mutableListOf<Contact>()
+                if (!s.isNullOrEmpty()) {
+                    for (contact in model.contacts.value as List<Contact>) {
+                        if (contact.contactName.toLowerCase(Locale.ROOT)
+                            .contains(s.toString().toLowerCase(Locale.ROOT))
+                        ) {
+                            searchedContacts.add(contact)
+                        }
+                    }
+                    contactsAdapter.setData(searchedContacts)
+                } else {
+                    contactsAdapter.setData(model.contacts.value as List<Contact>)
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+    }
+
+    override fun inform(message: String?) {
+        Snackbar.make(binding.parentLayout, message as CharSequence, Snackbar.LENGTH_LONG)
+    }
 }

@@ -1,10 +1,10 @@
-package by.itacademy.training.task8.model
+package by.itacademy.training.task8.model.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import by.itacademy.training.task8.entity.Contact
+import by.itacademy.training.task8.model.entity.Contact
 
 @Database(entities = [Contact::class], version = 2, exportSchema = false)
 abstract class ContactsDatabase : RoomDatabase() {

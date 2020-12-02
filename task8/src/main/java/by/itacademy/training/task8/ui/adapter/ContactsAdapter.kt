@@ -1,11 +1,11 @@
-package by.itacademy.training.task8.adapter
+package by.itacademy.training.task8.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import by.itacademy.training.task8.databinding.ContactItemBinding
-import by.itacademy.training.task8.entity.Contact
+import by.itacademy.training.task8.model.entity.Contact
 
 class ContactsAdapter(private val onItemClickListener: OnItemClickListener) :
     RecyclerView.Adapter<ContactsAdapter.ContactsViewHolder>() {

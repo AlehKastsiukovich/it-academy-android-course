@@ -1,4 +1,4 @@
-package by.itacademy.training.task8.activity
+package by.itacademy.training.task8.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import by.itacademy.training.task8.R
 import by.itacademy.training.task8.databinding.ActivityAddContactBinding
-import by.itacademy.training.task8.entity.Contact
+import by.itacademy.training.task8.model.entity.Contact
 
 class AddContactActivity : AppCompatActivity() {
 

@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ItAcademyCourse">
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:theme="@style/Theme.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,11 +17,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.AddContactActivity"
-            android:parentActivityName=".activity.MainActivity" />
+            android:name=".ui.activity.AddContactActivity"
+            android:parentActivityName=".ui.activity.MainActivity" />
         <activity
-            android:name=".activity.EditContactActivity"
-            android:parentActivityName=".activity.MainActivity" />
+            android:name=".ui.activity.EditContactActivity"
+            android:parentActivityName=".ui.activity.MainActivity" />
     </application>
 
 </manifest>

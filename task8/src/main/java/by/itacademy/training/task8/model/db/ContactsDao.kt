@@ -1,4 +1,4 @@
-package by.itacademy.training.task8.model
+package by.itacademy.training.task8.model.db
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -6,9 +6,9 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import by.itacademy.training.task8.entity.Contact
+import by.itacademy.training.task8.model.entity.Contact
 import io.reactivex.Completable
-import io.reactivex.Observable
+import io.reactivex.Flowable
 
 @Dao
 interface ContactsDao {
@@ -26,7 +26,7 @@ interface ContactsDao {
     fun deleteContact(contact: Contact)
 
     @Query("SELECT * FROM contacts")
-    fun getAllContactsRx(): Observable<List<Contact>>
+    fun getAllContactsRx(): Flowable<List<Contact>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertContactRx(contact: Contact): Completable

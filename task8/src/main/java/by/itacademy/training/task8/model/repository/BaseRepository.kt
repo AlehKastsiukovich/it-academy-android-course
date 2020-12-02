@@ -1,6 +1,7 @@
 package by.itacademy.training.task8.model.repository
 
-import by.itacademy.training.task8.entity.Contact
+import by.itacademy.training.task8.model.entity.Contact
+import by.itacademy.training.task8.util.ContactListener
 
 interface BaseRepository {
 

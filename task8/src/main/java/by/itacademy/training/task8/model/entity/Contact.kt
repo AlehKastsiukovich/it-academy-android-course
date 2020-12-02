@@ -1,4 +1,4 @@
-package by.itacademy.training.task8.entity
+package by.itacademy.training.task8.model.entity
 
 import android.os.Parcel
 import android.os.Parcelable

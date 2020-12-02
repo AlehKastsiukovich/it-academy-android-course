@@ -1,11 +1,11 @@
-package by.itacademy.training.task8.activity
+package by.itacademy.training.task8.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import by.itacademy.training.task8.databinding.ActivityEditContactBinding
-import by.itacademy.training.task8.entity.Contact
+import by.itacademy.training.task8.model.entity.Contact
 
 class EditContactActivity : AppCompatActivity() {
 
@@ -30,7 +30,7 @@ class EditContactActivity : AppCompatActivity() {
         if (item.itemId == android.R.id.home) {
             sendUpdatedDataToMainActivity()
         }
-        return super.onOptionsItemSelected(item)
+        return true
     }
 
     private fun getEditableContact(): Contact? {
