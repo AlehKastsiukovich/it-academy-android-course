@@ -6,9 +6,9 @@ interface BaseRepository {
 
     fun getContacts(contactListener: ContactListener)
 
-    fun insert(contact: Contact)
+    fun insert(contact: Contact, contactListener: ContactListener)
 
-    fun update(contact: Contact)
+    fun update(contact: Contact, contactListener: ContactListener)
 
-    fun delete(contact: Contact)
+    fun delete(contact: Contact, contactListener: ContactListener)
 }
