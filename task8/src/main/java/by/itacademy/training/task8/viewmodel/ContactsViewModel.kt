@@ -1,43 +1,30 @@
 package by.itacademy.training.task8.viewmodel
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.Observer
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import by.itacademy.training.task8.entity.Contact
 import by.itacademy.training.task8.model.ContactsDao
 import by.itacademy.training.task8.model.ContactsDatabase
 import by.itacademy.training.task8.model.repository.BaseRepository
+import by.itacademy.training.task8.model.repository.ContactListener
 import by.itacademy.training.task8.model.repository.RxMultiThreadingRepository
-import io.reactivex.Observable
-import io.reactivex.Scheduler
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import by.itacademy.training.task8.util.Event
+import by.itacademy.training.task8.util.Status
 
-@SuppressLint("CheckResult")
-class ContactsViewModel(application: Application) : AndroidViewModel(application) {
+class ContactsViewModel(application: Application) : AndroidViewModel(application), ContactListener {
 
     private val repository: BaseRepository
     private val dao: ContactsDao = ContactsDatabase.getContactsDatabase(application).contactsDao()
-    val contacts: List<Contact>
+    val contacts: LiveData<List<Contact>>
         get() = _contacts
-    private var _contacts = mutableListOf<Contact>()
+    private var _contacts = MutableLiveData<List<Contact>>()
 
     init {
         repository = RxMultiThreadingRepository(dao)
-        Observable.fromArray(repository.getContacts())
-            .observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                _contacts.addAll(it)
-            }
-    }
-
-    fun getContactList(): List<Contact> {
-        val contactList = repository.getContacts() as MutableList<Contact>
-        _contacts = contactList
-        return _contacts
+        repository.getContacts(this)
     }
 
     fun add(contact: Contact) {
@@ -50,5 +37,12 @@ class ContactsViewModel(application: Application) : AndroidViewModel(application
 
     fun edit(contact: Contact) {
         repository.update(contact)
+    }
+
+    override fun invoke(event: Event<List<Contact>>) {
+        when (event.status) {
+            Status.SUCCESS -> { _contacts.value = event.data }
+            Status.ERROR -> { Log.d("TAG", "Error") }
+        }
     }
 }

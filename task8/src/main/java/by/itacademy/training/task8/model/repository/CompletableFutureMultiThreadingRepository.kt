@@ -3,28 +3,31 @@ package by.itacademy.training.task8.model.repository
 import by.itacademy.training.task8.entity.Contact
 import by.itacademy.training.task8.model.ContactsDao
 import by.itacademy.training.task8.util.CustomThreadPoolExecutor
+import by.itacademy.training.task8.util.Event
+import by.itacademy.training.task8.util.Status
 import java.util.concurrent.CompletableFuture
 
-class CompletableFutureMultiThreadingRepository(
-    private val contactsDao: ContactsDao
-) : BaseRepository(contactsDao) {
+class CompletableFutureMultiThreadingRepository(private val contactsDao: ContactsDao) :
+    BaseRepository {
 
-    override fun getContacts(): List<Contact> {
-        var contactList = listOf<Contact>()
+    override fun getContacts(contactListener: ContactListener) {
         val task = { contactsDao.getAllContacts() }
         val future = CompletableFuture.supplyAsync(task, CustomThreadPoolExecutor())
-        return future.get()
+        future.apply {
+            thenAccept { result -> contactListener.invoke(Event(Status.SUCCESS, result, null)) }
+            val x = get()
+        }
     }
 
     override fun insert(contact: Contact) {
-        CompletableFuture.runAsync { contactsDao.insertContact(contact) }
+        TODO("Not yet implemented")
     }
 
     override fun update(contact: Contact) {
-        CompletableFuture.runAsync { contactsDao.updateContact(contact) }
+        TODO("Not yet implemented")
     }
 
     override fun delete(contact: Contact) {
-        CompletableFuture.runAsync { contactsDao.deleteContact(contact) }
+        TODO("Not yet implemented")
     }
 }

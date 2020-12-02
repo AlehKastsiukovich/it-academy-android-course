@@ -39,13 +39,13 @@ class MainActivity : AppCompatActivity(), ContactsAdapter.OnItemClickListener {
 
         setFloatingActionButton()
         setAdaptersProperties()
-        addContactSearcher()
+//        addContactSearcher()
         getSearchingText(savedInstanceState)
     }
 
     override fun onResume() {
         super.onResume()
-        observeContactsChanged()
+//        observeContactsChanged()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -82,14 +82,14 @@ class MainActivity : AppCompatActivity(), ContactsAdapter.OnItemClickListener {
         }
     }
 
-    private fun observeContactsChanged() {
-        if (model.contacts.isEmpty()) {
-            binding.noContactsMessage.visibility = View.VISIBLE
-        } else {
-            binding.noContactsMessage.visibility = View.INVISIBLE
-        }
-        contactsAdapter.setData(model.contacts)
-    }
+//    private fun observeContactsChanged() {
+//        if (model.contacts.isEmpty()) {
+//            binding.noContactsMessage.visibility = View.VISIBLE
+//        } else {
+//            binding.noContactsMessage.visibility = View.INVISIBLE
+//        }
+//        contactsAdapter.setData(model.contacts)
+//    }
 
     private fun addContact(intent: Intent?) {
         val contactObject = intent?.extras?.getParcelable<Contact>(EXTRAS_CONTACT_OBJECT)
@@ -128,30 +128,30 @@ class MainActivity : AppCompatActivity(), ContactsAdapter.OnItemClickListener {
         startActivityForResult(intent, EDIT_CONTACT_REQUEST_CODE)
     }
 
-    private fun addContactSearcher() {
-        binding.searchContactEditText.addTextChangedListener(object : TextWatcher {
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val searchedContacts = mutableListOf<Contact>()
-                if (!s.isNullOrEmpty()) {
-                    for (contact in model.contacts as MutableList<Contact>) {
-                        if (contact.contactName.toLowerCase(Locale.ROOT)
-                            .contains(s.toString().toLowerCase(Locale.ROOT))
-                        ) {
-                            searchedContacts.add(contact)
-                        }
-                    }
-                    contactsAdapter.setData(searchedContacts)
-                } else {
-                    contactsAdapter.setData(model.contacts as List<Contact>)
-                }
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-            }
-        })
-    }
+//    private fun addContactSearcher() {
+//        binding.searchContactEditText.addTextChangedListener(object : TextWatcher {
+//
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//            }
+//
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//                val searchedContacts = mutableListOf<Contact>()
+//                if (!s.isNullOrEmpty()) {
+//                    for (contact in model.contacts.value as MutableList<Contact>) {
+//                        if (contact.contactName.toLowerCase(Locale.ROOT)
+//                            .contains(s.toString().toLowerCase(Locale.ROOT))
+//                        ) {
+//                            searchedContacts.add(contact)
+//                        }
+//                    }
+//                    contactsAdapter.setData(searchedContacts)
+//                } else {
+//                    contactsAdapter.setData(model.contacts as List<Contact>)
+//                }
+//            }
+//
+//            override fun afterTextChanged(s: Editable?) {
+//            }
+//        })
+//    }
 }

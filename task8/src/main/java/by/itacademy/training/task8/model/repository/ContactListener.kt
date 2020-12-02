@@ -4,5 +4,8 @@ import by.itacademy.training.task8.entity.Contact
 import by.itacademy.training.task8.util.Event
 
 interface ContactListener {
-    fun invoke(event: Event<List<Contact>>)
+
+    fun fetchContacts(event: Event<List<Contact>>)
+
+    fun addContact(event: Event<List<Contact>>)
 }

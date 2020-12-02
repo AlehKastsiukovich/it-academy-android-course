@@ -11,12 +11,12 @@ class Event<out T>(
             return Event(Status.SUCCESS, data, null)
         }
 
-        fun <T> loading(data: T): Event<T> {
+        fun <T> loading(data: T?): Event<T> {
             return Event(Status.LOADING, data, null)
         }
 
-        fun <T> error(data: T): Event<T> {
-            return Event(Status.ERROR, data, "Error")
+        fun <T> error(data: T?, message: String?): Event<T> {
+            return Event(Status.ERROR, data, message)
         }
     }
 }

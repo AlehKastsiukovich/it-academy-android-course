@@ -7,6 +7,8 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import by.itacademy.training.task8.entity.Contact
+import io.reactivex.Completable
+import io.reactivex.Observable
 
 @Dao
 interface ContactsDao {
@@ -22,4 +24,16 @@ interface ContactsDao {
 
     @Delete
     fun deleteContact(contact: Contact)
+
+    @Query("SELECT * FROM contacts")
+    fun getAllContactsRx(): Observable<List<Contact>>
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertContactRx(contact: Contact): Completable
+
+    @Update
+    fun updateContactRx(contact: Contact): Completable
+
+    @Delete
+    fun deleteContactRx(contact: Contact): Completable
 }
