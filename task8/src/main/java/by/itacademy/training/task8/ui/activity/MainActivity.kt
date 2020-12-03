@@ -87,17 +87,21 @@ class MainActivity : AppCompatActivity(), ContactsAdapter.OnItemClickListener, E
     }
 
     private fun observeContactsChanged() {
-        if (model.contacts.value == null) {
-            binding.noContactsMessage.visibility = View.VISIBLE
-        } else {
-            binding.noContactsMessage.visibility = View.INVISIBLE
-        }
+        setNoContactMessageVisibility()
         model.contacts.observe(
             this,
             Observer {
                 contactsAdapter.setData(it)
             }
         )
+    }
+
+    private fun setNoContactMessageVisibility() {
+        if (model.contacts.value == null) {
+            binding.noContactsMessage.visibility = View.VISIBLE
+        } else {
+            binding.noContactsMessage.visibility = View.INVISIBLE
+        }
     }
 
     private fun addContact(intent: Intent?) {

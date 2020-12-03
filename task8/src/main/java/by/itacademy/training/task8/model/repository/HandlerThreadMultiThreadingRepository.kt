@@ -9,7 +9,7 @@ import by.itacademy.training.task8.util.ContactListener
 import by.itacademy.training.task8.util.Event
 import by.itacademy.training.task8.util.Status
 
-class ThreadPoolExecutorMultiThreadingRepository(
+class HandlerThreadMultiThreadingRepository(
     private val contactsDao: ContactsDao
 ) : BaseRepository {
 
