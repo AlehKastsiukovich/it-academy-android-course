@@ -1,7 +1,6 @@
 package by.itacademy.training.task8.util
 
 import by.itacademy.training.task8.model.entity.Contact
-import by.itacademy.training.task8.util.Event
 
 interface ContactListener {
 

@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import by.itacademy.training.task8.model.db.ContactsDao
 import by.itacademy.training.task8.model.entity.Contact
 import by.itacademy.training.task8.model.repository.BaseRepository
-import by.itacademy.training.task8.model.repository.RxMultiThreadingRepository
+import by.itacademy.training.task8.model.repository.CompletableFutureMultiThreadingRepository
 import by.itacademy.training.task8.ui.activity.ErrorInformer
 import by.itacademy.training.task8.util.ContactListener
 import by.itacademy.training.task8.util.Event
@@ -18,7 +18,6 @@ class ContactsViewModel(
     application: Application,
     dao: ContactsDao,
     private val informer: ErrorInformer
-
 ) : AndroidViewModel(application), ContactListener {
 
     private val repository: BaseRepository
@@ -28,11 +27,12 @@ class ContactsViewModel(
 
     init {
         _contacts.value = mutableListOf()
-        repository = RxMultiThreadingRepository(dao)
-        repository.getContacts(this)
+        repository = CompletableFutureMultiThreadingRepository(dao)
+        val res = repository.getContacts(this)
     }
 
     override fun onContactsGetListener(event: Event<List<Contact>>) {
+        Log.d("TAG", "${Thread.currentThread().name} EVENT ${event.data?.size}")
         when (event.status) {
             Status.SUCCESS -> { _contacts.value = event.data }
             Status.ERROR -> { informer.inform(event.message) }
