@@ -8,5 +8,5 @@ interface SupportSharedPreference {
 
     fun setCurrentMultithreadingType(type: MultithreadingTypes)
 
-    fun getCurrentMultithreadingType(): String?
+    fun getCurrentMultithreadingType(): MultithreadingTypes
 }

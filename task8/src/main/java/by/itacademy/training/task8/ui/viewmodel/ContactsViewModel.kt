@@ -9,14 +9,15 @@ import by.itacademy.training.task8.model.db.ContactsDao
 import by.itacademy.training.task8.model.entity.Contact
 import by.itacademy.training.task8.model.repository.BaseRepository
 import by.itacademy.training.task8.model.repository.HandlerThreadMultiThreadingRepository
+import by.itacademy.training.task8.ui.view.App
 import by.itacademy.training.task8.ui.view.ErrorInformer
 import by.itacademy.training.task8.util.ContactListener
 import by.itacademy.training.task8.util.Event
 import by.itacademy.training.task8.util.Status
+import by.itacademy.training.task8.util.factory.RepositoryFactory
 
 class ContactsViewModel(
     application: Application,
-    dao: ContactsDao,
     private val informer: ErrorInformer
 ) : AndroidViewModel(application), ContactListener {
 
@@ -27,12 +28,11 @@ class ContactsViewModel(
 
     init {
         _contacts.value = mutableListOf()
-        repository = HandlerThreadMultiThreadingRepository(dao)
+        repository = RepositoryFactory(application as App).getRepository()
         val res = repository.getContacts(this)
     }
 
     override fun onContactsGetListener(event: Event<List<Contact>>) {
-        Log.d("TAG", "${Thread.currentThread().name} EVENT ${event.data?.size}")
         when (event.status) {
             Status.SUCCESS -> { _contacts.value = event.data }
             Status.ERROR -> { informer.inform(event.message) }
