@@ -9,13 +9,17 @@ class SupportSharedPreferenceImpl(private val activity: Activity) : SupportShare
     override fun getSharedPreference(): SharedPreferences =
         activity.getSharedPreferences(SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE)
 
-    override fun setCurrentMultithreadingType(string: String) {
-    }
+    override fun setCurrentMultithreadingType(type: MultithreadingTypes) =
+        getSharedPreference()
+            .edit()
+            .putString(SHARED_PREFERENCES_TYPE_KEY, type.name)
+            .apply()
 
     override fun getCurrentMultithreadingType(): String? =
-        getSharedPreference().getString(SHARED_PREFERENCES_KEY, "")
+        getSharedPreference().getString(SHARED_PREFERENCES_KEY, MultithreadingTypes.RX.name)
 
     companion object {
         const val SHARED_PREFERENCES_KEY = "KEY"
+        const val SHARED_PREFERENCES_TYPE_KEY = "TYPE"
     }
 }
