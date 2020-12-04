@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">task4p2</string>
+    <string name="toast">Toast</string>
+    <string name="snack_bar">SnackBar</string>
+</resources>
