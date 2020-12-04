@@ -1,8 +1,9 @@
-package by.itacademy.training.task8.util
+package by.itacademy.training.task8.util.preference
 
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import by.itacademy.training.task8.util.MultithreadingType
 
 class SupportSharedPreferenceImpl(private val application: Application) : SupportSharedPreference {
 

@@ -15,7 +15,7 @@ class RepositoryFactory(
 
     private val dao = ContactsDatabase.getContactsDatabase(app).contactsDao()
 
-    fun getRepository() =
+    fun initRepository() =
         when (app.sharedPreferences.getCurrentMultithreadingType()) {
             MultithreadingType.RX ->
                 onRepositoryTypeChangeListener
@@ -31,5 +31,5 @@ class RepositoryFactory(
 
 interface OnRepositoryTypeChangeListener {
 
-    fun onRepositoryChange(type: BaseRepository)
+    fun onRepositoryChange(repository: BaseRepository)
 }

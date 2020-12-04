@@ -1,7 +1,6 @@
 package by.itacademy.training.task8.ui.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -21,26 +20,22 @@ class ContactsViewModel(
 ) : AndroidViewModel(application), ContactListener, OnRepositoryTypeChangeListener {
 
     private lateinit var repository: BaseRepository
-    val contacts: LiveData<List<Contact>>
+    val contacts: LiveData<Event<List<Contact>>>
         get() = _contacts
-    private var _contacts = MutableLiveData<List<Contact>>()
+    private var _contacts = MutableLiveData<Event<List<Contact>>>()
 
     init {
-        _contacts.value = mutableListOf()
-        RepositoryFactory(application as App, this).getRepository()
-        val res = repository.getContacts(this)
+        _contacts.value = Event(Status.SUCCESS, mutableListOf(), null)
+        RepositoryFactory(application as App, this).initRepository()
+        repository.getContacts(this)
     }
 
-    override fun onRepositoryChange(type: BaseRepository) {
-        repository = type
+    override fun onRepositoryChange(repository: BaseRepository) {
+        this.repository = repository
     }
 
     override fun onContactsGetListener(event: Event<List<Contact>>) {
-        when (event.status) {
-            Status.SUCCESS -> { _contacts.value = event.data }
-            Status.ERROR -> { informer.inform(event.message) }
-            else -> Log.d("TAG", "Loading")
-        }
+        _contacts.value = event
     }
 
     fun add(contact: Contact) {

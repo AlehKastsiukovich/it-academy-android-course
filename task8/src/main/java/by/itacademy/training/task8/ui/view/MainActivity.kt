@@ -10,12 +10,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import by.itacademy.training.task8.R
 import by.itacademy.training.task8.databinding.ActivityMainBinding
 import by.itacademy.training.task8.model.entity.Contact
 import by.itacademy.training.task8.ui.adapter.ContactsAdapter
 import by.itacademy.training.task8.ui.viewmodel.ContactsViewModel
-import by.itacademy.training.task8.ui.viewmodel.ViewModelFactory
+import by.itacademy.training.task8.util.Event
+import by.itacademy.training.task8.util.Status
+import by.itacademy.training.task8.util.factory.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 import java.util.Locale
 
@@ -24,10 +25,11 @@ const val ITEM_POSITION = "Position"
 const val CONTACT_TO_EDIT_CONTACT_EXTRAS = "Contact"
 const val CONTACT_EXTRAS = "Editable name"
 const val REMOVE_OPERATION_EXTRAS = "Remove"
+const val CURRENT_EDIT_TEXT = "Current search text"
+const val EMPTY_STRING = ""
 const val CREATE_CONTACT_REQUEST_CODE = 9999
 const val EDIT_CONTACT_REQUEST_CODE = 10000
 const val OPERATION_TYPE = 1
-const val CURRENT_EDIT_TEXT = "Current search text"
 
 class MainActivity : AppCompatActivity(), ContactsAdapter.OnItemClickListener, ErrorInformer {
 
@@ -93,9 +95,30 @@ class MainActivity : AppCompatActivity(), ContactsAdapter.OnItemClickListener, E
         model.contacts.observe(
             this,
             Observer {
-                contactsAdapter.setData(it)
+                setUpVisibility(it)
             }
         )
+    }
+
+    private fun setUpVisibility(event: Event<List<Contact>>) {
+        with(binding) {
+            when (event.status) {
+                Status.LOADING -> {
+                    progressBar.visibility = View.VISIBLE
+                    recyclerView.visibility = View.GONE
+                }
+                Status.SUCCESS -> {
+                    progressBar.visibility = View.GONE
+                    event.data?.let { list -> contactsAdapter.setData(list) }
+                    recyclerView.visibility = View.VISIBLE
+                }
+                Status.ERROR -> Snackbar.make(
+                    parentLayout,
+                    event.message ?: EMPTY_STRING,
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
+        }
     }
 
     private fun setNoContactMessageVisibility() {
@@ -152,7 +175,7 @@ class MainActivity : AppCompatActivity(), ContactsAdapter.OnItemClickListener, E
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val searchedContacts = mutableListOf<Contact>()
                 if (!s.isNullOrEmpty()) {
-                    for (contact in model.contacts.value as List<Contact>) {
+                    for (contact in model.contacts.value?.data as List<Contact>) {
                         if (contact.contactName.toLowerCase(Locale.ROOT)
                             .contains(s.toString().toLowerCase(Locale.ROOT))
                         ) {
@@ -161,7 +184,7 @@ class MainActivity : AppCompatActivity(), ContactsAdapter.OnItemClickListener, E
                     }
                     contactsAdapter.setData(searchedContacts)
                 } else {
-                    contactsAdapter.setData(model.contacts.value as List<Contact>)
+                    contactsAdapter.setData(model.contacts.value?.data as List<Contact>)
                 }
             }
 
