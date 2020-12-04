@@ -16,24 +16,36 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.notificationSwitch.setOnCheckedChangeListener {
-            _, isChecked ->
+        setUpNotificationSwitch()
+        setUpColorMixerCustomView()
+    }
+
+    private fun setUpNotificationSwitch() {
+        binding.notificationSwitch.setOnCheckedChangeListener { _, isChecked ->
             switchOn = isChecked
         }
+    }
 
-        binding.cvColorMixer.setListener(object : ColorMixerTouchListener {
+    private fun setUpColorMixerCustomView() {
+        binding.colorMixerCustomView.setColorTouchListener(object : ColorTouchListener {
             override fun onTouchColorMixer(x: Float, y: Float, color: Int?) {
-                if (switchOn) {
-                    val sbView =
-                        Snackbar.make(binding.root, "Нажаты координаты[$x; $y]", Snackbar.LENGTH_SHORT)
-                    color?.let { sbView.setBackgroundTint(it) }
-                    sbView.show()
-                } else {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Нажаты координаты[$x; $y]",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                when (switchOn) {
+                    true -> {
+                        val snackBar = Snackbar.make(
+                            binding.root,
+                            "x: $x; y: $y",
+                            Snackbar.LENGTH_SHORT
+                        )
+                        color?.let { snackBar.setBackgroundTint(it) }
+                        snackBar.show()
+                    }
+                    false -> {
+                        Toast.makeText(
+                            this@MainActivity,
+                            "x: $x; y: $y",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             }
         })

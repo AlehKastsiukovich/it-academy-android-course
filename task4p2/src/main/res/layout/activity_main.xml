@@ -21,7 +21,7 @@
         app:showText="true" />
 
     <by.itacademy.training.task4p2.CustomView
-        android:id="@+id/cvColorMixer"
+        android:id="@+id/colorMixerCustomView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:cmcv_centerColor="@color/colorCircleCenter"

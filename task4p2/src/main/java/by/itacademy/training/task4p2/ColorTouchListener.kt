@@ -1,5 +1,6 @@
 package by.itacademy.training.task4p2
 
-interface ColorMixerTouchListener {
+interface ColorTouchListener {
+
     fun onTouchColorMixer(x: Float, y: Float, color: Int?)
 }
