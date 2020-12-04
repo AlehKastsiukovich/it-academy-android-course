@@ -9,7 +9,7 @@ import by.itacademy.training.task8.model.db.ContactsDao
 import by.itacademy.training.task8.model.entity.Contact
 import by.itacademy.training.task8.model.repository.BaseRepository
 import by.itacademy.training.task8.model.repository.HandlerThreadMultiThreadingRepository
-import by.itacademy.training.task8.ui.activity.ErrorInformer
+import by.itacademy.training.task8.ui.view.ErrorInformer
 import by.itacademy.training.task8.util.ContactListener
 import by.itacademy.training.task8.util.Event
 import by.itacademy.training.task8.util.Status

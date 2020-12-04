@@ -12,4 +12,8 @@
     <string name="remove">Remove</string>
     <string name="no_contacts_please_add">No contacts. Please add</string>
     <string name="unknown_class_error">Unknown class name</string>
+    <string name="select_your_multithreading_type">Select your multithreading type</string>
+    <string name="rxjava">RxJava</string>
+    <string name="callable_future">Callable Future</string>
+    <string name="handler_thread">Handler Thread</string>
 </resources>

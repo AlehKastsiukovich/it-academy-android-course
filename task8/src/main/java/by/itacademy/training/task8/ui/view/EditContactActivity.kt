@@ -1,4 +1,4 @@
-package by.itacademy.training.task8.ui.activity
+package by.itacademy.training.task8.ui.view
 
 import android.content.Intent
 import android.os.Bundle

@@ -1,4 +1,4 @@
-package by.itacademy.training.task8.ui.activity
+package by.itacademy.training.task8.ui.view
 
 interface ErrorInformer {
 

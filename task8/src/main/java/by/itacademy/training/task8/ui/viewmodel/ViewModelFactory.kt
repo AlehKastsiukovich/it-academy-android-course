@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import by.itacademy.training.task8.R
 import by.itacademy.training.task8.model.db.ContactsDatabase
-import by.itacademy.training.task8.ui.activity.ErrorInformer
+import by.itacademy.training.task8.ui.view.ErrorInformer
 
 class ViewModelFactory(
     private val application: Application,

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/parentLayout"
-    tools:context=".ui.activity.MainActivity">
+    tools:context=".ui.view.MainActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/mainActivityToolbar"
@@ -83,5 +83,10 @@
         android:backgroundTint="@color/rose"
         android:contentDescription="@string/add_contact_button"
         android:layout_margin="30dp"/>
+
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

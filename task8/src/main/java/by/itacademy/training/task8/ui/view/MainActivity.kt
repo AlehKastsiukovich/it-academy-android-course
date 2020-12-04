@@ -1,4 +1,4 @@
-package by.itacademy.training.task8.ui.activity
+package by.itacademy.training.task8.ui.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import by.itacademy.training.task8.R
 import by.itacademy.training.task8.databinding.ActivityMainBinding
 import by.itacademy.training.task8.model.entity.Contact
 import by.itacademy.training.task8.ui.adapter.ContactsAdapter
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity(), ContactsAdapter.OnItemClickListener, E
         observeContactsChanged()
         addContactSearcher()
         getSearchingText(savedInstanceState)
+        setPreferenceButtonListener()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -168,7 +170,13 @@ class MainActivity : AppCompatActivity(), ContactsAdapter.OnItemClickListener, E
         })
     }
 
+    private fun setPreferenceButtonListener() {
+        binding.preferenceButton.setOnClickListener {
+            startActivity(Intent(this, MultithreadingPreferenceSettingsActivity::class.java))
+        }
+    }
+
     override fun inform(message: String?) {
-        Snackbar.make(binding.parentLayout, message as CharSequence, Snackbar.LENGTH_LONG)
+        Snackbar.make(binding.parentLayout, message as CharSequence, Snackbar.LENGTH_LONG).show()
     }
 }
