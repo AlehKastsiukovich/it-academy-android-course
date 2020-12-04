@@ -27,7 +27,7 @@ class MultithreadingPreferenceSettingsActivity : AppCompatActivity() {
         val multithreadingType =
             (application as App).sharedPreferences.getCurrentMultithreadingType()
 
-        binding.radioGroup.apply {
+        with(binding.radioGroup) {
             when (multithreadingType) {
                 MultithreadingType.RX -> check(R.id.rxRadioButton)
                 MultithreadingType.CALLABLE_FUTURE -> check(R.id.callableRadioButton)
