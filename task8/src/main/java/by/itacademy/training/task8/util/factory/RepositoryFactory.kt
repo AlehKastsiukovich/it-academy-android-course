@@ -5,7 +5,7 @@ import by.itacademy.training.task8.model.repository.CompletableFutureMultiThread
 import by.itacademy.training.task8.model.repository.HandlerThreadMultiThreadingRepository
 import by.itacademy.training.task8.model.repository.RxMultiThreadingRepository
 import by.itacademy.training.task8.ui.view.App
-import by.itacademy.training.task8.util.MultithreadingTypes
+import by.itacademy.training.task8.util.MultithreadingType
 
 class RepositoryFactory(private val app: App) {
 
@@ -13,8 +13,8 @@ class RepositoryFactory(private val app: App) {
 
     fun getRepository() =
         when (app.sharedPreferences.getCurrentMultithreadingType()) {
-            MultithreadingTypes.RX -> RxMultiThreadingRepository(dao)
-            MultithreadingTypes.CALLABLE_FUTURE -> CompletableFutureMultiThreadingRepository(dao)
+            MultithreadingType.RX -> RxMultiThreadingRepository(dao)
+            MultithreadingType.CALLABLE_FUTURE -> CompletableFutureMultiThreadingRepository(dao)
             else -> HandlerThreadMultiThreadingRepository(dao)
         }
 }

@@ -9,16 +9,16 @@ class SupportSharedPreferenceImpl(private val application: Application) : Suppor
     override fun getSharedPreference(): SharedPreferences =
         application.getSharedPreferences(SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE)
 
-    override fun setCurrentMultithreadingType(type: MultithreadingTypes) =
+    override fun setCurrentMultithreadingType(type: MultithreadingType) =
         getSharedPreference()
             .edit()
             .putString(SHARED_PREFERENCES_TYPE_KEY, type.name)
             .apply()
 
-    override fun getCurrentMultithreadingType(): MultithreadingTypes {
+    override fun getCurrentMultithreadingType(): MultithreadingType {
         val value = getSharedPreference()
-            .getString(SHARED_PREFERENCES_KEY, MultithreadingTypes.RX.name)
-        return MultithreadingTypes.valueOf(value ?: MultithreadingTypes.RX.name)
+            .getString(SHARED_PREFERENCES_TYPE_KEY, MultithreadingType.RX.name)
+        return MultithreadingType.valueOf(value ?: MultithreadingType.RX.name)
     }
 
     companion object {

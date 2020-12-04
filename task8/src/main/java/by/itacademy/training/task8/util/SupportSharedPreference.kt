@@ -6,7 +6,7 @@ interface SupportSharedPreference {
 
     fun getSharedPreference(): SharedPreferences
 
-    fun setCurrentMultithreadingType(type: MultithreadingTypes)
+    fun setCurrentMultithreadingType(type: MultithreadingType)
 
-    fun getCurrentMultithreadingType(): MultithreadingTypes
+    fun getCurrentMultithreadingType(): MultithreadingType
 }

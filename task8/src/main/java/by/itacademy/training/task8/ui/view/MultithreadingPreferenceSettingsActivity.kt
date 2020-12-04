@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import by.itacademy.training.task8.R
 import by.itacademy.training.task8.databinding.ActivityMultithreadingPreferenceSettingsBinding
-import by.itacademy.training.task8.util.MultithreadingTypes
+import by.itacademy.training.task8.util.MultithreadingType
 
 class MultithreadingPreferenceSettingsActivity : AppCompatActivity() {
 
@@ -19,10 +19,21 @@ class MultithreadingPreferenceSettingsActivity : AppCompatActivity() {
             _, checkedId ->
             onChange(checkedId)
         }
+
+        setCurrentRadioGroupState()
     }
 
     private fun setCurrentRadioGroupState() {
-        val x = (application as App).sharedPreferences.getCurrentMultithreadingType()
+        val multithreadingType =
+            (application as App).sharedPreferences.getCurrentMultithreadingType()
+
+        binding.radioGroup.apply {
+            when (multithreadingType) {
+                MultithreadingType.RX -> check(R.id.rxRadioButton)
+                MultithreadingType.CALLABLE_FUTURE -> check(R.id.callableRadioButton)
+                MultithreadingType.HANDLER_THREAD -> check(R.id.handlerRadioButton)
+            }
+        }
     }
 
     private fun onChange(checkedId: Int) {
@@ -30,15 +41,15 @@ class MultithreadingPreferenceSettingsActivity : AppCompatActivity() {
             R.id.rxRadioButton ->
                 (application as App)
                     .sharedPreferences
-                    .setCurrentMultithreadingType(MultithreadingTypes.RX)
+                    .setCurrentMultithreadingType(MultithreadingType.RX)
             R.id.callableRadioButton ->
                 (application as App)
                     .sharedPreferences
-                    .setCurrentMultithreadingType(MultithreadingTypes.CALLABLE_FUTURE)
+                    .setCurrentMultithreadingType(MultithreadingType.CALLABLE_FUTURE)
             R.id.handlerRadioButton ->
                 (application as App)
                     .sharedPreferences
-                    .setCurrentMultithreadingType(MultithreadingTypes.HANDLER_THREAD)
+                    .setCurrentMultithreadingType(MultithreadingType.HANDLER_THREAD)
         }
     }
 }
