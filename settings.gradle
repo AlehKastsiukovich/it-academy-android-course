@@ -1,3 +1,4 @@
 include ':task8'
+include ':task4p2'
 include ':app'
 rootProject.name = "It Academy Course"
