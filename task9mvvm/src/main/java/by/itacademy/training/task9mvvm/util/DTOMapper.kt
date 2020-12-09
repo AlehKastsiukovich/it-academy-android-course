@@ -26,9 +26,7 @@ class DTOMapper : (ApiResponse) -> WeatherReport {
                 resposne.location.name,
                 resposne.location.region
             ),
-            ForecastDay(
-                hourTemperature
-            )
+            ForecastDay(hourTemperature)
         )
     }
 }
