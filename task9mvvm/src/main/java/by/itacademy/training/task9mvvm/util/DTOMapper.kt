@@ -6,8 +6,11 @@ import by.itacademy.training.task9mvvm.model.entity.ForecastDay
 import by.itacademy.training.task9mvvm.model.entity.HourTemperature
 import by.itacademy.training.task9mvvm.model.entity.Location
 import by.itacademy.training.task9mvvm.model.entity.WeatherReport
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class DTOMapper : (ApiResponse) -> WeatherReport {
+@Singleton
+class DTOMapper @Inject constructor() : (ApiResponse) -> WeatherReport {
 
     override fun invoke(resposne: ApiResponse): WeatherReport {
         val hourTemperature = mutableListOf<HourTemperature>()

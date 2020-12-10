@@ -1,6 +1,7 @@
 package by.itacademy.training.task9mvvm.ui.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -29,12 +30,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun fetchData() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _weatherReportData.postValue(Event(Status.LOADING, null, null))
+        viewModelScope.launch(Dispatchers.Main) {
+            _weatherReportData.value = (Event(Status.LOADING, null, null))
+            Log.d("TAG", "status start: " + _weatherReportData.value?.status?.name)
             try {
                 val result = weatherForecastRepository.getWeatherForecastForDay("Minsk")
                 val weatherReport = dtoMapper.invoke(result)
-                _weatherReportData.postValue(Event(Status.SUCCESS, weatherReport, null))
+                Log.d("TAG", "weatherreport: " + weatherReport.toString())
+                _weatherReportData.value = ((Event(Status.SUCCESS, weatherReport, null)))
+                Log.d("TAG", "status success: " + _weatherReportData.value?.data.toString())
             } catch (exception: Exception) {
                 _weatherReportData.postValue(Event(Status.ERROR, null, exception.message))
             }

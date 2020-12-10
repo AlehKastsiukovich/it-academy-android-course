@@ -1,9 +1,9 @@
 package by.itacademy.training.task9mvvm.util
 
 class Event <out T>(
-    private val status: Status,
-    private val data: T?,
-    private val message: String?
+    val status: Status,
+    val data: T?,
+    val message: String?
 ) {
     companion object {
 

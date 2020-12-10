@@ -1,7 +1,6 @@
 package by.itacademy.training.task9mvvm.di.component
 
 import by.itacademy.training.task9mvvm.di.module.AppContextModule
-import by.itacademy.training.task9mvvm.di.module.DtoModule
 import by.itacademy.training.task9mvvm.di.module.NetworkModule
 import by.itacademy.training.task9mvvm.di.module.RepositoryModule
 import by.itacademy.training.task9mvvm.ui.viewmodel.MainViewModel
@@ -11,7 +10,7 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AppContextModule::class, NetworkModule::class,
-        DtoModule::class, RepositoryModule::class
+        RepositoryModule::class
     ]
 )
 @Singleton
