@@ -36,18 +36,16 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.apply {
             adapter = hourTemperatureAdapter
             layoutManager = LinearLayoutManager(
-                this@MainActivity
+                this@MainActivity, LinearLayoutManager.HORIZONTAL, false
             )
         }
     }
 
     private fun setDataToRecyclerView() {
-        Log.d("TAG", "in setup: ")
         mainViewModel.weatherReportData.observe(
             this,
             Observer { event ->
                 event.data?.forecastDay?.list?.let {
-                    Log.d("TAG", "in setData size : " + it.size.toString())
                     hourTemperatureAdapter.addElements(it)
                 }
             }
