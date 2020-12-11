@@ -1,6 +1,7 @@
 package by.itacademy.training.task9mvvm.util
 
 import by.itacademy.training.task9mvvm.model.dto.ApiResponse
+import by.itacademy.training.task9mvvm.model.dto.Condition
 import by.itacademy.training.task9mvvm.model.entity.CurrentTemperature
 import by.itacademy.training.task9mvvm.model.entity.ForecastDay
 import by.itacademy.training.task9mvvm.model.entity.HourTemperature
@@ -28,7 +29,11 @@ class DTOMapper @Inject constructor(private val formatter: TemperatureFormatter)
         return WeatherReport(
             CurrentTemperature(
                 formatter.roundTemperature(resposne.current.temp_c),
-                formatter.roundTemperature(resposne.current.temp_f)
+                formatter.roundTemperature(resposne.current.temp_f),
+                Condition(
+                    resposne.current.condition.text,
+                    resposne.current.condition.icon
+                )
             ),
             Location(
                 resposne.location.country,
