@@ -6,11 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".ui.view.MainActivity">
 
+    <ImageView
+        android:id="@+id/conditionImageView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/itemTemperatureTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"
+        android:text="@string/default_temperature"
         android:textSize="80sp"
         android:layout_marginTop="100dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -21,7 +30,7 @@
         android:id="@+id/cityNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Minsk"
+        android:text="@string/default_city_name"
         android:textSize="35sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -31,7 +40,7 @@
         android:id="@+id/regionNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Belarus"
+        android:text="@string/default_region_name"
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

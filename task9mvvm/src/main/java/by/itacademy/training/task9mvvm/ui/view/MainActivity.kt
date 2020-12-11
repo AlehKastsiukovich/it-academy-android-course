@@ -14,6 +14,7 @@ import by.itacademy.training.task9mvvm.ui.adapter.TemperatureAdapter
 import by.itacademy.training.task9mvvm.ui.viewmodel.MainViewModel
 import by.itacademy.training.task9mvvm.util.Event
 import by.itacademy.training.task9mvvm.util.Status
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
@@ -100,6 +101,13 @@ class MainActivity : AppCompatActivity() {
             resources.getString(R.string.weather_report_loading_error),
             Snackbar.LENGTH_LONG
         ).show()
+    }
+
+    private fun setConditionImage(event: Event<WeatherReport>) {
+        Glide.with(this)
+            .load(event.data?.currentTemperature?.condition?.icon)
+            .centerCrop()
+            .into(binding.)
     }
 
     private fun hideViews() {

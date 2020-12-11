@@ -3,4 +3,7 @@
     <string name="weather_report_loading_error">an error occurred while loading data from server</string>
     <string name="default_temperature">0</string>
     <string name="default_time">0:00</string>
+    <string name="default_city_name">Minsk</string>
+    <string name="default_region_name">Belarus</string>
+    <string name="default_temperature">0</string>
 </resources>
