@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import by.itacademy.training.task9mvvm.R
 import by.itacademy.training.task9mvvm.databinding.HourTemperatureItemBinding
 import by.itacademy.training.task9mvvm.model.entity.HourTemperature
+import javax.inject.Inject
 
-class TemperatureAdapter : RecyclerView.Adapter<TemperatureAdapter.TemperatureItemViewHolder>() {
+class TemperatureAdapter @Inject constructor() : RecyclerView.Adapter<TemperatureAdapter.TemperatureItemViewHolder>() {
 
     private lateinit var binding: HourTemperatureItemBinding
 
@@ -34,7 +35,7 @@ class TemperatureAdapter : RecyclerView.Adapter<TemperatureAdapter.TemperatureIt
         notifyDataSetChanged()
     }
 
-    class TemperatureItemViewHolder(
+    class TemperatureItemViewHolder @Inject constructor(
         private val itemView: View,
         private val binding: HourTemperatureItemBinding
     ) : RecyclerView.ViewHolder(itemView) {

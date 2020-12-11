@@ -36,7 +36,9 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.apply {
             adapter = hourTemperatureAdapter
             layoutManager = LinearLayoutManager(
-                this@MainActivity, LinearLayoutManager.HORIZONTAL, false
+                this@MainActivity,
+                LinearLayoutManager.HORIZONTAL,
+                false
             )
         }
     }
