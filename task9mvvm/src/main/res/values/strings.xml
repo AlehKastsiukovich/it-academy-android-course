@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">task9mvvm</string>
     <string name="weather_report_loading_error">an error occurred while loading data from server</string>
+    <string name="default_temperature">0</string>
+    <string name="default_time">0:00</string>
 </resources>
