@@ -3,6 +3,7 @@ package by.itacademy.training.task9mvvm.di.component
 import by.itacademy.training.task9mvvm.di.module.AppContextModule
 import by.itacademy.training.task9mvvm.di.module.NetworkModule
 import by.itacademy.training.task9mvvm.di.module.RepositoryModule
+import by.itacademy.training.task9mvvm.ui.view.MainActivity
 import by.itacademy.training.task9mvvm.ui.viewmodel.MainViewModel
 import dagger.Component
 import javax.inject.Singleton
@@ -17,4 +18,5 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun inject(mainViewModel: MainViewModel)
+    fun inject(mainActivity: MainActivity)
 }
