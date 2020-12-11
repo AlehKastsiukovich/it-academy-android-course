@@ -10,18 +10,25 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class DTOMapper @Inject constructor() : (ApiResponse) -> WeatherReport {
+class DTOMapper @Inject constructor(private val formatter: TemperatureFormatter) :
+    (ApiResponse) -> WeatherReport {
 
     override fun invoke(resposne: ApiResponse): WeatherReport {
         val hourTemperature = mutableListOf<HourTemperature>()
         resposne.forecast.forecastday[0].hour.forEach {
-            hourTemperature.add(HourTemperature(it.temp_c, it.temp_f, it.time))
+            hourTemperature.add(
+                HourTemperature(
+                    formatter.roundTemperature(it.temp_c),
+                    formatter.roundTemperature(it.temp_f),
+                    formatter.convertTimeData(it.time)
+                )
+            )
         }
 
         return WeatherReport(
             CurrentTemperature(
-                resposne.current.temp_c,
-                resposne.current.temp_f
+                formatter.roundTemperature(resposne.current.temp_c),
+                formatter.roundTemperature(resposne.current.temp_f)
             ),
             Location(
                 resposne.location.country,

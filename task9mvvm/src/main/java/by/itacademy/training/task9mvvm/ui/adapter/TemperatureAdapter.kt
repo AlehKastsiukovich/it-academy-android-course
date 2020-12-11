@@ -42,6 +42,7 @@ class TemperatureAdapter @Inject constructor() : RecyclerView.Adapter<Temperatur
 
         fun bind(hourTemperature: HourTemperature) {
             binding.itemTemperatureTextView.text = hourTemperature.celsiusTemperature.toString()
+            binding.timeTextView.text = hourTemperature.time
         }
     }
 }

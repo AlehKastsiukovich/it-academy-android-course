@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import by.itacademy.training.task9mvvm.app.App
-import by.itacademy.training.task9mvvm.di.component.DaggerAppComponent
 import by.itacademy.training.task9mvvm.model.entity.WeatherReport
 import by.itacademy.training.task9mvvm.model.repository.WeatherForecastRepository
 import by.itacademy.training.task9mvvm.util.DTOMapper
