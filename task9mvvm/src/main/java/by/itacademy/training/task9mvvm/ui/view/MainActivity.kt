@@ -81,6 +81,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onSuccessDataLoading(event: Event<WeatherReport>) {
         hideProgressBar()
+        setConditionImage(event)
         binding.itemTemperatureTextView.text = event.data?.currentTemperature?.celsiusTemperature.toString()
         event.data?.forecastDay?.list?.let {
             hourTemperatureAdapter.addElements(it)
@@ -107,7 +108,7 @@ class MainActivity : AppCompatActivity() {
         Glide.with(this)
             .load(event.data?.currentTemperature?.condition?.icon)
             .centerCrop()
-            .into(binding.)
+            .into(binding.conditionImageView)
     }
 
     private fun hideViews() {
@@ -116,6 +117,7 @@ class MainActivity : AppCompatActivity() {
             cityNameTextView.visibility = View.INVISIBLE
             regionNameTextView.visibility = View.INVISIBLE
             recyclerView.visibility = View.INVISIBLE
+            conditionImageView.visibility = View.INVISIBLE
         }
     }
 
@@ -125,6 +127,7 @@ class MainActivity : AppCompatActivity() {
             cityNameTextView.visibility = View.VISIBLE
             regionNameTextView.visibility = View.VISIBLE
             recyclerView.visibility = View.VISIBLE
+            conditionImageView.visibility = View.VISIBLE
         }
     }
 

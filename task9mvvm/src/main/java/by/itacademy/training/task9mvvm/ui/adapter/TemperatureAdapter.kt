@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import by.itacademy.training.task9mvvm.R
 import by.itacademy.training.task9mvvm.databinding.HourTemperatureItemBinding
 import by.itacademy.training.task9mvvm.model.entity.HourTemperature
+import com.bumptech.glide.Glide
 import javax.inject.Inject
 
 class TemperatureAdapter @Inject constructor() : RecyclerView.Adapter<TemperatureAdapter.TemperatureItemViewHolder>() {
@@ -43,6 +44,10 @@ class TemperatureAdapter @Inject constructor() : RecyclerView.Adapter<Temperatur
         fun bind(hourTemperature: HourTemperature) {
             binding.itemTemperatureTextView.text = hourTemperature.celsiusTemperature.toString()
             binding.timeTextView.text = hourTemperature.time
+            Glide.with(itemView)
+                .load(hourTemperature.condition.icon)
+                .centerCrop()
+                .into(binding.hourConditionImage)
         }
     }
 }

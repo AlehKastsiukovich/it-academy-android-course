@@ -1,7 +1,7 @@
 package by.itacademy.training.task9mvvm.util
 
 import by.itacademy.training.task9mvvm.model.dto.ApiResponse
-import by.itacademy.training.task9mvvm.model.dto.Condition
+import by.itacademy.training.task9mvvm.model.entity.Condition
 import by.itacademy.training.task9mvvm.model.entity.CurrentTemperature
 import by.itacademy.training.task9mvvm.model.entity.ForecastDay
 import by.itacademy.training.task9mvvm.model.entity.HourTemperature
@@ -11,7 +11,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class DTOMapper @Inject constructor(private val formatter: TemperatureFormatter) :
+class DTOMapper @Inject constructor(private val formatter: MetricFormatter) :
     (ApiResponse) -> WeatherReport {
 
     override fun invoke(resposne: ApiResponse): WeatherReport {
@@ -21,7 +21,11 @@ class DTOMapper @Inject constructor(private val formatter: TemperatureFormatter)
                 HourTemperature(
                     formatter.roundTemperature(it.temp_c),
                     formatter.roundTemperature(it.temp_f),
-                    formatter.convertTimeData(it.time)
+                    formatter.convertTimeData(it.time),
+                    Condition(
+                        it.condition.text,
+                        formatter.formatLink(it.condition.icon)
+                    )
                 )
             )
         }
@@ -32,7 +36,7 @@ class DTOMapper @Inject constructor(private val formatter: TemperatureFormatter)
                 formatter.roundTemperature(resposne.current.temp_f),
                 Condition(
                     resposne.current.condition.text,
-                    resposne.current.condition.icon
+                    formatter.formatLink(resposne.current.condition.icon)
                 )
             ),
             Location(
