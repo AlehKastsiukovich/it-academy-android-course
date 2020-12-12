@@ -7,4 +7,5 @@
     <string name="default_temperature">0</string>
     <string name="fahrenheit_symbol">℉</string>
     <string name="celsius_symbol">℃</string>
+    <string name="choose_city">Choose city</string>
 </resources>

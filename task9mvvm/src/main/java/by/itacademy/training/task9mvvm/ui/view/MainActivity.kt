@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.training.task9mvvm.R
 import by.itacademy.training.task9mvvm.app.App
 import by.itacademy.training.task9mvvm.databinding.ActivityMainBinding
+import by.itacademy.training.task9mvvm.model.entity.HourTemperature
 import by.itacademy.training.task9mvvm.model.entity.WeatherReport
 import by.itacademy.training.task9mvvm.ui.adapter.TemperatureAdapter
 import by.itacademy.training.task9mvvm.ui.viewmodel.MainViewModel
@@ -38,7 +39,6 @@ class MainActivity : AppCompatActivity() {
         currentTemperatureUnitListener = CurrentTemperatureUnitListenerImpl(supportSharedPreference)
 
         setCurrentSwitcherState()
-
         injectDependencies()
         setUpViewModel()
         setUpRecyclerView()
@@ -77,7 +77,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpRecyclerView() {
         hourTemperatureAdapter = TemperatureAdapter(currentTemperatureUnitListener)
-
         binding.recyclerView.apply {
             adapter = hourTemperatureAdapter
             layoutManager = LinearLayoutManager(
@@ -116,9 +115,7 @@ class MainActivity : AppCompatActivity() {
         setConditionImage(event)
         binding.itemTemperatureTextView.text =
             currentTemperatureUnitListener.getCurrentTemperature(event.data?.currentTemperature)
-        event.data?.forecastDay?.list?.let {
-            hourTemperatureAdapter.addElements(it)
-        }
+        setDataToAdapter(event.data?.forecastDay?.list)
         showViews()
     }
 
@@ -137,6 +134,12 @@ class MainActivity : AppCompatActivity() {
         ).show()
     }
 
+    private fun setDataToAdapter(list: List<HourTemperature>?) {
+        list?.let {
+            hourTemperatureAdapter.addElements(it)
+        }
+    }
+
     private fun setConditionImage(event: Event<WeatherReport>) {
         Glide.with(this)
             .load(event.data?.currentTemperature?.condition?.icon)
@@ -145,25 +148,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun hideViews() {
-        with(binding) {
-            itemTemperatureTextView.visibility = View.INVISIBLE
-            cityNameTextView.visibility = View.INVISIBLE
-            regionNameTextView.visibility = View.INVISIBLE
-            recyclerView.visibility = View.INVISIBLE
-            conditionImageView.visibility = View.INVISIBLE
-            temperatureUnitSwitcher.visibility = View.INVISIBLE
-        }
+        binding.innerLayout.visibility = View.INVISIBLE
     }
 
     private fun showViews() {
-        with(binding) {
-            itemTemperatureTextView.visibility = View.VISIBLE
-            cityNameTextView.visibility = View.VISIBLE
-            regionNameTextView.visibility = View.VISIBLE
-            recyclerView.visibility = View.VISIBLE
-            conditionImageView.visibility = View.VISIBLE
-            temperatureUnitSwitcher.visibility = View.VISIBLE
-        }
+        binding.innerLayout.visibility = View.VISIBLE
     }
 
     private fun showProgressBar() {
