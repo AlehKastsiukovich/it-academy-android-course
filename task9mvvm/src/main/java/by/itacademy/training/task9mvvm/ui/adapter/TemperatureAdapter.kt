@@ -7,10 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import by.itacademy.training.task9mvvm.R
 import by.itacademy.training.task9mvvm.databinding.HourTemperatureItemBinding
 import by.itacademy.training.task9mvvm.model.entity.HourTemperature
+import by.itacademy.training.task9mvvm.util.CurrentTemperatureUnitListener
 import com.bumptech.glide.Glide
 import javax.inject.Inject
 
-class TemperatureAdapter @Inject constructor() : RecyclerView.Adapter<TemperatureAdapter.TemperatureItemViewHolder>() {
+class TemperatureAdapter(
+    private val currentTemperatureUnitListener: CurrentTemperatureUnitListener
+) : RecyclerView.Adapter<TemperatureAdapter.TemperatureItemViewHolder>() {
 
     private lateinit var binding: HourTemperatureItemBinding
 
@@ -21,7 +24,7 @@ class TemperatureAdapter @Inject constructor() : RecyclerView.Adapter<Temperatur
             .from(parent.context)
             .inflate(R.layout.hour_temperature_item, parent, false)
         binding = HourTemperatureItemBinding.bind(view)
-        return TemperatureItemViewHolder(view, binding)
+        return TemperatureItemViewHolder(view, binding, currentTemperatureUnitListener)
     }
 
     override fun onBindViewHolder(holder: TemperatureItemViewHolder, position: Int) {
@@ -38,12 +41,18 @@ class TemperatureAdapter @Inject constructor() : RecyclerView.Adapter<Temperatur
 
     class TemperatureItemViewHolder @Inject constructor(
         private val itemView: View,
-        private val binding: HourTemperatureItemBinding
+        private val binding: HourTemperatureItemBinding,
+        private val currentTemperatureUnitListener: CurrentTemperatureUnitListener
     ) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(hourTemperature: HourTemperature) {
-            binding.itemTemperatureTextView.text = hourTemperature.celsiusTemperature.toString()
+            binding.itemTemperatureTextView.text =
+                currentTemperatureUnitListener.getHourTemperature(hourTemperature)
             binding.timeTextView.text = hourTemperature.time
+            setUpImage(itemView, hourTemperature)
+        }
+
+        private fun setUpImage(itemView: View, hourTemperature: HourTemperature) {
             Glide.with(itemView)
                 .load(hourTemperature.condition.icon)
                 .centerCrop()

@@ -15,21 +15,7 @@ class DTOMapper @Inject constructor(private val formatter: MetricFormatter) :
     (ApiResponse) -> WeatherReport {
 
     override fun invoke(resposne: ApiResponse): WeatherReport {
-        val hourTemperature = mutableListOf<HourTemperature>()
-        resposne.forecast.forecastday[0].hour.forEach {
-            hourTemperature.add(
-                HourTemperature(
-                    formatter.roundTemperature(it.temp_c),
-                    formatter.roundTemperature(it.temp_f),
-                    formatter.convertTimeData(it.time),
-                    Condition(
-                        it.condition.text,
-                        formatter.formatLink(it.condition.icon)
-                    )
-                )
-            )
-        }
-
+        val hourTemperature = mapHourTemperature(resposne)
         return WeatherReport(
             CurrentTemperature(
                 formatter.roundTemperature(resposne.current.temp_c),
@@ -47,5 +33,23 @@ class DTOMapper @Inject constructor(private val formatter: MetricFormatter) :
             ),
             ForecastDay(hourTemperature)
         )
+    }
+
+    private fun mapHourTemperature(response: ApiResponse): List<HourTemperature> {
+        val hourTemperature = mutableListOf<HourTemperature>()
+        response.forecast.forecastday[0].hour.forEach {
+            hourTemperature.add(
+                HourTemperature(
+                    formatter.roundTemperature(it.temp_c),
+                    formatter.roundTemperature(it.temp_f),
+                    formatter.convertTimeData(it.time),
+                    Condition(
+                        it.condition.text,
+                        formatter.formatLink(it.condition.icon)
+                    )
+                )
+            )
+        }
+        return hourTemperature
     }
 }

@@ -3,7 +3,9 @@ package by.itacademy.training.task9mvvm.util
 import android.content.Context
 import android.content.SharedPreferences
 
-class SupportSharedPreferenceImpl(private val context: Context) : SupportSharedPreference {
+class SupportSharedPreferenceImpl(
+    private val context: Context
+) : SupportSharedPreference {
 
     override fun getSharedPreference(): SharedPreferences =
         context.getSharedPreferences(TEMPERATURE_UNITS, Context.MODE_PRIVATE)
@@ -18,7 +20,7 @@ class SupportSharedPreferenceImpl(private val context: Context) : SupportSharedP
     }
 
     companion object {
-        private const val TEMPERATURE_UNITS = "temperatureUnits"
-        private const val TEMPERATURE_UNIT = "unit"
+        const val TEMPERATURE_UNITS = "temperatureUnits"
+        const val TEMPERATURE_UNIT = "unit"
     }
 }

@@ -12,21 +12,22 @@ import by.itacademy.training.task9mvvm.databinding.ActivityMainBinding
 import by.itacademy.training.task9mvvm.model.entity.WeatherReport
 import by.itacademy.training.task9mvvm.ui.adapter.TemperatureAdapter
 import by.itacademy.training.task9mvvm.ui.viewmodel.MainViewModel
+import by.itacademy.training.task9mvvm.util.CurrentTemperatureUnitListener
+import by.itacademy.training.task9mvvm.util.CurrentTemperatureUnitListenerImpl
 import by.itacademy.training.task9mvvm.util.Event
 import by.itacademy.training.task9mvvm.util.Status
 import by.itacademy.training.task9mvvm.util.SupportSharedPreference
 import by.itacademy.training.task9mvvm.util.SupportSharedPreferenceImpl
-import by.itacademy.training.task9mvvm.util.TemperatureUnit
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
-import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    @Inject lateinit var hourTemperatureAdapter: TemperatureAdapter
+    private lateinit var hourTemperatureAdapter: TemperatureAdapter
     private lateinit var mainViewModel: MainViewModel
     private lateinit var binding: ActivityMainBinding
     private lateinit var supportSharedPreference: SupportSharedPreference
+    private lateinit var currentTemperatureUnitListener: CurrentTemperatureUnitListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +35,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportSharedPreference = SupportSharedPreferenceImpl(this)
+        currentTemperatureUnitListener = CurrentTemperatureUnitListenerImpl(supportSharedPreference)
+
+        setCurrentSwitcherState()
 
         injectDependencies()
         setUpViewModel()
@@ -46,12 +50,23 @@ class MainActivity : AppCompatActivity() {
         (application as App).appComponent.inject(this)
     }
 
+    private fun setCurrentSwitcherState() {
+        binding.temperatureUnitSwitcher.isChecked =
+            currentTemperatureUnitListener.getCurrentTemperatureUnitState()
+    }
+
     private fun setSwitcherChangeListener() {
         binding.temperatureUnitSwitcher.setOnCheckedChangeListener {
             _, isChecked ->
             when (isChecked) {
-                true -> supportSharedPreference.setCurrentTemperatureUnit(TemperatureUnit.FAHRENHEIT)
-                false -> supportSharedPreference.setCurrentTemperatureUnit(TemperatureUnit.CELSIUS)
+                true -> {
+                    currentTemperatureUnitListener.onFahrenheitTurnOn()
+                    mainViewModel.fetchData()
+                }
+                false -> {
+                    currentTemperatureUnitListener.onCelsiusTurnOn()
+                    mainViewModel.fetchData()
+                }
             }
         }
     }
@@ -61,7 +76,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpRecyclerView() {
-        hourTemperatureAdapter = TemperatureAdapter()
+        hourTemperatureAdapter = TemperatureAdapter(currentTemperatureUnitListener)
 
         binding.recyclerView.apply {
             adapter = hourTemperatureAdapter
@@ -85,7 +100,7 @@ class MainActivity : AppCompatActivity() {
     private fun renderDataView(event: Event<WeatherReport>) {
         when (event.status) {
             Status.LOADING -> {
-                onErrorDataLoading()
+                onLoadingData()
             }
             Status.SUCCESS -> {
                 onSuccessDataLoading(event)
@@ -99,7 +114,8 @@ class MainActivity : AppCompatActivity() {
     private fun onSuccessDataLoading(event: Event<WeatherReport>) {
         hideProgressBar()
         setConditionImage(event)
-        binding.itemTemperatureTextView.text = event.data?.currentTemperature?.celsiusTemperature.toString()
+        binding.itemTemperatureTextView.text =
+            currentTemperatureUnitListener.getCurrentTemperature(event.data?.currentTemperature)
         event.data?.forecastDay?.list?.let {
             hourTemperatureAdapter.addElements(it)
         }
@@ -135,6 +151,7 @@ class MainActivity : AppCompatActivity() {
             regionNameTextView.visibility = View.INVISIBLE
             recyclerView.visibility = View.INVISIBLE
             conditionImageView.visibility = View.INVISIBLE
+            temperatureUnitSwitcher.visibility = View.INVISIBLE
         }
     }
 
@@ -145,6 +162,7 @@ class MainActivity : AppCompatActivity() {
             regionNameTextView.visibility = View.VISIBLE
             recyclerView.visibility = View.VISIBLE
             conditionImageView.visibility = View.VISIBLE
+            temperatureUnitSwitcher.visibility = View.VISIBLE
         }
     }
 
