@@ -1,6 +1,7 @@
 package by.itacademy.training.task9mvvm.ui.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -32,7 +33,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 val weatherReport = weatherForecastRepository.getWeatherForecastForDay("Minsk")
                 _weatherReportData.value = ((Event(Status.SUCCESS, weatherReport, null)))
             } catch (exception: Exception) {
-                _weatherReportData.value = (Event(Status.ERROR, null, exception.message))
+                _weatherReportData.value = (Event(Status.ERROR, null, exception.toString()))
             }
         }
     }

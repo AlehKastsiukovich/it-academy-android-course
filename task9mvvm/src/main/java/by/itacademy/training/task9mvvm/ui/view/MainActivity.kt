@@ -1,7 +1,6 @@
 package by.itacademy.training.task9mvvm.ui.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -15,6 +14,9 @@ import by.itacademy.training.task9mvvm.ui.adapter.TemperatureAdapter
 import by.itacademy.training.task9mvvm.ui.viewmodel.MainViewModel
 import by.itacademy.training.task9mvvm.util.Event
 import by.itacademy.training.task9mvvm.util.Status
+import by.itacademy.training.task9mvvm.util.SupportSharedPreference
+import by.itacademy.training.task9mvvm.util.SupportSharedPreferenceImpl
+import by.itacademy.training.task9mvvm.util.TemperatureUnit
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
@@ -24,11 +26,14 @@ class MainActivity : AppCompatActivity() {
     @Inject lateinit var hourTemperatureAdapter: TemperatureAdapter
     private lateinit var mainViewModel: MainViewModel
     private lateinit var binding: ActivityMainBinding
+    private lateinit var supportSharedPreference: SupportSharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportSharedPreference = SupportSharedPreferenceImpl(this)
 
         injectDependencies()
         setUpViewModel()
@@ -45,8 +50,8 @@ class MainActivity : AppCompatActivity() {
         binding.temperatureUnitSwitcher.setOnCheckedChangeListener {
             _, isChecked ->
             when (isChecked) {
-                true -> Log.d("TAG", "true")
-                false -> Log.d("TAG", "false")
+                true -> supportSharedPreference.setCurrentTemperatureUnit(TemperatureUnit.FAHRENHEIT)
+                false -> supportSharedPreference.setCurrentTemperatureUnit(TemperatureUnit.CELSIUS)
             }
         }
     }

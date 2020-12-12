@@ -8,15 +8,17 @@ class SupportSharedPreferenceImpl(private val context: Context) : SupportSharedP
     override fun getSharedPreference(): SharedPreferences =
         context.getSharedPreferences(TEMPERATURE_UNITS, Context.MODE_PRIVATE)
 
-    override fun setCurrentTemperatureUnit() {
-        getSharedPreference().edit().putString()
-    }
+    override fun setCurrentTemperatureUnit(unit: TemperatureUnit) =
+        getSharedPreference().edit().putString(TEMPERATURE_UNIT, unit.name).apply()
 
-    override fun getCurrentTemperatureUnit() {
-        TODO("Not yet implemented")
+    override fun getCurrentTemperatureUnit(): TemperatureUnit {
+        val currentTemperatureUnit = getSharedPreference()
+            .getString(TEMPERATURE_UNIT, TemperatureUnit.CELSIUS.name)
+        return TemperatureUnit.valueOf(currentTemperatureUnit ?: TemperatureUnit.CELSIUS.name)
     }
 
     companion object {
         private const val TEMPERATURE_UNITS = "temperatureUnits"
+        private const val TEMPERATURE_UNIT = "unit"
     }
 }

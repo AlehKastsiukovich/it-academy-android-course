@@ -6,7 +6,7 @@ interface SupportSharedPreference {
 
     fun getSharedPreference(): SharedPreferences
 
-    fun setCurrentTemperatureUnit()
+    fun setCurrentTemperatureUnit(unit: TemperatureUnit)
 
-    fun getCurrentTemperatureUnit()
+    fun getCurrentTemperatureUnit(): TemperatureUnit
 }
