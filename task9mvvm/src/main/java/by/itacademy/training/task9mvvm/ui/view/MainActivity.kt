@@ -1,6 +1,7 @@
 package by.itacademy.training.task9mvvm.ui.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -33,10 +34,21 @@ class MainActivity : AppCompatActivity() {
         setUpViewModel()
         setUpRecyclerView()
         setDataToMainWindow()
+        setSwitcherChangeListener()
     }
 
     private fun injectDependencies() {
         (application as App).appComponent.inject(this)
+    }
+
+    private fun setSwitcherChangeListener() {
+        binding.temperatureUnitSwitcher.setOnCheckedChangeListener {
+            _, isChecked ->
+            when (isChecked) {
+                true -> Log.d("TAG", "true")
+                false -> Log.d("TAG", "false")
+            }
+        }
     }
 
     private fun setUpViewModel() {
