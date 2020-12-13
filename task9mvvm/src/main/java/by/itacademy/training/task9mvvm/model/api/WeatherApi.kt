@@ -1,6 +1,6 @@
 package by.itacademy.training.task9mvvm.model.api
 
-import by.itacademy.training.task9mvvm.model.dto.ApiResponse
+import by.itacademy.training.task9mvvm.model.dto.api.ApiResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

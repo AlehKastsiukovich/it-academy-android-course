@@ -8,4 +8,7 @@
     <string name="fahrenheit_symbol">℉</string>
     <string name="celsius_symbol">℃</string>
     <string name="choose_city">Choose city</string>
+    <string name="add_city">Enter city name:</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
 </resources>

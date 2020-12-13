@@ -1,5 +1,6 @@
 package by.itacademy.training.task9mvvm.ui.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -44,6 +45,13 @@ class MainActivity : AppCompatActivity() {
         setUpRecyclerView()
         setDataToMainWindow()
         setSwitcherChangeListener()
+        setUpCitiesManagementButton()
+    }
+
+    private fun setUpCitiesManagementButton() {
+        binding.citiesManagementButton.setOnClickListener {
+            startActivity(Intent(this, CitiesActivity::class.java))
+        }
     }
 
     private fun injectDependencies() {

@@ -1,4 +1,4 @@
-package by.itacademy.training.task9mvvm.model.dto
+package by.itacademy.training.task9mvvm.model.dto.api
 
 data class Location(
     val country: String,
