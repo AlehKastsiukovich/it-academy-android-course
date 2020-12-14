@@ -25,8 +25,8 @@ class MainActivity : AppCompatActivity() {
 
     @Inject lateinit var hourTemperatureAdapter: TemperatureAdapter
     @Inject lateinit var currentTemperatureUnitListener: CurrentTemperatureUnitListener
+    lateinit var mainViewModel: MainViewModel
 
-    private lateinit var mainViewModel: MainViewModel
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

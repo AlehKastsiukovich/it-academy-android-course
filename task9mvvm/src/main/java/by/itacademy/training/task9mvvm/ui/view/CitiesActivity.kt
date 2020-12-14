@@ -2,35 +2,41 @@ package by.itacademy.training.task9mvvm.ui.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.training.task9mvvm.R
+import by.itacademy.training.task9mvvm.app.App
 import by.itacademy.training.task9mvvm.databinding.ActivityCitiesBinding
 import by.itacademy.training.task9mvvm.model.dto.db.City
 import by.itacademy.training.task9mvvm.ui.adapter.CityAdapter
 import by.itacademy.training.task9mvvm.ui.adapter.OnCityClickListener
 import by.itacademy.training.task9mvvm.ui.viewmodel.CitiesViewModel
 import com.google.android.material.snackbar.Snackbar
+import javax.inject.Inject
 
 class CitiesActivity : AppCompatActivity(), CityAddListener, OnCityClickListener {
 
+    private lateinit var cityAdapter: CityAdapter
     private lateinit var binding: ActivityCitiesBinding
     private lateinit var model: CitiesViewModel
-    private lateinit var cityAdapter: CityAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCitiesBinding.inflate(layoutInflater)
+        (application as App).appComponent.inject(this)
         setContentView(binding.root)
-        model = ViewModelProvider(this).get(CitiesViewModel::class.java)
 
+        setUpViewModel()
         setUpRecyclerView()
         observeCitiesChanges()
         setAddCityButtonListener()
+    }
+
+    private fun setUpViewModel() {
+        model = ViewModelProvider(this).get(CitiesViewModel::class.java)
     }
 
     private fun observeCitiesChanges() {
@@ -83,7 +89,7 @@ class CitiesActivity : AppCompatActivity(), CityAddListener, OnCityClickListener
 
     private fun setAddCityButtonListener() {
         binding.addCityFloatingButton.setOnClickListener {
-            AddCityDialogFragment(this).apply { show(supportFragmentManager, "TAG") }
+            AddCityDialogFragment(this).apply { show(supportFragmentManager, DIALOG_TAG) }
         }
     }
 
@@ -95,5 +101,9 @@ class CitiesActivity : AppCompatActivity(), CityAddListener, OnCityClickListener
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra(resources.getString(R.string.city_name_bundle), city.name)
         startActivity(intent)
+    }
+
+    companion object {
+        private const val DIALOG_TAG = "dialogTag"
     }
 }

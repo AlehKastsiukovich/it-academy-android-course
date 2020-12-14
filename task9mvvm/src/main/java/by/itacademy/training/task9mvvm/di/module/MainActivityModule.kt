@@ -1,18 +1,15 @@
 package by.itacademy.training.task9mvvm.di.module
 
-import android.app.Application
-import by.itacademy.training.task9mvvm.util.SupportSharedPreference
-import by.itacademy.training.task9mvvm.util.SupportSharedPreferenceImpl
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import by.itacademy.training.task9mvvm.ui.viewmodel.MainViewModel
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 @Module
 class MainActivityModule {
 
-    @Singleton
     @Provides
-    fun provideSupportSharedPreference(application: Application): SupportSharedPreference {
-        return SupportSharedPreferenceImpl(application)
-    }
+    fun provideMainViewModel(activity: AppCompatActivity): MainViewModel =
+        ViewModelProvider(activity).get(MainViewModel::class.java)
 }

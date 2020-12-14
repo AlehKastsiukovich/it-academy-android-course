@@ -16,7 +16,6 @@ class TemperatureAdapter @Inject constructor (
 ) : RecyclerView.Adapter<TemperatureAdapter.TemperatureItemViewHolder>() {
 
     private lateinit var binding: HourTemperatureItemBinding
-
     private val hourTemperatureList = mutableListOf<HourTemperature>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TemperatureItemViewHolder {
