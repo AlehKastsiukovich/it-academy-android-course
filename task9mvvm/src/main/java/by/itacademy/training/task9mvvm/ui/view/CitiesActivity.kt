@@ -6,10 +6,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.training.task9mvvm.databinding.ActivityCitiesBinding
+import by.itacademy.training.task9mvvm.model.dto.db.City
 import by.itacademy.training.task9mvvm.ui.adapter.CityAdapter
 import by.itacademy.training.task9mvvm.ui.viewmodel.CitiesViewModel
 
-class CitiesActivity : AppCompatActivity() {
+class CitiesActivity : AppCompatActivity(), CityAddListener {
 
     private lateinit var binding: ActivityCitiesBinding
     private lateinit var model: CitiesViewModel
@@ -45,7 +46,11 @@ class CitiesActivity : AppCompatActivity() {
 
     private fun setAddCityButtonListener() {
         binding.addCityFloatingButton.setOnClickListener {
-            AddCityDialogFragment().apply { show(supportFragmentManager, "TAG") }
+            AddCityDialogFragment(this).apply { show(supportFragmentManager, "TAG") }
         }
+    }
+
+    override fun onCityAdd(city: City) {
+        model.addCity(city)
     }
 }

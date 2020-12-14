@@ -7,23 +7,32 @@ import android.view.LayoutInflater
 import androidx.fragment.app.DialogFragment
 import by.itacademy.training.task9mvvm.R
 import by.itacademy.training.task9mvvm.databinding.DialogBinding
+import by.itacademy.training.task9mvvm.model.dto.db.City
 
-class AddCityDialogFragment : DialogFragment() {
+class AddCityDialogFragment(private val addListener: CityAddListener) : DialogFragment() {
 
     private lateinit var binding: DialogBinding
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         bindLayout()
-        val dialogBuilder = AlertDialog.Builder(activity).apply {
+        return createDialogBuilder().create()
+    }
+
+    private fun createDialogBuilder(): AlertDialog.Builder {
+        return AlertDialog.Builder(activity).apply {
             setTitle(resources.getString(R.string.add_city))
             setView(binding.root)
             setPositiveButton(
                 resources.getString(R.string.confirm)
-            ) { _, _ -> }
+            ) { _, _ ->
+                val cityName = readCityNameFromDialog()
+                addListener.onCityAdd(City(cityName))
+            }
             setNegativeButton(resources.getString(R.string.cancel)) { _, _ -> }
         }
-        return dialogBuilder.create()
     }
+
+    private fun readCityNameFromDialog() = binding.cityNameEditText.text.toString()
 
     private fun bindLayout() {
         binding = DialogBinding.inflate(LayoutInflater.from(context))
