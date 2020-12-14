@@ -1,14 +1,17 @@
 package by.itacademy.training.task9mvvm.ui.view
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import by.itacademy.training.task9mvvm.R
 import by.itacademy.training.task9mvvm.databinding.ActivityCitiesBinding
 import by.itacademy.training.task9mvvm.model.dto.db.City
 import by.itacademy.training.task9mvvm.ui.adapter.CityAdapter
 import by.itacademy.training.task9mvvm.ui.viewmodel.CitiesViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class CitiesActivity : AppCompatActivity(), CityAddListener {
 
@@ -28,12 +31,43 @@ class CitiesActivity : AppCompatActivity(), CityAddListener {
     }
 
     private fun observeCitiesChanges() {
-        model.cities.observe(
-            this,
-            Observer {
-                cityAdapter.addCities(it)
-            }
-        )
+        onLoading()
+        try {
+            model.cities.observe(this, Observer { cityAdapter.addCities(it) })
+            onSuccess()
+        } catch (e: Exception) {
+            onError()
+        }
+    }
+
+    private fun onSuccess() {
+        with(binding) {
+            container.visibility = View.VISIBLE
+            progressBar.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun onLoading() {
+        with(binding) {
+            container.visibility = View.INVISIBLE
+            progressBar.visibility = View.VISIBLE
+        }
+    }
+
+    private fun onError() {
+        with(binding) {
+            container.visibility = View.INVISIBLE
+            progressBar.visibility = View.VISIBLE
+        }
+        showErrorMessage()
+    }
+
+    private fun showErrorMessage() {
+        Snackbar.make(
+            binding.root,
+            resources.getString(R.string.weather_report_loading_error),
+            Snackbar.LENGTH_LONG
+        ).show()
     }
 
     private fun setUpRecyclerView() {

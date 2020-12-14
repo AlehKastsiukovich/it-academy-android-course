@@ -106,15 +106,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun renderDataView(event: Event<WeatherReport>) {
         when (event.status) {
-            Status.LOADING -> {
-                onLoadingData()
-            }
-            Status.SUCCESS -> {
-                onSuccessDataLoading(event)
-            }
-            Status.ERROR -> {
-                onErrorDataLoading()
-            }
+            Status.LOADING -> onLoadingData()
+            Status.SUCCESS -> onSuccessDataLoading(event)
+            Status.ERROR -> onErrorDataLoading()
         }
     }
 

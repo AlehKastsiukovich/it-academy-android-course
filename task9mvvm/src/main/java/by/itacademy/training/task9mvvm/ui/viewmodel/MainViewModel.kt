@@ -27,12 +27,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun fetchData() {
         viewModelScope.launch {
-            _weatherReportData.value = (Event(Status.LOADING, null, null))
+            _weatherReportData.value = Event(Status.LOADING, null, null)
             try {
                 val weatherReport = weatherForecastRepository.getWeatherForecastForDay("Minsk")
-                _weatherReportData.value = ((Event(Status.SUCCESS, weatherReport, null)))
+                _weatherReportData.value = Event(Status.SUCCESS, weatherReport, null)
             } catch (exception: Exception) {
-                _weatherReportData.value = (Event(Status.ERROR, null, exception.toString()))
+                _weatherReportData.value = Event(Status.ERROR, null, exception.toString())
             }
         }
     }
