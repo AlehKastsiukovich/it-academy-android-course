@@ -17,11 +17,15 @@ class DatabaseModule {
         return Room.databaseBuilder(
             application,
             CitiesDatabase::class.java,
-            "cities_database"
+            DATABASE_NAME
         ).build()
     }
 
     @Singleton
     @Provides
     fun provideCitiesDao(cityDatabase: CitiesDatabase): CitiesDao = cityDatabase.citiesDao()
+
+    companion object {
+        private const val DATABASE_NAME = "cities_database"
+    }
 }
