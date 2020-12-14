@@ -1,14 +1,14 @@
 package by.itacademy.training.task9mvvm.di.module
 
-import android.content.Context
+import android.app.Application
 import dagger.Module
 import dagger.Provides
-import javax.inject.Named
+import javax.inject.Singleton
 
 @Module
-class AppContextModule(private val context: Context) {
+class AppContextModule(private val application: Application) {
 
+    @Singleton
     @Provides
-    @Named("appContext")
-    fun provideContext(context: Context): Context = context.applicationContext
+    fun provideContext(): Application = application
 }

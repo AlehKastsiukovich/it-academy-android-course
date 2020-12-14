@@ -19,7 +19,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private var _weatherReportData = MutableLiveData<Event<WeatherReport>>()
     val weatherReportData: LiveData<Event<WeatherReport>> = _weatherReportData
-    var cityName = "Minsk"
+    var cityName = DEFAULT_CITY
 
     init {
         (application as App).appComponent.inject(this)
@@ -36,5 +36,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 _weatherReportData.value = Event(Status.ERROR, null, exception.toString())
             }
         }
+    }
+
+    companion object {
+        private const val DEFAULT_CITY = "Minsk"
     }
 }
