@@ -1,6 +1,8 @@
 package by.itacademy.training.task9mvvm.ui.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -10,10 +12,11 @@ import by.itacademy.training.task9mvvm.R
 import by.itacademy.training.task9mvvm.databinding.ActivityCitiesBinding
 import by.itacademy.training.task9mvvm.model.dto.db.City
 import by.itacademy.training.task9mvvm.ui.adapter.CityAdapter
+import by.itacademy.training.task9mvvm.ui.adapter.OnCityClickListener
 import by.itacademy.training.task9mvvm.ui.viewmodel.CitiesViewModel
 import com.google.android.material.snackbar.Snackbar
 
-class CitiesActivity : AppCompatActivity(), CityAddListener {
+class CitiesActivity : AppCompatActivity(), CityAddListener, OnCityClickListener {
 
     private lateinit var binding: ActivityCitiesBinding
     private lateinit var model: CitiesViewModel
@@ -71,7 +74,7 @@ class CitiesActivity : AppCompatActivity(), CityAddListener {
     }
 
     private fun setUpRecyclerView() {
-        cityAdapter = CityAdapter()
+        cityAdapter = CityAdapter(this)
         binding.citiesRecyclerView.apply {
             adapter = cityAdapter
             layoutManager = LinearLayoutManager(this@CitiesActivity)
@@ -86,5 +89,11 @@ class CitiesActivity : AppCompatActivity(), CityAddListener {
 
     override fun onCityAdd(city: City) {
         model.addCity(city)
+    }
+
+    override fun onCityClick(city: City) {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra(resources.getString(R.string.city_name_bundle), city.name)
+        startActivity(intent)
     }
 }

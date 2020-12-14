@@ -19,6 +19,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private var _weatherReportData = MutableLiveData<Event<WeatherReport>>()
     val weatherReportData: LiveData<Event<WeatherReport>> = _weatherReportData
+    var cityName = "Minsk"
 
     init {
         (application as App).appComponent.inject(this)
@@ -29,7 +30,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             _weatherReportData.value = Event(Status.LOADING, null, null)
             try {
-                val weatherReport = weatherForecastRepository.getWeatherForecastForDay("Minsk")
+                val weatherReport = weatherForecastRepository.getWeatherForecastForDay(cityName)
                 _weatherReportData.value = Event(Status.SUCCESS, weatherReport, null)
             } catch (exception: Exception) {
                 _weatherReportData.value = Event(Status.ERROR, null, exception.toString())

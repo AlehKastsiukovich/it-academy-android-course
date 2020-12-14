@@ -2,6 +2,7 @@ package by.itacademy.training.task9mvvm.ui.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -39,9 +40,10 @@ class MainActivity : AppCompatActivity() {
         supportSharedPreference = SupportSharedPreferenceImpl(this)
         currentTemperatureUnitListener = CurrentTemperatureUnitListenerImpl(supportSharedPreference)
 
+        setUpViewModel()
+        chooseCurrentCity()
         setCurrentSwitcherState()
         injectDependencies()
-        setUpViewModel()
         setUpRecyclerView()
         setDataToMainWindow()
         setSwitcherChangeListener()
@@ -76,6 +78,14 @@ class MainActivity : AppCompatActivity() {
                     mainViewModel.fetchData()
                 }
             }
+        }
+    }
+
+    private fun chooseCurrentCity() {
+        val cityName = intent?.extras?.getString(resources.getString(R.string.city_name_bundle))
+        cityName?.let {
+            mainViewModel.cityName = it
+            mainViewModel.fetchData()
         }
     }
 
@@ -115,6 +125,7 @@ class MainActivity : AppCompatActivity() {
     private fun onSuccessDataLoading(event: Event<WeatherReport>) {
         hideProgressBar()
         setConditionImage(event)
+        locationDataToView(event)
         binding.itemTemperatureTextView.text =
             currentTemperatureUnitListener.getCurrentTemperature(event.data?.currentTemperature)
         setDataToAdapter(event.data?.forecastDay?.list)
@@ -134,6 +145,11 @@ class MainActivity : AppCompatActivity() {
             resources.getString(R.string.weather_report_loading_error),
             Snackbar.LENGTH_LONG
         ).show()
+    }
+
+    private fun locationDataToView(event: Event<WeatherReport>) {
+        binding.cityNameTextView.text = event.data?.location?.name
+        binding.regionNameTextView.text = event.data?.location?.country
     }
 
     private fun setDataToAdapter(list: List<HourTemperature>?) {
