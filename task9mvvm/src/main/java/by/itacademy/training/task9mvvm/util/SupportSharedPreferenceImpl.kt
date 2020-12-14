@@ -2,8 +2,9 @@ package by.itacademy.training.task9mvvm.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import javax.inject.Inject
 
-class SupportSharedPreferenceImpl(
+class SupportSharedPreferenceImpl @Inject constructor(
     private val context: Context
 ) : SupportSharedPreference {
 

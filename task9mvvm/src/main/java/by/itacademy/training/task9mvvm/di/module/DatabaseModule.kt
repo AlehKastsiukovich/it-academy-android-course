@@ -1,7 +1,6 @@
 package by.itacademy.training.task9mvvm.di.module
 
 import android.app.Application
-import android.content.Context
 import androidx.room.Room
 import by.itacademy.training.task9mvvm.db.CitiesDao
 import by.itacademy.training.task9mvvm.db.CitiesDatabase

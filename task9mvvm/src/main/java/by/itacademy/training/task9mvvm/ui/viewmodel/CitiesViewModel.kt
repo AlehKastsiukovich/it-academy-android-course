@@ -14,8 +14,6 @@ import javax.inject.Inject
 
 class CitiesViewModel(application: Application) : AndroidViewModel(application) {
 
-//    private val dao = CitiesDatabase.getCityDatabase(application).citiesDao()
-//    private val repository = CitiesRepositoryImpl(dao)
     @Inject lateinit var citiesRepository: CitiesRepository
 
     private var _cities: LiveData<List<City>> = MutableLiveData<List<City>>()

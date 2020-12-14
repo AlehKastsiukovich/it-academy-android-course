@@ -2,7 +2,7 @@ package by.itacademy.training.task9mvvm.di.component
 
 import by.itacademy.training.task9mvvm.di.module.AppContextModule
 import by.itacademy.training.task9mvvm.di.module.DatabaseModule
-import by.itacademy.training.task9mvvm.di.module.MainActivityContextModule
+import by.itacademy.training.task9mvvm.di.module.MainActivityModule
 import by.itacademy.training.task9mvvm.di.module.NetworkModule
 import by.itacademy.training.task9mvvm.di.module.RepositoryModule
 import by.itacademy.training.task9mvvm.di.module.SharePreferenceModule
@@ -17,7 +17,7 @@ import javax.inject.Singleton
     modules = [
         AppContextModule::class, NetworkModule::class,
         RepositoryModule::class, UtilModule::class,
-        SharePreferenceModule::class, MainActivityContextModule::class,
+        SharePreferenceModule::class, MainActivityModule::class,
         DatabaseModule::class
     ]
 )

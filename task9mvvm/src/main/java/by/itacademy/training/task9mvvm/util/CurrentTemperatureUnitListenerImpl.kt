@@ -2,8 +2,9 @@ package by.itacademy.training.task9mvvm.util
 
 import by.itacademy.training.task9mvvm.model.entity.CurrentTemperature
 import by.itacademy.training.task9mvvm.model.entity.HourTemperature
+import javax.inject.Inject
 
-class CurrentTemperatureUnitListenerImpl constructor(
+class CurrentTemperatureUnitListenerImpl @Inject constructor(
     private val sharedPreference: SupportSharedPreference
 ) : CurrentTemperatureUnitListener {
 

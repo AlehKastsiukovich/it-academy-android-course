@@ -2,7 +2,6 @@ package by.itacademy.training.task9mvvm.ui.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -16,34 +15,29 @@ import by.itacademy.training.task9mvvm.model.entity.WeatherReport
 import by.itacademy.training.task9mvvm.ui.adapter.TemperatureAdapter
 import by.itacademy.training.task9mvvm.ui.viewmodel.MainViewModel
 import by.itacademy.training.task9mvvm.util.CurrentTemperatureUnitListener
-import by.itacademy.training.task9mvvm.util.CurrentTemperatureUnitListenerImpl
 import by.itacademy.training.task9mvvm.util.Event
 import by.itacademy.training.task9mvvm.util.Status
-import by.itacademy.training.task9mvvm.util.SupportSharedPreference
-import by.itacademy.training.task9mvvm.util.SupportSharedPreferenceImpl
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var hourTemperatureAdapter: TemperatureAdapter
+    @Inject lateinit var hourTemperatureAdapter: TemperatureAdapter
+    @Inject lateinit var currentTemperatureUnitListener: CurrentTemperatureUnitListener
+
     private lateinit var mainViewModel: MainViewModel
     private lateinit var binding: ActivityMainBinding
-    private lateinit var supportSharedPreference: SupportSharedPreference
-    private lateinit var currentTemperatureUnitListener: CurrentTemperatureUnitListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        injectDependencies()
         setContentView(binding.root)
-
-        supportSharedPreference = SupportSharedPreferenceImpl(this)
-        currentTemperatureUnitListener = CurrentTemperatureUnitListenerImpl(supportSharedPreference)
 
         setUpViewModel()
         chooseCurrentCity()
         setCurrentSwitcherState()
-        injectDependencies()
         setUpRecyclerView()
         setDataToMainWindow()
         setSwitcherChangeListener()
@@ -94,7 +88,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpRecyclerView() {
-        hourTemperatureAdapter = TemperatureAdapter(currentTemperatureUnitListener)
         binding.recyclerView.apply {
             adapter = hourTemperatureAdapter
             layoutManager = LinearLayoutManager(

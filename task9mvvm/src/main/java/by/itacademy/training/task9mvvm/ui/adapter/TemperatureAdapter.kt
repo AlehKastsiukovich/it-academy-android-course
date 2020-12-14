@@ -11,7 +11,7 @@ import by.itacademy.training.task9mvvm.util.CurrentTemperatureUnitListener
 import com.bumptech.glide.Glide
 import javax.inject.Inject
 
-class TemperatureAdapter(
+class TemperatureAdapter @Inject constructor (
     private val currentTemperatureUnitListener: CurrentTemperatureUnitListener
 ) : RecyclerView.Adapter<TemperatureAdapter.TemperatureItemViewHolder>() {
 
