@@ -8,7 +8,9 @@ import by.itacademy.training.task9mvvm.R
 import by.itacademy.training.task9mvvm.databinding.CityItemBinding
 import by.itacademy.training.task9mvvm.model.dto.db.City
 
-class CityAdapter : RecyclerView.Adapter<CityAdapter.CityViewHolder>() {
+class CityAdapter(
+    private val onCityClickListener: OnCityClickListener
+) : RecyclerView.Adapter<CityAdapter.CityViewHolder>() {
 
     private var cityList = mutableListOf<City>()
     private lateinit var binding: CityItemBinding
@@ -18,7 +20,7 @@ class CityAdapter : RecyclerView.Adapter<CityAdapter.CityViewHolder>() {
             .from(parent.context)
             .inflate(R.layout.city_item, parent, false)
         binding = CityItemBinding.bind(view)
-        return CityViewHolder(view, binding)
+        return CityViewHolder(view, binding, onCityClickListener)
     }
 
     override fun onBindViewHolder(holder: CityViewHolder, position: Int) {
@@ -35,11 +37,13 @@ class CityAdapter : RecyclerView.Adapter<CityAdapter.CityViewHolder>() {
 
     class CityViewHolder(
         private val itemView: View,
-        private val binding: CityItemBinding
+        private val binding: CityItemBinding,
+        private val onCityClickListener: OnCityClickListener
     ) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(city: City) {
             binding.cityNameTextView.text = city.name
+            itemView.setOnClickListener { onCityClickListener.onCityClick(city) }
         }
     }
 }
