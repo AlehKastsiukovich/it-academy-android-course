@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     @Inject lateinit var hourTemperatureAdapter: TemperatureAdapter
     @Inject lateinit var currentTemperatureUnitListener: CurrentTemperatureUnitListener
-    lateinit var mainViewModel: MainViewModel
+    @Inject lateinit var mainViewModel: MainViewModel
 
     private lateinit var binding: ActivityMainBinding
 
@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         injectDependencies()
         setContentView(binding.root)
 
-        setUpViewModel()
         chooseCurrentCity()
         setCurrentSwitcherState()
         setUpRecyclerView()
@@ -51,7 +50,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun injectDependencies() {
-        (application as App).appComponent.inject(this)
+        (application as App)
+            .appComponent
+            .activityComponentBuilder()
+            .with(this)
+            .build()
+            .inject(this)
     }
 
     private fun setCurrentSwitcherState() {

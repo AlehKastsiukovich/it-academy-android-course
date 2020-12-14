@@ -12,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class CitiesViewModel(application: Application) : AndroidViewModel(application) {
+class CitiesViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
 
     @Inject lateinit var citiesRepository: CitiesRepository
 

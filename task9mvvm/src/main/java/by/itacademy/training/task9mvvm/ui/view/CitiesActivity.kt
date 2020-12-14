@@ -19,20 +19,28 @@ import javax.inject.Inject
 
 class CitiesActivity : AppCompatActivity(), CityAddListener, OnCityClickListener {
 
-    private lateinit var cityAdapter: CityAdapter
+    @Inject lateinit var cityAdapter: CityAdapter
+    @Inject lateinit var model: CitiesViewModel
+
     private lateinit var binding: ActivityCitiesBinding
-    private lateinit var model: CitiesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCitiesBinding.inflate(layoutInflater)
-        (application as App).appComponent.inject(this)
+        inject()
         setContentView(binding.root)
 
-        setUpViewModel()
         setUpRecyclerView()
         observeCitiesChanges()
         setAddCityButtonListener()
+    }
+
+    private fun inject() {
+        (application as App).appComponent
+            .citiesActivityComponentBuilder()
+            .with(this)
+            .build()
+            .inject(this)
     }
 
     private fun setUpViewModel() {
@@ -80,7 +88,6 @@ class CitiesActivity : AppCompatActivity(), CityAddListener, OnCityClickListener
     }
 
     private fun setUpRecyclerView() {
-        cityAdapter = CityAdapter(this)
         binding.citiesRecyclerView.apply {
             adapter = cityAdapter
             layoutManager = LinearLayoutManager(this@CitiesActivity)

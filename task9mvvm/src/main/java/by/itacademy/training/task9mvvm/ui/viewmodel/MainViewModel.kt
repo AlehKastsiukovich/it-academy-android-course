@@ -13,7 +13,7 @@ import by.itacademy.training.task9mvvm.util.Status
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
 
     @Inject lateinit var weatherForecastRepository: WeatherForecastRepository
 

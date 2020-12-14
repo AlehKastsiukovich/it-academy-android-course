@@ -1,6 +1,5 @@
 package by.itacademy.training.task9mvvm.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,8 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import by.itacademy.training.task9mvvm.R
 import by.itacademy.training.task9mvvm.databinding.CityItemBinding
 import by.itacademy.training.task9mvvm.model.dto.db.City
+import javax.inject.Inject
 
-class CityAdapter(
+class CityAdapter @Inject constructor(
     private val onCityClickListener: OnCityClickListener
 ) : RecyclerView.Adapter<CityAdapter.CityViewHolder>() {
 
