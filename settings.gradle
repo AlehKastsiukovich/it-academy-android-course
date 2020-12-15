@@ -1,3 +1,3 @@
-include ':task9mvvm'
+include ':task9mvp'
 include ':app'
 rootProject.name = "It Academy Course"

@@ -1,0 +1,29 @@
+package by.itacademy.training.task9mvp.di.component
+
+import by.itacademy.training.task9mvp.di.module.AppContextModule
+import by.itacademy.training.task9mvp.di.module.DatabaseModule
+import by.itacademy.training.task9mvp.di.module.NetworkModule
+import by.itacademy.training.task9mvp.di.module.RepositoryModule
+import by.itacademy.training.task9mvp.di.module.SharePreferenceModule
+import by.itacademy.training.task9mvp.di.module.UtilModule
+import by.itacademy.training.task9mvp.ui.viewmodel.CitiesViewModel
+import by.itacademy.training.task9mvp.ui.viewmodel.MainViewModel
+import dagger.Component
+import javax.inject.Singleton
+
+@Component(
+    modules = [
+        AppContextModule::class, NetworkModule::class,
+        RepositoryModule::class, UtilModule::class,
+        SharePreferenceModule::class, DatabaseModule::class
+    ]
+)
+@Singleton
+interface AppComponent {
+
+    fun inject(mainViewModel: MainViewModel)
+    fun inject(citiesViewModel: CitiesViewModel)
+
+    fun activityComponentBuilder(): ActivityComponent.Builder
+    fun citiesActivityComponentBuilder(): CitiesActivityComponent.Builder
+}
