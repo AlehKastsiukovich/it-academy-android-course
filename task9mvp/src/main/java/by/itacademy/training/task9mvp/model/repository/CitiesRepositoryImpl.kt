@@ -2,7 +2,7 @@ package by.itacademy.training.task9mvp.model.repository
 
 import by.itacademy.training.task9mvp.db.CitiesDao
 import by.itacademy.training.task9mvp.model.dto.db.CityDto
-import by.itacademy.training.task9mvp.model.entity.City
+import by.itacademy.training.task9mvp.model.domain.City
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers

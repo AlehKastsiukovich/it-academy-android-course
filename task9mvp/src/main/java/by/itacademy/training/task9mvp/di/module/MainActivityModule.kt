@@ -10,12 +10,4 @@ class MainActivityModule {
 
     @Provides
     fun provideMainActivityView(mainActivity: MainActivity): MainActivityView = mainActivity
-
-//    @Provides
-//    fun provideMainViewModel(activity: AppCompatActivity): MainViewModel =
-//        ViewModelProvider(activity).get(MainViewModel::class.java)
-//
-//    @Provides
-//    fun provideCitiesViewModel(activity: AppCompatActivity): CitiesViewModel =
-//        ViewModelProvider(activity).get(CitiesViewModel::class.java)
 }

@@ -1,17 +1,16 @@
 package by.itacademy.training.task9mvp.model.repository
 
 import by.itacademy.training.task9mvp.model.api.WeatherApi
-import by.itacademy.training.task9mvp.model.entity.WeatherReport
-import by.itacademy.training.task9mvp.util.DTOMapper
-import io.reactivex.Observable
+import by.itacademy.training.task9mvp.model.domain.WeatherReport
+import io.reactivex.Single
 import javax.inject.Inject
 
 class WeatherForecastRepositoryImpl @Inject constructor(
     private val api: WeatherApi,
-    private val dtoMapper: DTOMapper
+    private val dtoMapper: WeatherReportMapper
 ) : WeatherForecastRepository {
 
-    override fun getWeatherForecastForDay(city: String): Observable<WeatherReport> =
+    override fun getWeatherForecastForDay(city: String): Single<WeatherReport> =
         api.getCurrentWeather(city).map {
             dtoMapper.invoke(it)
         }

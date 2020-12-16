@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import androidx.fragment.app.DialogFragment
 import by.itacademy.training.task9mvp.R
 import by.itacademy.training.task9mvp.databinding.DialogBinding
-import by.itacademy.training.task9mvp.model.entity.City
+import by.itacademy.training.task9mvp.model.domain.City
 
 class AddCityDialogFragment(private val addListener: CityAddListener) : DialogFragment() {
 

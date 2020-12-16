@@ -1,6 +1,6 @@
 package by.itacademy.training.task9mvp.ui.view
 
-import by.itacademy.training.task9mvp.model.entity.WeatherReport
+import by.itacademy.training.task9mvp.model.domain.WeatherReport
 
 interface MainActivityView {
 

@@ -6,8 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import by.itacademy.training.task9mvp.R
 import by.itacademy.training.task9mvp.databinding.CityItemBinding
-import by.itacademy.training.task9mvp.model.dto.db.CityDto
-import by.itacademy.training.task9mvp.model.entity.City
+import by.itacademy.training.task9mvp.model.domain.City
 import javax.inject.Inject
 
 class CityAdapter @Inject constructor(

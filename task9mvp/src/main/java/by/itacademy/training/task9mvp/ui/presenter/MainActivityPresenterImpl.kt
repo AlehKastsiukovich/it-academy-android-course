@@ -1,10 +1,9 @@
 package by.itacademy.training.task9mvp.ui.presenter
 
-import by.itacademy.training.task9mvp.model.entity.CurrentTemperature
-import by.itacademy.training.task9mvp.model.entity.WeatherReport
+import by.itacademy.training.task9mvp.model.domain.CurrentTemperature
+import by.itacademy.training.task9mvp.model.domain.WeatherReport
 import by.itacademy.training.task9mvp.model.repository.WeatherForecastRepository
 import by.itacademy.training.task9mvp.ui.view.MainActivityView
-import by.itacademy.training.task9mvp.util.CurrentTemperatureUnitListener
 import by.itacademy.training.task9mvp.util.SupportSharedPreference
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

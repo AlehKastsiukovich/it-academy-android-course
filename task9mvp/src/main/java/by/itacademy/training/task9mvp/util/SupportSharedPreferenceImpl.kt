@@ -2,6 +2,7 @@ package by.itacademy.training.task9mvp.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import by.itacademy.training.task9mvp.model.domain.TemperatureUnit
 import javax.inject.Inject
 
 class SupportSharedPreferenceImpl @Inject constructor(

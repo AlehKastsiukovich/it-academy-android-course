@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.training.task9mvp.R
 import by.itacademy.training.task9mvp.app.App
 import by.itacademy.training.task9mvp.databinding.ActivityCitiesBinding
-import by.itacademy.training.task9mvp.model.entity.City
+import by.itacademy.training.task9mvp.model.domain.City
 import by.itacademy.training.task9mvp.ui.adapter.CityAdapter
 import by.itacademy.training.task9mvp.ui.adapter.OnCityClickListener
 import by.itacademy.training.task9mvp.ui.presenter.CitiesActivityPresenter

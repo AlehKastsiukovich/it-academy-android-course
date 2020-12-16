@@ -1,7 +1,9 @@
-package by.itacademy.training.task9mvp.util
+package by.itacademy.training.task9mvp.ui.presenter
 
-import by.itacademy.training.task9mvp.model.entity.CurrentTemperature
-import by.itacademy.training.task9mvp.model.entity.HourTemperature
+import by.itacademy.training.task9mvp.model.domain.CurrentTemperature
+import by.itacademy.training.task9mvp.model.domain.HourTemperature
+import by.itacademy.training.task9mvp.util.SupportSharedPreference
+import by.itacademy.training.task9mvp.model.domain.TemperatureUnit
 import javax.inject.Inject
 
 class CurrentTemperatureUnitListenerImpl @Inject constructor(

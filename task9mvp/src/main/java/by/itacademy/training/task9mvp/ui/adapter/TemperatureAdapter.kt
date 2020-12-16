@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import by.itacademy.training.task9mvp.R
 import by.itacademy.training.task9mvp.databinding.HourTemperatureItemBinding
-import by.itacademy.training.task9mvp.model.entity.HourTemperature
-import by.itacademy.training.task9mvp.util.CurrentTemperatureUnitListener
+import by.itacademy.training.task9mvp.model.domain.HourTemperature
+import by.itacademy.training.task9mvp.ui.presenter.CurrentTemperatureUnitListener
 import com.bumptech.glide.Glide
 import javax.inject.Inject
 

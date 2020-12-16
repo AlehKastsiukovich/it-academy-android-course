@@ -2,15 +2,14 @@ package by.itacademy.training.task9mvp.ui.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.training.task9mvp.R
 import by.itacademy.training.task9mvp.app.App
 import by.itacademy.training.task9mvp.databinding.ActivityMainBinding
-import by.itacademy.training.task9mvp.model.entity.HourTemperature
-import by.itacademy.training.task9mvp.model.entity.WeatherReport
+import by.itacademy.training.task9mvp.model.domain.HourTemperature
+import by.itacademy.training.task9mvp.model.domain.WeatherReport
 import by.itacademy.training.task9mvp.ui.adapter.TemperatureAdapter
 import by.itacademy.training.task9mvp.ui.presenter.MainActivityPresenter
 import com.bumptech.glide.Glide

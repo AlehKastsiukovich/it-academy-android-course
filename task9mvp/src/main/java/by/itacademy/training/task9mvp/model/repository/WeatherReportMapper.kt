@@ -1,17 +1,18 @@
-package by.itacademy.training.task9mvp.util
+package by.itacademy.training.task9mvp.model.repository
 
+import by.itacademy.training.task9mvp.model.domain.Condition
+import by.itacademy.training.task9mvp.model.domain.CurrentTemperature
+import by.itacademy.training.task9mvp.model.domain.ForecastDay
+import by.itacademy.training.task9mvp.model.domain.HourTemperature
+import by.itacademy.training.task9mvp.model.domain.Location
+import by.itacademy.training.task9mvp.model.domain.WeatherReport
 import by.itacademy.training.task9mvp.model.dto.api.ApiResponse
-import by.itacademy.training.task9mvp.model.entity.Condition
-import by.itacademy.training.task9mvp.model.entity.CurrentTemperature
-import by.itacademy.training.task9mvp.model.entity.ForecastDay
-import by.itacademy.training.task9mvp.model.entity.HourTemperature
-import by.itacademy.training.task9mvp.model.entity.Location
-import by.itacademy.training.task9mvp.model.entity.WeatherReport
+import by.itacademy.training.task9mvp.util.Formatter
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class DTOMapper @Inject constructor(private val formatter: MetricFormatter) :
+class WeatherReportMapper @Inject constructor(private val formatter: Formatter) :
     (ApiResponse) -> WeatherReport {
 
     override fun invoke(resposne: ApiResponse): WeatherReport {

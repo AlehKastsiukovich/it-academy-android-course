@@ -1,6 +1,7 @@
 package by.itacademy.training.task9mvp.util
 
 import android.content.SharedPreferences
+import by.itacademy.training.task9mvp.model.domain.TemperatureUnit
 
 interface SupportSharedPreference {
 
