@@ -1,11 +1,11 @@
 package by.itacademy.training.task9mvp.model.repository
 
-import androidx.lifecycle.LiveData
-import by.itacademy.training.task9mvp.model.dto.db.City
+import by.itacademy.training.task9mvp.model.dto.db.CityDto
+import io.reactivex.Observable
 
 interface CitiesRepository {
 
-    fun getAllCities(): LiveData<List<City>>
+    fun getAllCities(): Observable<List<CityDto>>
 
-    suspend fun insertCity(city: City)
+    fun insertCity(city: CityDto)
 }

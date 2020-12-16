@@ -20,5 +20,5 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun activityComponentBuilder(): ActivityComponent.Builder
-//    fun citiesActivityComponentBuilder(): CitiesActivityComponent.Builder
+    fun citiesActivityComponentBuilder(): CitiesActivityComponent.Builder
 }

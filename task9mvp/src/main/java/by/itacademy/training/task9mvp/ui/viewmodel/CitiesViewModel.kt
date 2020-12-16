@@ -4,20 +4,15 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import by.itacademy.training.task9mvp.app.App
-import by.itacademy.training.task9mvp.model.dto.db.City
-import by.itacademy.training.task9mvp.model.repository.CitiesRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import by.itacademy.training.task9mvp.model.dto.db.CityDto
 import javax.inject.Inject
 
 class CitiesViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
 
 //    @Inject lateinit var citiesRepository: CitiesRepository
 
-    private var _cities: LiveData<List<City>> = MutableLiveData<List<City>>()
-    val cities: LiveData<List<City>>
+    private var _cities: LiveData<List<CityDto>> = MutableLiveData<List<CityDto>>()
+    val cities: LiveData<List<CityDto>>
         get() = _cities
 
     init {
@@ -25,7 +20,7 @@ class CitiesViewModel @Inject constructor(application: Application) : AndroidVie
 //        _cities = citiesRepository.getAllCities()
     }
 
-    fun addCity(city: City) {
+    fun addCity(city: CityDto) {
 //        viewModelScope.launch(Dispatchers.IO) { citiesRepository.insertCity(city) }
     }
 }

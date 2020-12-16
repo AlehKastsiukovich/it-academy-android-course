@@ -4,16 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.training.task9mvp.R
 import by.itacademy.training.task9mvp.app.App
 import by.itacademy.training.task9mvp.databinding.ActivityCitiesBinding
-import by.itacademy.training.task9mvp.model.dto.db.City
+import by.itacademy.training.task9mvp.model.dto.db.CityDto
 import by.itacademy.training.task9mvp.ui.adapter.CityAdapter
 import by.itacademy.training.task9mvp.ui.adapter.OnCityClickListener
-import by.itacademy.training.task9mvp.ui.viewmodel.CitiesViewModel
 import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
@@ -26,21 +23,21 @@ class CitiesActivity : AppCompatActivity(), CityAddListener, OnCityClickListener
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCitiesBinding.inflate(layoutInflater)
-//        inject()
+        inject()
         setContentView(binding.root)
 
-        setUpRecyclerView()
-        observeCitiesChanges()
-        setAddCityButtonListener()
+//        setUpRecyclerView()
+//        observeCitiesChanges()
+//        setAddCityButtonListener()
     }
 
-//    private fun inject() {
-//        (application as App).appComponent
-//            .citiesActivityComponentBuilder()
-//            .with(this)
-//            .build()
-//            .inject(this)
-//    }
+    private fun inject() {
+        (application as App).appComponent
+            .citiesActivityComponentBuilder()
+            .with(this)
+            .build()
+            .inject(this)
+    }
 
     private fun observeCitiesChanges() {
 //        onLoading()
@@ -95,11 +92,11 @@ class CitiesActivity : AppCompatActivity(), CityAddListener, OnCityClickListener
         }
     }
 
-    override fun onCityAdd(city: City) {
+    override fun onCityAdd(city: CityDto) {
 //        model.addCity(city)
     }
 
-    override fun onCityClick(city: City) {
+    override fun onCityClick(city: CityDto) {
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra(resources.getString(R.string.city_name_bundle), city.name)
         startActivity(intent)
