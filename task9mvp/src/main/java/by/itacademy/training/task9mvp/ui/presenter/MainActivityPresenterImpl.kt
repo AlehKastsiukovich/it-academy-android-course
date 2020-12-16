@@ -1,5 +1,7 @@
 package by.itacademy.training.task9mvp.ui.presenter
 
+import by.itacademy.training.task9mvp.model.entity.CurrentTemperature
+import by.itacademy.training.task9mvp.model.entity.WeatherReport
 import by.itacademy.training.task9mvp.model.repository.WeatherForecastRepository
 import by.itacademy.training.task9mvp.ui.view.MainActivityView
 import by.itacademy.training.task9mvp.util.CurrentTemperatureUnitListener
@@ -13,8 +15,19 @@ class MainActivityPresenterImpl @Inject constructor(
     private val currentTemperatureUnitListener: CurrentTemperatureUnitListener
 ) : MainActivityPresenter {
 
-    override fun onSwitchTemperatureType() {
-        mainActivityView.updateViews()
+    var currentCityName = "Minsk"
+
+    override fun onSwitchTemperatureType(state: Boolean) {
+        when (state) {
+            true -> {
+                currentTemperatureUnitListener.onFahrenheitTurnOn()
+                provideDataFromApi()
+            }
+            false -> {
+                currentTemperatureUnitListener.onCelsiusTurnOn()
+                provideDataFromApi()
+            }
+        }
     }
 
     override fun onDataLoading() {
@@ -27,16 +40,17 @@ class MainActivityPresenterImpl @Inject constructor(
         mainActivityView.showErrorMessage()
     }
 
-    override fun onSuccess() {
+    override fun onSuccess(weatherReport: WeatherReport) {
         mainActivityView.hideProgressBar()
         mainActivityView.showViews()
+        mainActivityView.showWeatherReport(weatherReport)
     }
 
     override fun onOpenCityListButtonPress() {
         mainActivityView.startCityActivity()
     }
 
-    override fun getDataFromApi() {
+    override fun provideDataFromApi() {
         onDataLoading()
         val result = weatherForecastRepository
             .getWeatherForecastForDay("Minsk")
@@ -44,11 +58,17 @@ class MainActivityPresenterImpl @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    onSuccess()
+                    onSuccess(it)
                 },
                 {
                     onErrorData()
                 }
             )
     }
+
+    override fun getCurrentSwitcherState() =
+        currentTemperatureUnitListener.getCurrentTemperatureUnitState()
+
+    override fun getCurrentTemperature(currentTemperature: CurrentTemperature) =
+        currentTemperatureUnitListener.getCurrentTemperature(currentTemperature)
 }

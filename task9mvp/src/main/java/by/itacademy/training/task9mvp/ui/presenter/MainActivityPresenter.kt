@@ -1,16 +1,23 @@
 package by.itacademy.training.task9mvp.ui.presenter
 
+import by.itacademy.training.task9mvp.model.entity.CurrentTemperature
+import by.itacademy.training.task9mvp.model.entity.WeatherReport
+
 interface MainActivityPresenter {
 
-    fun onSwitchTemperatureType()
+    fun onSwitchTemperatureType(state: Boolean)
 
     fun onDataLoading()
 
     fun onErrorData()
 
-    fun onSuccess()
+    fun onSuccess(weatherReport: WeatherReport)
 
     fun onOpenCityListButtonPress()
 
-    fun getDataFromApi()
+    fun provideDataFromApi()
+
+    fun getCurrentSwitcherState(): Boolean
+
+    fun getCurrentTemperature(currentTemperature: CurrentTemperature): String
 }

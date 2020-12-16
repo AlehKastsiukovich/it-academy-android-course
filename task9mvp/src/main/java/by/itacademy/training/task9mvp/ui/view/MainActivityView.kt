@@ -1,10 +1,8 @@
 package by.itacademy.training.task9mvp.ui.view
 
+import by.itacademy.training.task9mvp.model.entity.WeatherReport
+
 interface MainActivityView {
-
-    fun showCelsiusView()
-
-    fun showFahrenheitView()
 
     fun showProgressBar()
 
@@ -14,9 +12,9 @@ interface MainActivityView {
 
     fun hideViews()
 
-    fun updateViews()
-
     fun showErrorMessage()
 
     fun startCityActivity()
+
+    fun showWeatherReport(weatherReport: WeatherReport)
 }
