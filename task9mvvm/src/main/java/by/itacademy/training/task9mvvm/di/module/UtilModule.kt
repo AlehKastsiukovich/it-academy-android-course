@@ -1,7 +1,7 @@
 package by.itacademy.training.task9mvvm.di.module
 
-import by.itacademy.training.task9mvvm.util.CurrentTemperatureUnitListener
-import by.itacademy.training.task9mvvm.util.CurrentTemperatureUnitListenerImpl
+import by.itacademy.training.task9mvvm.ui.adapter.CurrentTemperatureUnitListener
+import by.itacademy.training.task9mvvm.ui.adapter.CurrentTemperatureUnitListenerImpl
 import by.itacademy.training.task9mvvm.util.SupportSharedPreference
 import by.itacademy.training.task9mvvm.util.SupportSharedPreferenceImpl
 import dagger.Binds
@@ -12,7 +12,7 @@ interface UtilModule {
 
     @Binds
     fun bindCurrentTemperatureUnitListener(listener: CurrentTemperatureUnitListenerImpl):
-        CurrentTemperatureUnitListener
+            CurrentTemperatureUnitListener
 
     @Binds
     fun bindSupportSharePreference(support: SupportSharedPreferenceImpl):

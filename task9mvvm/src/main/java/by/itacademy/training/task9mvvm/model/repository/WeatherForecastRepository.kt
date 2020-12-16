@@ -1,6 +1,6 @@
 package by.itacademy.training.task9mvvm.model.repository
 
-import by.itacademy.training.task9mvvm.model.entity.WeatherReport
+import by.itacademy.training.task9mvvm.model.domain.WeatherReport
 
 interface WeatherForecastRepository {
 

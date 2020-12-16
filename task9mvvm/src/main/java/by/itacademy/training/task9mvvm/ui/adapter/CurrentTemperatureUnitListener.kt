@@ -1,7 +1,7 @@
-package by.itacademy.training.task9mvvm.util
+package by.itacademy.training.task9mvvm.ui.adapter
 
-import by.itacademy.training.task9mvvm.model.entity.CurrentTemperature
-import by.itacademy.training.task9mvvm.model.entity.HourTemperature
+import by.itacademy.training.task9mvvm.model.domain.CurrentTemperature
+import by.itacademy.training.task9mvvm.model.domain.HourTemperature
 
 interface CurrentTemperatureUnitListener {
 

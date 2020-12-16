@@ -1,6 +1,7 @@
 package by.itacademy.training.task9mvvm.ui.view
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,7 @@ import by.itacademy.training.task9mvvm.model.dto.db.City
 import by.itacademy.training.task9mvvm.ui.adapter.CityAdapter
 import by.itacademy.training.task9mvvm.ui.adapter.OnCityClickListener
 import by.itacademy.training.task9mvvm.ui.viewmodel.CitiesViewModel
+import by.itacademy.training.task9mvvm.util.SupportSharedPreference
 import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
@@ -21,6 +23,7 @@ class CitiesActivity : AppCompatActivity(), CityAddListener, OnCityClickListener
 
     @Inject lateinit var cityAdapter: CityAdapter
     @Inject lateinit var model: CitiesViewModel
+    @Inject lateinit var supportSharedPreference: SupportSharedPreference
 
     private lateinit var binding: ActivityCitiesBinding
 
@@ -105,9 +108,8 @@ class CitiesActivity : AppCompatActivity(), CityAddListener, OnCityClickListener
     }
 
     override fun onCityClick(city: City) {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra(resources.getString(R.string.city_name_bundle), city.name)
-        startActivity(intent)
+        supportSharedPreference.setCurrentCity(city.name)
+        startActivity(Intent(this, MainActivity::class.java))
     }
 
     companion object {

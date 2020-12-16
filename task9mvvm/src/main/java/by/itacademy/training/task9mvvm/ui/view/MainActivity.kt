@@ -5,16 +5,15 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.training.task9mvvm.R
 import by.itacademy.training.task9mvvm.app.App
 import by.itacademy.training.task9mvvm.databinding.ActivityMainBinding
-import by.itacademy.training.task9mvvm.model.entity.HourTemperature
-import by.itacademy.training.task9mvvm.model.entity.WeatherReport
+import by.itacademy.training.task9mvvm.model.domain.HourTemperature
+import by.itacademy.training.task9mvvm.model.domain.WeatherReport
 import by.itacademy.training.task9mvvm.ui.adapter.TemperatureAdapter
 import by.itacademy.training.task9mvvm.ui.viewmodel.MainViewModel
-import by.itacademy.training.task9mvvm.util.CurrentTemperatureUnitListener
+import by.itacademy.training.task9mvvm.ui.adapter.CurrentTemperatureUnitListener
 import by.itacademy.training.task9mvvm.util.Event
 import by.itacademy.training.task9mvvm.util.Status
 import com.bumptech.glide.Glide
@@ -35,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         injectDependencies()
         setContentView(binding.root)
 
-        chooseCurrentCity()
         setCurrentSwitcherState()
         setUpRecyclerView()
         setDataToMainWindow()
@@ -77,18 +75,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    private fun chooseCurrentCity() {
-        val cityName = intent?.extras?.getString(resources.getString(R.string.city_name_bundle))
-        cityName?.let {
-            mainViewModel.cityName = it
-            mainViewModel.fetchData()
-        }
-    }
-
-    private fun setUpViewModel() {
-        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
     }
 
     private fun setUpRecyclerView() {

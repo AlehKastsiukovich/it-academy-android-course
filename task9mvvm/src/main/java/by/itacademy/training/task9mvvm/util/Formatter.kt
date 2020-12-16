@@ -3,7 +3,7 @@ package by.itacademy.training.task9mvvm.util
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
-class MetricFormatter @Inject constructor() {
+class Formatter @Inject constructor() {
 
     fun convertTimeData(time: String) = time.substring(time.length - LAST_TIME_DIGITS)
 
