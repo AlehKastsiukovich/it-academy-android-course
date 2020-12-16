@@ -5,6 +5,7 @@ import by.itacademy.training.task9mvp.model.entity.WeatherReport
 import by.itacademy.training.task9mvp.model.repository.WeatherForecastRepository
 import by.itacademy.training.task9mvp.ui.view.MainActivityView
 import by.itacademy.training.task9mvp.util.CurrentTemperatureUnitListener
+import by.itacademy.training.task9mvp.util.SupportSharedPreference
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -12,10 +13,9 @@ import javax.inject.Inject
 class MainActivityPresenterImpl @Inject constructor(
     private val mainActivityView: MainActivityView,
     private val weatherForecastRepository: WeatherForecastRepository,
-    private val currentTemperatureUnitListener: CurrentTemperatureUnitListener
+    private val currentTemperatureUnitListener: CurrentTemperatureUnitListener,
+    private val supportSharedPreference: SupportSharedPreference
 ) : MainActivityPresenter {
-
-    var currentCityName = "Minsk"
 
     override fun onSwitchTemperatureType(state: Boolean) {
         when (state) {
@@ -53,7 +53,7 @@ class MainActivityPresenterImpl @Inject constructor(
     override fun provideDataFromApi() {
         onDataLoading()
         val result = weatherForecastRepository
-            .getWeatherForecastForDay("Minsk")
+            .getWeatherForecastForDay(getCurrentCity())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -71,4 +71,10 @@ class MainActivityPresenterImpl @Inject constructor(
 
     override fun getCurrentTemperature(currentTemperature: CurrentTemperature) =
         currentTemperatureUnitListener.getCurrentTemperature(currentTemperature)
+
+    private fun getCurrentCity() = supportSharedPreference.getCurrentCity() ?: DEFAULT_CITY
+
+    companion object {
+        private const val DEFAULT_CITY = "Minsk"
+    }
 }

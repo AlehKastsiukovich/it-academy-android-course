@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         injectDependencies()
         setContentView(binding.root)
 
-//        chooseCurrentCity()
         setCurrentSwitcherState()
         setUpRecyclerView()
         setDataToMainWindow()
@@ -89,14 +88,6 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         binding.temperatureUnitSwitcher.setOnCheckedChangeListener {
             _, isChecked ->
             presenter.onSwitchTemperatureType(isChecked)
-        }
-    }
-
-    private fun chooseCurrentCity() {
-        val cityName = intent?.extras?.getString(resources.getString(R.string.city_name_bundle))
-        cityName?.let {
-            mainViewModel.cityName = it
-            mainViewModel.fetchData()
         }
     }
 

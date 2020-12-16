@@ -27,9 +27,9 @@ class SupportSharedPreferenceImpl @Inject constructor(
     }
 
     companion object {
-        const val TEMPERATURE_UNITS = "temperatureUnits"
-        const val TEMPERATURE_UNIT = "unit"
-        const val DEFAULT_CITY = "Minsk"
-        const val KEY_CITY = "KeyCity"
+        private const val TEMPERATURE_UNITS = "temperatureUnits"
+        private const val TEMPERATURE_UNIT = "unit"
+        private const val DEFAULT_CITY = "Minsk"
+        private const val KEY_CITY = "KeyCity"
     }
 }
