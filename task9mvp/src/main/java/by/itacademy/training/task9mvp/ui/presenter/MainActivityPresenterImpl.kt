@@ -6,6 +6,7 @@ import by.itacademy.training.task9mvp.model.repository.WeatherForecastRepository
 import by.itacademy.training.task9mvp.ui.view.MainActivityView
 import by.itacademy.training.task9mvp.util.SupportSharedPreference
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -13,7 +14,9 @@ class MainActivityPresenterImpl @Inject constructor(
     private val mainActivityView: MainActivityView,
     private val weatherForecastRepository: WeatherForecastRepository,
     private val currentTemperatureUnitListener: CurrentTemperatureUnitListener,
-    private val supportSharedPreference: SupportSharedPreference
+    private val supportSharedPreference: SupportSharedPreference,
+    private val compositeDisposable: CompositeDisposable
+
 ) : MainActivityPresenter {
 
     override fun onSwitchTemperatureType(state: Boolean) {
@@ -51,7 +54,7 @@ class MainActivityPresenterImpl @Inject constructor(
 
     override fun provideDataFromApi() {
         onDataLoading()
-        val result = weatherForecastRepository
+        val disposable = weatherForecastRepository
             .getWeatherForecastForDay(getCurrentCity())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -63,6 +66,7 @@ class MainActivityPresenterImpl @Inject constructor(
                     onErrorData()
                 }
             )
+        compositeDisposable.add(disposable)
     }
 
     override fun getCurrentSwitcherState() =
@@ -70,6 +74,10 @@ class MainActivityPresenterImpl @Inject constructor(
 
     override fun getCurrentTemperature(currentTemperature: CurrentTemperature) =
         currentTemperatureUnitListener.getCurrentTemperature(currentTemperature)
+
+    override fun onActivityDestroy() {
+        compositeDisposable.dispose()
+    }
 
     private fun getCurrentCity() = supportSharedPreference.getCurrentCity() ?: DEFAULT_CITY
 

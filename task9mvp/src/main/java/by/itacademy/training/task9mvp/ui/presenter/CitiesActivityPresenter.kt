@@ -13,4 +13,6 @@ interface CitiesActivityPresenter {
     fun provideCitiesFromDatabase()
 
     fun addCity(city: City)
+
+    fun onActivityDestroy()
 }

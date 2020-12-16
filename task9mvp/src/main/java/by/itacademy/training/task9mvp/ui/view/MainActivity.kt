@@ -41,6 +41,10 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         setDataToMainWindow()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
     private fun setUpCitiesManagementButton() {
         binding.citiesManagementButton.setOnClickListener {
             startActivity(Intent(this, CitiesActivity::class.java))

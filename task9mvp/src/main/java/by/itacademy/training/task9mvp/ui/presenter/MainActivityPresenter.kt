@@ -20,4 +20,6 @@ interface MainActivityPresenter {
     fun getCurrentSwitcherState(): Boolean
 
     fun getCurrentTemperature(currentTemperature: CurrentTemperature): String
+
+    fun onActivityDestroy()
 }

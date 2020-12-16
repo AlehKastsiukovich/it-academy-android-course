@@ -12,7 +12,7 @@ interface UtilModule {
 
     @Binds
     fun bindCurrentTemperatureUnitListener(listener: CurrentTemperatureUnitListenerImpl):
-            CurrentTemperatureUnitListener
+        CurrentTemperatureUnitListener
 
     @Binds
     fun bindSupportSharePreference(support: SupportSharedPreferenceImpl):

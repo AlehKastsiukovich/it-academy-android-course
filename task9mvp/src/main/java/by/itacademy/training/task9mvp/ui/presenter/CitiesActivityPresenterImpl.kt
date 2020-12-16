@@ -5,13 +5,15 @@ import by.itacademy.training.task9mvp.model.repository.CitiesRepository
 import by.itacademy.training.task9mvp.ui.view.CityActivityView
 import by.itacademy.training.task9mvp.util.SupportSharedPreference
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class CitiesActivityPresenterImpl @Inject constructor(
     private val citiesRepository: CitiesRepository,
     private val citiesActivityView: CityActivityView,
-    private val supportSharedPreference: SupportSharedPreference
+    private val supportSharedPreference: SupportSharedPreference,
+    private val compositeDisposable: CompositeDisposable
 ) : CitiesActivityPresenter {
 
     override fun onDataLoading() {
@@ -42,6 +44,7 @@ class CitiesActivityPresenterImpl @Inject constructor(
                     onErrorData()
                 }
             )
+        compositeDisposable.add(disposable)
     }
 
     override fun addCity(city: City) {
@@ -49,5 +52,10 @@ class CitiesActivityPresenterImpl @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe()
+        compositeDisposable.add(disposable)
+    }
+
+    override fun onActivityDestroy() {
+        compositeDisposable.dispose()
     }
 }
