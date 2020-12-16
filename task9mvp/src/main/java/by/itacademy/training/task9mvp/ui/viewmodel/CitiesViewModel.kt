@@ -14,18 +14,18 @@ import javax.inject.Inject
 
 class CitiesViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
 
-    @Inject lateinit var citiesRepository: CitiesRepository
+//    @Inject lateinit var citiesRepository: CitiesRepository
 
     private var _cities: LiveData<List<City>> = MutableLiveData<List<City>>()
     val cities: LiveData<List<City>>
         get() = _cities
 
     init {
-        (application as App).appComponent.inject(this)
-        _cities = citiesRepository.getAllCities()
+//        (application as App).appComponent.inject(this)
+//        _cities = citiesRepository.getAllCities()
     }
 
     fun addCity(city: City) {
-        viewModelScope.launch(Dispatchers.IO) { citiesRepository.insertCity(city) }
+//        viewModelScope.launch(Dispatchers.IO) { citiesRepository.insertCity(city) }
     }
 }

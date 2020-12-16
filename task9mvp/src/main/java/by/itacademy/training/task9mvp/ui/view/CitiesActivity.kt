@@ -20,14 +20,13 @@ import javax.inject.Inject
 class CitiesActivity : AppCompatActivity(), CityAddListener, OnCityClickListener {
 
     @Inject lateinit var cityAdapter: CityAdapter
-    @Inject lateinit var model: CitiesViewModel
 
     private lateinit var binding: ActivityCitiesBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCitiesBinding.inflate(layoutInflater)
-        inject()
+//        inject()
         setContentView(binding.root)
 
         setUpRecyclerView()
@@ -35,26 +34,22 @@ class CitiesActivity : AppCompatActivity(), CityAddListener, OnCityClickListener
         setAddCityButtonListener()
     }
 
-    private fun inject() {
-        (application as App).appComponent
-            .citiesActivityComponentBuilder()
-            .with(this)
-            .build()
-            .inject(this)
-    }
-
-    private fun setUpViewModel() {
-        model = ViewModelProvider(this).get(CitiesViewModel::class.java)
-    }
+//    private fun inject() {
+//        (application as App).appComponent
+//            .citiesActivityComponentBuilder()
+//            .with(this)
+//            .build()
+//            .inject(this)
+//    }
 
     private fun observeCitiesChanges() {
-        onLoading()
-        try {
-            model.cities.observe(this, Observer { cityAdapter.addCities(it) })
-            onSuccess()
-        } catch (e: Exception) {
-            onError()
-        }
+//        onLoading()
+//        try {
+//            model.cities.observe(this, Observer { cityAdapter.addCities(it) })
+//            onSuccess()
+//        } catch (e: Exception) {
+//            onError()
+//        }
     }
 
     private fun onSuccess() {
@@ -101,7 +96,7 @@ class CitiesActivity : AppCompatActivity(), CityAddListener, OnCityClickListener
     }
 
     override fun onCityAdd(city: City) {
-        model.addCity(city)
+//        model.addCity(city)
     }
 
     override fun onCityClick(city: City) {

@@ -6,8 +6,6 @@ import by.itacademy.training.task9mvp.di.module.NetworkModule
 import by.itacademy.training.task9mvp.di.module.RepositoryModule
 import by.itacademy.training.task9mvp.di.module.SharePreferenceModule
 import by.itacademy.training.task9mvp.di.module.UtilModule
-import by.itacademy.training.task9mvp.ui.viewmodel.CitiesViewModel
-import by.itacademy.training.task9mvp.ui.viewmodel.MainViewModel
 import dagger.Component
 import javax.inject.Singleton
 
@@ -21,9 +19,6 @@ import javax.inject.Singleton
 @Singleton
 interface AppComponent {
 
-    fun inject(mainViewModel: MainViewModel)
-    fun inject(citiesViewModel: CitiesViewModel)
-
     fun activityComponentBuilder(): ActivityComponent.Builder
-    fun citiesActivityComponentBuilder(): CitiesActivityComponent.Builder
+//    fun citiesActivityComponentBuilder(): CitiesActivityComponent.Builder
 }
