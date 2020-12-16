@@ -9,4 +9,8 @@ interface SupportSharedPreference {
     fun setCurrentTemperatureUnit(unit: TemperatureUnit)
 
     fun getCurrentTemperatureUnit(): TemperatureUnit
+
+    fun getCurrentCity(): String?
+
+    fun setCurrentCity(city: String)
 }

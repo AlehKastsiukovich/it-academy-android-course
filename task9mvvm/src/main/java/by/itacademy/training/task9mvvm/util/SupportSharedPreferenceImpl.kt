@@ -20,8 +20,16 @@ class SupportSharedPreferenceImpl @Inject constructor(
         return TemperatureUnit.valueOf(currentTemperatureUnit ?: TemperatureUnit.CELSIUS.name)
     }
 
+    override fun getCurrentCity() = getSharedPreference().getString(KEY_CITY, DEFAULT_CITY)
+
+    override fun setCurrentCity(city: String) {
+        getSharedPreference().edit().putString(KEY_CITY, city).apply()
+    }
+
     companion object {
         const val TEMPERATURE_UNITS = "temperatureUnits"
         const val TEMPERATURE_UNIT = "unit"
+        private const val DEFAULT_CITY = "Minsk"
+        private const val KEY_CITY = "KeyCity"
     }
 }
