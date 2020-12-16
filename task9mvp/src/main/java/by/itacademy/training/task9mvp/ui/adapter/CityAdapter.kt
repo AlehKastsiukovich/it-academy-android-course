@@ -7,13 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import by.itacademy.training.task9mvp.R
 import by.itacademy.training.task9mvp.databinding.CityItemBinding
 import by.itacademy.training.task9mvp.model.dto.db.CityDto
+import by.itacademy.training.task9mvp.model.entity.City
 import javax.inject.Inject
 
 class CityAdapter @Inject constructor(
     private val onCityClickListener: OnCityClickListener
 ) : RecyclerView.Adapter<CityAdapter.CityViewHolder>() {
 
-    private var cityList = mutableListOf<CityDto>()
+    private var cityList = mutableListOf<City>()
     private lateinit var binding: CityItemBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityViewHolder {
@@ -30,7 +31,7 @@ class CityAdapter @Inject constructor(
 
     override fun getItemCount() = cityList.size
 
-    fun addCities(cities: List<CityDto>) {
+    fun addCities(cities: List<City>) {
         cityList.clear()
         cityList.addAll(cities)
         notifyDataSetChanged()
@@ -42,8 +43,8 @@ class CityAdapter @Inject constructor(
         private val onCityClickListener: OnCityClickListener
     ) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(city: CityDto) {
-            binding.cityNameTextView.text = city.name
+        fun bind(city: City) {
+            binding.cityNameTextView.text = city.cityName
             itemView.setOnClickListener { onCityClickListener.onCityClick(city) }
         }
     }

@@ -2,6 +2,7 @@ package by.itacademy.training.task9mvp.ui.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,10 +32,14 @@ class MainActivity : AppCompatActivity(), MainActivityView {
 
         setCurrentSwitcherState()
         setUpRecyclerView()
-        setDataToMainWindow()
         setSwitcherChangeListener()
         setUpCitiesManagementButton()
         setUpCitiesManagementButton()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setDataToMainWindow()
     }
 
     private fun setUpCitiesManagementButton() {

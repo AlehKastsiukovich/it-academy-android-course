@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import androidx.fragment.app.DialogFragment
 import by.itacademy.training.task9mvp.R
 import by.itacademy.training.task9mvp.databinding.DialogBinding
-import by.itacademy.training.task9mvp.model.dto.db.CityDto
+import by.itacademy.training.task9mvp.model.entity.City
 
 class AddCityDialogFragment(private val addListener: CityAddListener) : DialogFragment() {
 
@@ -26,7 +26,7 @@ class AddCityDialogFragment(private val addListener: CityAddListener) : DialogFr
                 resources.getString(R.string.confirm)
             ) { _, _ ->
                 val cityName = readCityNameFromDialog()
-                addListener.onCityAdd(CityDto(cityName))
+                addListener.onCityAdd(City(cityName))
             }
             setNegativeButton(resources.getString(R.string.cancel)) { _, _ -> }
         }

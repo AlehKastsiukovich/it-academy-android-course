@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import by.itacademy.training.task9mvp.model.dto.db.CityDto
+import io.reactivex.Completable
 import io.reactivex.Observable
 
 @Dao
@@ -14,5 +15,5 @@ interface CitiesDao {
     fun getAll(): Observable<List<CityDto>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(city: CityDto)
+    fun insert(city: CityDto): Completable
 }

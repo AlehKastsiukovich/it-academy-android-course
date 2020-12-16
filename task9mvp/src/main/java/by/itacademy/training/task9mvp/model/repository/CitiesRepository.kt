@@ -1,11 +1,12 @@
 package by.itacademy.training.task9mvp.model.repository
 
-import by.itacademy.training.task9mvp.model.dto.db.CityDto
+import by.itacademy.training.task9mvp.model.entity.City
+import io.reactivex.Completable
 import io.reactivex.Observable
 
 interface CitiesRepository {
 
-    fun getAllCities(): Observable<List<CityDto>>
+    fun getAllCities(): Observable<List<City>>
 
-    fun insertCity(city: CityDto)
+    fun insertCity(city: City): Completable
 }

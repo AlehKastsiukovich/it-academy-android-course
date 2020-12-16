@@ -1,6 +1,6 @@
 package by.itacademy.training.task9mvp.ui.presenter
 
-import by.itacademy.training.task9mvp.model.dto.db.CityDto
+import by.itacademy.training.task9mvp.model.entity.City
 
 interface CitiesActivityPresenter {
 
@@ -8,7 +8,9 @@ interface CitiesActivityPresenter {
 
     fun onErrorData()
 
-    fun onSuccess(cityList: List<CityDto>)
+    fun onSuccess(cityList: List<City>)
 
-    fun provideDataFromDatabase()
+    fun provideCitiesFromDatabase()
+
+    fun addCity(city: City)
 }
