@@ -1,4 +1,4 @@
-package by.training.itacademycourse
+package by.itacademy.training.task10
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
