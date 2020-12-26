@@ -2,6 +2,7 @@ package by.training.itacademycourse.service
 
 import android.app.Service
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.IBinder
 import android.os.IInterface
 import android.os.Parcel
@@ -10,6 +11,7 @@ import java.io.FileDescriptor
 class AudioPlayerService : Service() {
 
     private val binder: LocalBinder = LocalBinderImpl()
+    private val mediaPlayer = MediaPlayer()
 
     inner class LocalBinderImpl : LocalBinder {
 
