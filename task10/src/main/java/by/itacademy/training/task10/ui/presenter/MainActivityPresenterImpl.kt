@@ -10,7 +10,7 @@ import by.itacademy.training.task10.util.SupportAudioFile
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
 class MainActivityPresenterImpl(
@@ -42,11 +42,13 @@ class MainActivityPresenterImpl(
         tracks.addAll(supportAudioFile.getMusicFromExternalStorage())
     }
 
-    override fun duration() = launch {
-            audioPlayerService?.run { duration() } ?: 0
+    override fun duration() = withContext(coroutineContext) {
+        audioPlayerService?.run { duration() } ?: 0
     }
 
-    override fun currentState() = audioPlayerService?.run { currentPosition() } ?: 0
+    override fun currentState() = withContext(coroutineContext) {
+        audioPlayerService?.run { currentPosition() } ?: 0
+    }
 
     override fun onPlayButton() {
         audioPlayerService?.run { resume() }
@@ -80,3 +82,4 @@ class MainActivityPresenterImpl(
         audioPlayerService?.run { play(song.uri) }
     }
 }
+
