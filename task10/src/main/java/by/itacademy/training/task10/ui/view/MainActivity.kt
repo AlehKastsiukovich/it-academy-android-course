@@ -33,27 +33,58 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        presenter = MainActivityPresenterImpl(this, SupportAudioFile())
+        presenter = MainActivityPresenterImpl(this, SupportAudioFile(application))
         initAdapter(presenter)
         checkPermission()
         setUpNavigationButtons()
         setUpSeekBar()
+        setUpNextTrackButton()
+        setUpPreviousButton()
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == READ_EXTERNAL_STORAGE_CODE) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
-                    PackageManager.PERMISSION_GRANTED
-                ) {
-                    setSongs(presenter.fetchSongs(application))
-                }
+    private fun initAdapter(presenter: MainActivityPresenter) {
+        songAdapter = SongAdapter(presenter)
+        binding.recyclerView.apply {
+            adapter = songAdapter
+            layoutManager = LinearLayoutManager(this@MainActivity)
+        }
+    }
+
+    private fun setUpNavigationButtons() {
+        with(binding) {
+            playButton.setOnClickListener {
+                presenter.onPlayButton()
+                initSeekBar()
             }
+            stopButton.setOnClickListener { presenter.onStopButton() }
+        }
+    }
+
+    private fun setUpNextTrackButton() {
+        binding.nextTrackButton.setOnClickListener { presenter.onNextButton() }
+    }
+
+    private fun setUpPreviousButton() {
+        binding.nextTrackButton.setOnClickListener { presenter.onPreviousButton() }
+    }
+
+    private fun setUpSeekBar() {
+        seekBar = binding.seekBar.apply {
+            setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(
+                    seekBar: SeekBar?,
+                    progress: Int,
+                    fromUser: Boolean
+                ) {
+                    presenter.seekTo(progress)
+                }
+
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                }
+
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                }
+            })
         }
     }
 
@@ -84,8 +115,12 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         }
     }
 
+    override fun showTrackList(list: List<Song>) {
+        songAdapter.addSongs(list)
+    }
+
     private fun checkPermission() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED
             ) {
@@ -94,52 +129,27 @@ class MainActivity : AppCompatActivity(), MainActivityView {
                     READ_EXTERNAL_STORAGE_CODE
                 )
             } else {
-                setSongs(presenter.fetchSongs(application))
+                showTrackList(presenter.fetchSongs())
             }
         } else {
-            setSongs(presenter.fetchSongs(application))
+            showTrackList(presenter.fetchSongs())
         }
     }
 
-    private fun initAdapter(presenter: MainActivityPresenter) {
-        songAdapter = SongAdapter(presenter)
-        binding.recyclerView.apply {
-            adapter = songAdapter
-            layoutManager = LinearLayoutManager(this@MainActivity)
-        }
-    }
-
-    private fun setSongs(songs: List<Song>) {
-        songAdapter.addSongs(songs)
-    }
-
-    private fun setUpNavigationButtons() {
-        with(binding) {
-            playButton.setOnClickListener {
-                presenter.onPlayButton()
-                initSeekBar()
-            }
-            stopButton.setOnClickListener { presenter.onStopButton() }
-        }
-    }
-
-    private fun setUpSeekBar() {
-        seekBar = binding.seekBar.apply {
-            setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-                override fun onProgressChanged(
-                    seekBar: SeekBar?,
-                    progress: Int,
-                    fromUser: Boolean
+    @RequiresApi(Build.VERSION_CODES.M)
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == READ_EXTERNAL_STORAGE_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                    PackageManager.PERMISSION_GRANTED
                 ) {
-                    presenter.seekTo(progress)
+                    showTrackList(presenter.fetchSongs())
                 }
-
-                override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                }
-
-                override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                }
-            })
+            }
         }
     }
 

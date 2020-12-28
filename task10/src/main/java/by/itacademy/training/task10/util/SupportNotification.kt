@@ -31,7 +31,6 @@ class SupportNotification(private val service: Service) {
             .Builder(service, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_baseline_music_note_24)
             .setContentTitle("Title")
-            .setContentText("Context")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .addAction(
                 R.drawable.ic_baseline_skip_next_24,

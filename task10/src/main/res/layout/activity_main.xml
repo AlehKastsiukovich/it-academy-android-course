@@ -21,13 +21,23 @@
         app:layout_constraintBottom_toTopOf="@id/playButton"/>
 
     <ImageView
+        android:id="@+id/nextTrackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_skip_next_24"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/playButton" />
+
+    <ImageView
         android:id="@+id/playButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_baseline_play_arrow_24"
         android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/nextTrackButton"
         app:layout_constraintEnd_toStartOf="@+id/stopButton" />
 
     <ImageView
@@ -36,7 +46,17 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_baseline_stop_24"
         app:layout_constraintBottom_toBottomOf="@+id/playButton"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/previousTrackButton"
         app:layout_constraintStart_toEndOf="@+id/playButton" />
+
+    <ImageView
+        android:id="@+id/previousTrackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_skip_previous_24"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/stopButton"
+        app:layout_constraintEnd_toEndOf="parent" />
     
 </androidx.constraintlayout.widget.ConstraintLayout>

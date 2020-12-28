@@ -6,9 +6,9 @@ import android.database.Cursor
 import android.provider.MediaStore
 import by.itacademy.training.task10.model.entity.Song
 
-class SupportAudioFile {
+class SupportAudioFile(private val application: Application) {
 
-    fun getMusicFromExternalStorage(application: Application): List<Song> {
+    fun getMusicFromExternalStorage(): List<Song> {
         val songs = mutableListOf<Song>()
         application.contentResolver.query(
             MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,

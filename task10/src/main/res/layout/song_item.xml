@@ -22,15 +22,16 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@+id/songImage"
+        android:textSize="17sp"
         android:layout_marginStart="10dp"
-        android:text="Title" />
+        android:text="@string/title" />
 
     <TextView
         android:id="@+id/artistTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Artist"
-        android:textSize="10sp"
+        android:text="@string/artist"
+        android:textSize="13sp"
         android:layout_marginStart="10dp"
         app:layout_constraintStart_toEndOf="@+id/songImage"
         app:layout_constraintTop_toBottomOf="@+id/titleTextView" />

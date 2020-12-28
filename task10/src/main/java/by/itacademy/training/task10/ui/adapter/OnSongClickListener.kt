@@ -4,5 +4,5 @@ import by.itacademy.training.task10.model.entity.Song
 
 interface OnSongClickListener {
 
-    fun onClick(song: Song)
+    fun onClick(song: Song, position: Int)
 }
