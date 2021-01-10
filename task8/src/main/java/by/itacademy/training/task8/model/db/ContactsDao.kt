@@ -1,5 +1,6 @@
 package by.itacademy.training.task8.model.db
 
+import android.database.Cursor
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -27,6 +28,9 @@ interface ContactsDao {
 
     @Query("SELECT * FROM contacts")
     fun getAllContactsRx(): Flowable<List<Contact>>
+
+    @Query("SELECT * FROM contacts")
+    fun getAllContactsCursor(): Cursor
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertContactRx(contact: Contact): Completable

@@ -9,6 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ItAcademyCourse">
+        <provider
+            android:authorities="by.itacademy.training.task8.provider.ContactsProvider"
+            android:name="by.itacademy.training.task8.provider.ContactsProvider"
+            android:exported="true"
+            android:enabled="true"/>
         <activity
             android:name=".ui.view.MultithreadingPreferenceSettingsActivity"
             android:parentActivityName=".ui.view.MainActivity" />
