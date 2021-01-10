@@ -33,19 +33,16 @@ class ContactsProvider : ContentProvider() {
         sortOrder: String?
     ): Cursor? {
         val code = matcher.match(uri)
-        return if (code == CONTACTS_DIR) {
-            repository?.getContacts()
+        if (code == CONTACTS_DIR) {
+            val cursor = repository?.getContacts()
+            context?.let { cursor?.setNotificationUri(it.contentResolver, uri) }
+            return cursor
         } else {
             throw IllegalArgumentException("Unknown URI: $uri")
         }
     }
 
-    override fun getType(uri: Uri): String? =
-        if (matcher.match(uri) == CONTACTS_DIR) {
-            URI_MENU
-        } else {
-            throw IllegalArgumentException("Unknown URI: $uri")
-        }
+    override fun getType(uri: Uri): String? = null
 
     override fun insert(uri: Uri, values: ContentValues?): Uri? = null
 
@@ -60,7 +57,6 @@ class ContactsProvider : ContentProvider() {
 
     companion object {
         const val AUTHORITY = "by.itacademy.training.task8.provider.ContactsProvider"
-        const val URI_MENU = "content://$AUTHORITY/$ROOM_CONTACTS_TABLE"
         const val CONTACTS_DIR = 1
     }
 }
