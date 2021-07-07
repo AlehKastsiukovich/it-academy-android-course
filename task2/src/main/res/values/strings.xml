@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">task2</string>
+    <string name="data_send_button">Send data</string>
+    <string name="calculate_mean_button">Calculate elements mean</string>
+    <string name="calculate_sum_button">Calculate elements sum</string>
+    <string name="separation_calculate_button">Calculate division</string>
+</resources>
